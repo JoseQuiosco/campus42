@@ -141,7 +141,6 @@ t_list	*find_node_enviro_with_key(char *key, t_list *list)
 		aux_words = ft_split((char *)list->content, '=');
 		if (!aux_words)
 			return (NULL);
-		//printf("%s\n", (char *)list->content);
 		if (!ft_strcmp(key, aux_words[0]))
 		{
 			ft_free_params(aux_words);

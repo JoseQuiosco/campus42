@@ -43,8 +43,8 @@ char	*constructor(int j, int i, char *line, t_list *enviroment)
 	char	*final;
 	char	*expanded;
 
-	while (line[j] != '\0' && (ft_isalnum(line[j]) || (j == i &&
-			line[j] == '?')))
+	while (line[j] != '\0' && (ft_isalnum(line[j]) || (j == i
+				&& line[j] == '?')))
 		j++;
 	aux = ft_substr(line, i, j - i);
 	expanded = export_value(aux, enviroment);

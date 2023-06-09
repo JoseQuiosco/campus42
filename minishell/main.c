@@ -23,11 +23,6 @@ void	control_c(int n)
 	signal(n, control_c);
 }
 
-void	ft_leaks4(void)
-{
-	system("leaks -q minishell");
-}
-
 void	control_d(int n)
 {
 	(void)n;
@@ -78,7 +73,6 @@ int	main(int argc, char *argv[], char **env)
 	char		*command_ln;
 	t_cmdtree	*tree;
 
-	//atexit(ft_leaks4);
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, control_c);
