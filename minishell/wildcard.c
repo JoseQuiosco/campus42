@@ -12,6 +12,7 @@
 
 #include "types.h"
 
+/*
 void	expand_wildcard(char *str, int i)
 {
 	struct dirent	*file;
@@ -50,7 +51,7 @@ void	wildcard_gestor(char *str)
 	}
 }
 
-/*
+
 int	main(void)
 {
 	wildcard_gestor("min*");

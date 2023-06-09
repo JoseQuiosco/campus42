@@ -2,6 +2,14 @@
 	"files.associations": {
 		"stdio.h": "c",
 		"types.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"*.tcc": "c",
+		"deque": "c",
+		"vector": "c",
+		"functional": "c",
+		"initializer_list": "c",
+		"ostream": "c",
+		"streambuf": "c",
+		"tuple": "c"
 	}
 }

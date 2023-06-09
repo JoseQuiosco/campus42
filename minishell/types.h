@@ -82,4 +82,5 @@ int			**creat_pipes(int npipes);
 int			count_pipes(char **inpipes);
 char		*find_path(char *cmd, int *control, int i);
 int			procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt);
+t_list		*find_node_enviro_with_key(char *key, t_list *list);
 #endif

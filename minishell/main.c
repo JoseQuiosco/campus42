@@ -59,10 +59,17 @@ int	actualizar_exit_code(int code)
 	free(aux);
 	if (!aux2)
 		return (1);
-	aux3 = ft_lstnew(aux2);
+	aux3 = find_node_enviro_with_key("?", g_varbox.enviroment);
 	if (!aux3)
-		return (free(aux2), 1);
-	ft_lstadd_back(&g_varbox.enviroment, aux3);
+	{
+		aux3 = ft_lstnew(aux2);
+		if (!aux3)
+			return (free(aux2), 1);
+		ft_lstadd_back(&g_varbox.enviroment, aux3);
+		return (0);
+	}
+	free(aux3->content);
+	aux3->content = aux2;
 	return (0);
 }
 

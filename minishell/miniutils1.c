@@ -131,3 +131,24 @@ char	*search_name(char *cmd, int len)
 	}
 	return (free(q), name);
 }
+
+t_list	*find_node_enviro_with_key(char *key, t_list *list)
+{
+	char	**aux_words;
+
+	while (list)
+	{
+		aux_words = ft_split((char *)list->content, '=');
+		if (!aux_words)
+			return (NULL);
+		//printf("%s\n", (char *)list->content);
+		if (!ft_strcmp(key, aux_words[0]))
+		{
+			ft_free_params(aux_words);
+			return (list);
+		}
+		ft_free_params(aux_words);
+		list = list->next;
+	}
+	return (list);
+}
