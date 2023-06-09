@@ -311,3 +311,9 @@ Function: int tgetent(char *bp, const char *name)
 -
 
 -	ERROR: "     echo    "'$PATH'"  "
+
+HACER QUE FUNCIONE:
+	- Arreglar variables sin usar
+	- Arreglar warning (char)*q -> (char)**q
+	- Crear la variable global en main.c y donde se vayan a usar declararla arriba pero con la palabra export delante
+	- Error en ft_matrix_to_list.c en la funcion matrix_to_list -> se debe poner la lista = NULL para que la funcion lstadd_back sepa que es nula

@@ -12,6 +12,8 @@
 
 #include "types.h"
 
+extern t_varbox	g_varbox;
+
 static int	get_paths(char ***paths)
 {
 	char	*aux;

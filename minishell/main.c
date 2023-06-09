@@ -12,6 +12,8 @@
 
 #include "types.h"
 
+t_varbox	g_varbox;
+
 void	control_c(int n)
 {
 	printf("\n");
@@ -28,6 +30,7 @@ void	ft_leaks4(void)
 
 void	control_d(int n)
 {
+	(void)n;
 	g_varbox.salir = 1;
 }
 
@@ -68,7 +71,9 @@ int	main(int argc, char *argv[], char **env)
 	char		*command_ln;
 	t_cmdtree	*tree;
 
-	atexit(ft_leaks4);
+	//atexit(ft_leaks4);
+	(void)argc;
+	(void)argv;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, control_d);
 	rl_redisplay();

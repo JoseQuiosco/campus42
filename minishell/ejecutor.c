@@ -12,6 +12,8 @@
 
 #include "types.h"
 
+extern t_varbox	g_varbox;
+
 static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 {
 	char	*aux;

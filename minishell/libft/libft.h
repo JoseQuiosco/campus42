@@ -225,7 +225,7 @@ void	mke_prc_blk(t_parms *parms, char *number, size_t digits, char *block);
 char	*create_special_zero_block(t_parms *parms);
 char	*fill_prec_int(t_parms *parms, char *number, ssize_t *err);
 char	*fill_prc_wd_l(char *block, char *aux, t_parms *parms, size_t szblck);
-char	*fill_prc_wd_r(char *block, char *aux, t_parms *parms, size_t szblck);
+char	*fill_prc_wd_r(char *block, char *aux, t_parms *parms);
 char	*fill_prc_wd(char *block, t_parms *parms, ssize_t *err, size_t szblck);
 int		write_int_prec(t_parms *parms, char *number, ssize_t *err);
 int		gst_and_write_int(t_parms *parms, va_list ap, ssize_t *err, ssize_t tp);

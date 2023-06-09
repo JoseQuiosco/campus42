@@ -91,11 +91,9 @@ char	*fill_w_zero_int(t_parms *parms, char *number, ssize_t *err)
 char	*fill_minus_int(t_parms *parms, char *number, ssize_t *err)
 {
 	size_t	spaces;
-	size_t	j;
 	size_t	pos;
 	char	*block;
 
-	j = 0;
 	spaces = 0;
 	block = (char *)malloc(parms->width + 1);
 	if (block == NULL)

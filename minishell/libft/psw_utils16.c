@@ -36,12 +36,8 @@ void	calc_maxmin(t_stack *lstack_a)
 
 void	calc_rragen(t_stl *node, int size, int pos, t_simulation *xx)
 {
-	t_stl	*last;
-	t_stl	*first;
 	int		offset;
 
-	last = ft_stacklast(node);
-	first = node;
 	offset = calc_offset_rragen(node, size, pos);
 	if (offset != size)
 	{

@@ -92,8 +92,6 @@ int	entrada(char *cmd, t_ficheros *tp, int type)
 int	salida(char *cmd, t_ficheros *tp, int type)
 {
 	char	*name;
-	char	*new_line;
-	char	*aux;
 	int		len;
 
 	name = search_name(cmd, 0);

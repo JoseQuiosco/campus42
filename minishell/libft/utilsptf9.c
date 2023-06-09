@@ -103,14 +103,13 @@ char	*fill_prc_wd_l(char *block, char *aux, t_parms *parms, size_t szblck)
 	return (block);
 }
 
-char	*fill_prc_wd_r(char *block, char *aux, t_parms *parms, size_t szblck)
+char	*fill_prc_wd_r(char *block, char *aux, t_parms *parms)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	j = 0;
-	szblck = 0;
 	while (aux[j] != '\0')
 	{
 		block[i] = aux[j];

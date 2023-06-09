@@ -25,6 +25,7 @@ t_list	*matrix_to_list(void **matrix)
 	int		i;
 
 	i = 0;
+	lista = NULL;
 	while (matrix[i])
 	{
 		cont = ft_strdup(matrix[i]);
@@ -43,7 +44,7 @@ void	print_list(t_list	*lista)
 {
 	while (lista)
 	{
-		printf("%s\n", lista->content);
+		printf("%s\n", (char *)lista->content);
 		lista = lista->next;
 	}
 }

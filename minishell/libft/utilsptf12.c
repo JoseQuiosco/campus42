@@ -68,12 +68,10 @@ int	write_str_w(char *block, t_parms *parms, ssize_t *err)
 
 char	*block_str_prec(char *str, t_parms *parms, ssize_t *err)
 {
-	size_t	len_str;
 	char	*block;
 	size_t	i;
 
 	block = NULL;
-	len_str = ft_strlen_ptf(str);
 	block = (char *)malloc(parms->prec + 1);
 	if (block == NULL)
 		*err = 1;

@@ -63,8 +63,6 @@ typedef struct ejevars
 	int			control_route;
 }	t_ejevars;
 
-t_varbox	g_varbox;
-
 t_cmdtree	*ft_build_cmdtree(char *cmd);
 void		ft_exec_cmdtree(t_cmdtree *tree);
 void		ft_free_cmdtree(t_cmdtree *tree);

@@ -25,7 +25,7 @@ char	*fill_prc_wd(char *block, t_parms *parms, ssize_t *err, size_t szblck)
 		if (!parms->minus)
 			block = fill_prc_wd_l(block, aux, parms, szblck);
 		else
-			block = fill_prc_wd_r(block, aux, parms, szblck);
+			block = fill_prc_wd_r(block, aux, parms);
 		free(aux);
 	}
 	return (block);

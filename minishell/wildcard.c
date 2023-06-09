@@ -50,8 +50,10 @@ void	wildcard_gestor(char *str)
 	}
 }
 
+/*
 int	main(void)
 {
 	wildcard_gestor("min*");
 	return (0);
 }
+*/

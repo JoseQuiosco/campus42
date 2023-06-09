@@ -1,6 +1,6 @@
 NAME=minishell
 CC=gcc
-#CFLAGS=-Wall -Wextra -Werror -g
+CFLAGS=-Wall -Wextra -Werror -g
 LFLAGS=-L./libft
 IFLAGS=-I./libft/include
 LIBFT=libft/libft.a

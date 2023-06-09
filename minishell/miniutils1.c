@@ -95,7 +95,7 @@ static int	search_name_len(char *cmd, int **q)
 	{
 		if (!quotes(cmd[i], *q))
 		{
-			if (cmd[i] != (char)(*q))
+			if (cmd[i] != (char)(**q))
 				len++;
 		}
 		i++;
