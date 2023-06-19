@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:23:54 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/19 00:49:07 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:56:58 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ void	ft_exec_cmdtree(t_cmdtree *tree)
 			if (tree->left->rc != 0)
 				ft_exec_cmdtree(tree->right);
 		}
-		if (tree->left->rc || tree->right->rc)
-			tree->rc = 1;
-		else
+		if (!tree->left->rc || !tree->right->rc)
 			tree->rc = 0;
+		else
+			tree->rc = 1;
 	}
 }
 

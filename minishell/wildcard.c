@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:15:43 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/19 18:21:42 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:35:27 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
+/*
 t_varbox	g_varbox;
 
 int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
@@ -166,3 +167,4 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
+*/

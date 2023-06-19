@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/19 18:28:35 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:45:05 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 # include "shell_utils.h"
+# include <dirent.h>
+# include <sys/types.h>
 
 # define T_LEAF 0
 # define T_OR 1
@@ -48,7 +50,6 @@ typedef struct varbox
 	char		path[1024];
 	t_list		*enviroment;
 	int			exit_code;
-	int			*salir;
 }	t_varbox;
 
 typedef struct ejevars

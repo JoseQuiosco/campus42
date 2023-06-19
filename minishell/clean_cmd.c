@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:25:59 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/19 00:46:56 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:55:05 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static char	*ft_straight_bars(char *cmd)
 static int	ft_check_operators(char *cmd)
 {
 	int	i;
+	int	j;
 	int	*q;
 
 	q = (int *)ft_calloc(2, sizeof(int));
@@ -80,11 +81,40 @@ static int	ft_check_operators(char *cmd)
 	while (cmd[i])
 	{
 		quotes(cmd[i], q);
-		if ((cmd[i] == '&' || cmd[i] == '|') && !q[1])
+		if (cmd[i] == '&' && !q[1])
 		{
-			if (!ft_strncmp(&cmd[i], "&&", 2) || !ft_strncmp(&cmd[i], "||", 2))
-				i++;
+			if (ft_strncmp(&cmd[i], "&&", 2))
+				return (free(q), 1);
 			else
+				i++;
+			//Derecha
+			j = i + 1;
+			while (cmd[j] && ft_isspace(cmd[j]))
+				j++;
+			if (cmd[j] == ')' || cmd[j] == '&' || cmd[j] == '|')
+				return (free(q), 1);
+			//Izquierda
+			j = i - 2;
+			while (j > 0 && ft_isspace(cmd[j]))
+				j--;
+			if (j <= 0 || cmd[j] == '(' || cmd[j] == '&' || cmd[j] == '|')
+				return (free(q), 1);
+		}
+		else if (cmd[i] == '|' && !q[1])
+		{
+			if (!ft_strncmp(&cmd[i], "||", 2))
+				i++;
+			//Derecha
+			j = i + 1;
+			while (cmd[j] && ft_isspace(cmd[j]))
+				j++;
+			if (cmd[j] == ')' || cmd[j] == '&' || cmd[j] == '|')
+				return (free(q), 1);
+			//Izquierda
+			j = i - 2;
+			while (j > 0 && ft_isspace(cmd[j]))
+				j--;
+			if (j <= 0 || cmd[j] == '(' || cmd[j] == '&' || cmd[j] == '|')
 				return (free(q), 1);
 		}
 		i++;
@@ -124,8 +154,14 @@ char	*ft_cpy_cmd_clean(char *cmd_ln)
 {
 	char	*aux;
 	char	*aux2;
+	int		i;
 
+	i = 0;
 	if (!ft_strlen(cmd_ln))
+		return (cmd_ln);
+	while (cmd_ln[i] && ft_isspace(cmd_ln[i]))
+		i++;
+	if (!cmd_ln[i])
 		return (cmd_ln);
 	cmd_ln = ft_check_comillas(cmd_ln, 0);
 	if (!cmd_ln)

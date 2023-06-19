@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/19 10:24:47 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:25:46 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,12 @@ void	control_c(int n)
 	signal(n, control_c);
 }
 
-void	control_d(int n)
-{
-	(void)n;
-	*g_varbox.salir = 1;
-}
-
 int	init_varbox(char **env)
 {
 	char	*aux_str;
 	t_list	*aux;
 
 	getcwd(g_varbox.path, 1024);
-	g_varbox.salir = (int *)ft_calloc(1, sizeof(int));
-	*g_varbox.salir = 0;
 	g_varbox.enviroment = matrix_to_list((void **)env);
 	if (!g_varbox.enviroment)
 		return (1);
@@ -87,11 +79,11 @@ int	main(int argc, char *argv[], char **env)
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, control_c);
-	signal(SIGQUIT, control_d);
+	signal(SIGQUIT, SIG_IGN);
 	rl_redisplay();
 	if (init_varbox(env))
 		return (ft_lstclear(&g_varbox.enviroment, free_content_lst), 1);
-	while (!(*g_varbox.salir))
+	while (1)
 	{
 		command_ln = readline("JAVITORSHELL > ");
 		if (!command_ln)
