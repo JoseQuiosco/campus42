@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/19 10:16:38 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:28:35 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ typedef struct ejevars
 	int			control_route;
 }	t_ejevars;
 
+typedef struct infowc
+{
+	int		nwc;
+	int		wci;
+	int		wcf;
+	char	**patrons;
+	char	*ptr_f;
+	int		r;
+}	t_infowc;
+
 t_cmdtree	*ft_build_cmdtree(char *cmd);
 void		ft_exec_cmdtree(t_cmdtree *tree);
 void		ft_free_cmdtree(t_cmdtree *tree);
@@ -83,6 +93,7 @@ int			count_pipes(char **inpipes);
 char		*find_path(char *cmd, int *control, int i);
 int			procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt);
 t_list		*find_node_enviro_with_key(char *key, t_list *list);
+t_list		*wildcard_gestor(char *str);
 
 //BUILTINS
 void		ft_pwd(char **cmd_opt);

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard.c                                         :+:      :+:    :+:   */
+/*   bonus_wildcard.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:15:43 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/19 18:21:42 by dvasco-m         ###   ########.fr       */
+/*   Created: 2023/06/19 18:12:51 by dvasco-m          #+#    #+#             */
+/*   Updated: 2023/06/19 18:18:39 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
-t_varbox	g_varbox;
+extern t_varbox	g_varbox;
 
-int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
+static int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
 {
 	infowc->nwc = 0;
 	infowc->wci = 0;
@@ -43,14 +43,14 @@ int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
 	return (0);
 }
 
- int initial_analysis(struct dirent *file, t_infowc *infowc, int *wc, int *i)
+ static int initial_analysis(struct dirent *file, t_infowc *infowc, int *wc, int *i)
  {
-	if (infowc->nwc == 1 && infowc->wci == 1 && infowc->wcf == 1) // *
+	if (infowc->nwc == 1 && infowc->wci == 1 && infowc->wcf == 1)
 		return (0);
 	infowc->ptr_f = file->d_name;
-	if (infowc->wci && infowc->nwc == 1) // empieza por * y es el único
+	if (infowc->wci && infowc->nwc == 1)
 		*wc += 1;
-	else if (infowc->wci) // empieza por * y hay más wc
+	else if (infowc->wci)
 	{
 		infowc->ptr_f = ft_strnstr(infowc->ptr_f, infowc->patrons[*i], ft_strlen(file->d_name));
 		if (!infowc->ptr_f)
@@ -58,7 +58,7 @@ int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
 		infowc->ptr_f += ft_strlen(infowc->patrons[(*i)++]);
 		*wc += 1;
 	}
-	else if (infowc->nwc > 0) // no empieza por * pero los habrá
+	else if (infowc->nwc > 0)
 	{
 		if (ft_strncmp(infowc->ptr_f, infowc->patrons[*i], ft_strlen(infowc->patrons[*i])) == 0)
 		{
@@ -73,7 +73,7 @@ int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
 	return (2);
  }
 
- int	analize_file(struct dirent *file, t_infowc *infowc, int wc, int i)
+ static int	analize_file(struct dirent *file, t_infowc *infowc, int wc, int i)
 {
 	infowc->r = initial_analysis(file, infowc, &wc, &i);
 	if (infowc->r < 2)
@@ -102,7 +102,7 @@ int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
 	return (1);
 }
 
-t_list	*expand_wildcard(char * str, t_infowc *infowc, t_list *matchs, char *copy)
+static t_list	*expand_wildcard(char * str, t_infowc *infowc, t_list *matchs, char *copy)
 {
 	struct dirent	*file;
 	DIR				*dirp;
@@ -139,30 +139,9 @@ t_list	*wildcard_gestor(char *str)
 	if (*str == '\0')
 		return (NULL);
 	matchs = NULL;
-	getcwd(g_varbox.path, 1024); // esto lo quitamos al unirlo a minishell...?
 	if (creat_infowc(&infowc, str, -1, 0))
 		return (NULL);
 	matchs = expand_wildcard(str, &infowc, matchs, NULL);	
 	ft_free_params(infowc.patrons);
 	return (matchs);
 }
-
-int	main(int argc, char *argv[])
-{
-	t_list	*matchs;
-	t_list	*index;
-	
-	(void)argc;
-	matchs = NULL;
-	matchs = wildcard_gestor(argv[1]);
-	index = matchs;
-	printf("\nRESULT: \n");
-	while (index)
-	{
-		printf("%s\n", (char *)index->content);
-		index = index->next;
-	}
-	ft_lstclear(&matchs, free_content_lst);
-	return (0);
-}
-
