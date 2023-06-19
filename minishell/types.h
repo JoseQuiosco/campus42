@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/07 19:48:35 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:16:38 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct varbox
 	char		path[1024];
 	t_list		*enviroment;
 	int			exit_code;
-	int			salir;
+	int			*salir;
 }	t_varbox;
 
 typedef struct ejevars
@@ -83,4 +83,8 @@ int			count_pipes(char **inpipes);
 char		*find_path(char *cmd, int *control, int i);
 int			procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt);
 t_list		*find_node_enviro_with_key(char *key, t_list *list);
+
+//BUILTINS
+void		ft_pwd(char **cmd_opt);
+void		ft_exit(char **cmd_opt);
 #endif

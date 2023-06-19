@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/08 13:48:46 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:24:47 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,28 @@ void	control_c(int n)
 void	control_d(int n)
 {
 	(void)n;
-	g_varbox.salir = 1;
+	*g_varbox.salir = 1;
 }
 
 int	init_varbox(char **env)
 {
+	char	*aux_str;
+	t_list	*aux;
+
 	getcwd(g_varbox.path, 1024);
+	g_varbox.salir = (int *)ft_calloc(1, sizeof(int));
+	*g_varbox.salir = 0;
 	g_varbox.enviroment = matrix_to_list((void **)env);
 	if (!g_varbox.enviroment)
 		return (1);
+	aux_str = ft_strdup("0=minishell");
+	if (!aux_str)
+		return (1);
+	aux = ft_lstnew(aux_str);
+	if (!aux)
+		return (free(aux_str), 1);
+	ft_lstadd_back(&g_varbox.enviroment, aux);
 	actualizar_exit_code(0);
-	g_varbox.salir = 0;
 	return (0);
 }
 
@@ -79,14 +90,16 @@ int	main(int argc, char *argv[], char **env)
 	signal(SIGQUIT, control_d);
 	rl_redisplay();
 	if (init_varbox(env))
-		return (1);
-	while (!g_varbox.salir)
+		return (ft_lstclear(&g_varbox.enviroment, free_content_lst), 1);
+	while (!(*g_varbox.salir))
 	{
 		command_ln = readline("JAVITORSHELL > ");
 		if (!command_ln)
 			break ;
 		add_history(command_ln);
 		tree = ft_build_cmdtree(command_ln);
+		if (!tree)
+			continue ;
 		ft_exec_cmdtree(tree);
 		ft_free_cmdtree(tree);
 	}

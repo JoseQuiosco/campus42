@@ -3,117 +3,157 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:25:59 by jahernan          #+#    #+#             */
-/*   Updated: 2023/05/25 19:31:10 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 00:46:56 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "clean_cmd.h"
 #include "libft/libft.h"
+#include "types.h"
 
-/**
- * TODO: Count all redundant parentheses
- * @param cmd_ln Command text
- * @return Number of redundant parentheses
- * */
-static int	ft_cnt_redundant_bars(char *cmd_ln)
+static int	ft_count_bars(char *cmd)
 {
-	int	open_cnt;
 	int	i;
+	int	count;
+	int	*q;
 
+	q = (int *)ft_calloc(2, sizeof(int));
+	if (!q)
+		return (1);
 	i = 0;
-	open_cnt = 0;
-	while (1)
+	count = 0;
+	while (cmd[i])
 	{
-		while (ft_isspace(cmd_ln[i]))
-		{
-			i++;
-		}
-		if (cmd_ln[i] == '(')
-		{
-			if (ft_is_redundant_bar(cmd_ln, i, open_cnt))
-				open_cnt++;
-			i++;
-		}
-		else
-			break ;
+		quotes(cmd[i], q);
+		if (cmd[i] == '(' && !q[1])
+			count++;
+		else if (cmd[i] == ')' && !q[1])
+			count--;
+		if (count < 0)
+			return (free(q), 1);
+		i++;
 	}
-	return (open_cnt);
+	return (free(q), count);
 }
 
-/**
- * !: Deprecated
- * *: Only count right side
- * TODO: Count close bars
- * @param cmd_ln Command text
- * @return Number of close bars
- * 
-static int	ft_cnt_close_par(char *cmd_ln)
+static char	*ft_straight_bars(char *cmd)
+{
+	int		len;
+	char	*aux;
+	char	*aux2;
+
+	aux = clean_spaces(cmd);
+	free(cmd);
+	cmd = NULL;
+	len = ft_strlen(aux);
+	while (!ft_count_bars(aux) && aux[0] == '(' && aux[len - 1] == ')')
+	{
+		if (cmd)
+			free(cmd);
+		cmd = clean_spaces(aux);
+		aux2 = aux;
+		aux = ft_substr(aux, 1, len - 2);
+		free(aux2);
+		len = ft_strlen(aux);
+	}
+	if (!ft_count_bars(aux))
+	{
+		if (cmd)
+			free(cmd);
+		cmd = ft_strdup(aux);
+	}
+	return (free(aux), cmd);
+}
+
+static int	ft_check_operators(char *cmd)
 {
 	int	i;
-	int	close_cnt;
+	int	*q;
 
-	i = ft_strlen(cmd_ln) - 1;
-	close_cnt = 0;
-	while (i >= 0)
+	q = (int *)ft_calloc(2, sizeof(int));
+	if (!q)
+		return (1);
+	i = 0;
+	while (cmd[i])
 	{
-		while (i > 0 && ft_isspace(cmd_ln[i]))
+		quotes(cmd[i], q);
+		if ((cmd[i] == '&' || cmd[i] == '|') && !q[1])
 		{
-			i--;
+			if (!ft_strncmp(&cmd[i], "&&", 2) || !ft_strncmp(&cmd[i], "||", 2))
+				i++;
+			else
+				return (free(q), 1);
 		}
-		if (cmd_ln[i] == ')')
-		{
-			i--;
-			close_cnt++;
-		}
-		else
-			break ;
+		i++;
 	}
-	return (close_cnt);
+	return (free(q), 0);
 }
-*/
 
-/**
- * !: Deprecated
- * TODO: Count redundant bars
- * @param cmd_ln Command text
- * @return Min number of bars found
- * 
-int	ft_cnt_redundant_pars(char *cmd_ln)
+static char	*ft_check_comillas(char *cmd, int i)
 {
-	int	open_cnt;
-	int	close_cnt;
+	int		*q;
+	char	*aux;
+	char	*aux2;
 
-	open_cnt = ft_cnt_open_par(cmd_ln);
-	close_cnt = ft_cnt_close_par(cmd_ln);
-	return (ft_min(open_cnt, close_cnt));
+	q = (int *)ft_calloc(2, sizeof(int));
+	if (!q)
+		return (NULL);
+	while (cmd[i])
+		quotes(cmd[i++], q);
+	while (q[1])
+	{
+		aux = readline("> ");
+		aux2 = cmd;
+		cmd = ft_strjoin(cmd, "\n");
+		free(aux2);
+		aux2 = cmd;
+		cmd = ft_strjoin(cmd, aux);
+		free(aux2);
+		i = 0;
+		while (aux[i])
+			quotes(aux[i++], q);
+		free(aux);
+	}
+	return (free(q), cmd);
 }
-*/
 
-char	*ft_rm_pars(char *cmd_ln, int pars_cnt)
-{
-	int	i;
-	int	j;
-
-	i = ft_begin_no_par_idx(cmd_ln, pars_cnt);
-	j = ft_end_no_par_idx(cmd_ln, pars_cnt);
-	return (ft_strcpy_range(cmd_ln, i, j));
-}
-
-/**
- * TODO: Remove redundant parentheses
- * @param cmd_ln Command text
- * @return A newly allocated string that contains no redundant parentheses.
- * (i.e `((a && b))` would become `a && b`. `((a && b) && c)` to `(a && b) && c`
- * */
 char	*ft_cpy_cmd_clean(char *cmd_ln)
 {
-	int		pars_cnt;
-	char	*str;
+	char	*aux;
+	char	*aux2;
 
-	pars_cnt = ft_cnt_redundant_bars(cmd_ln);
-	str = ft_rm_pars(cmd_ln, pars_cnt);
-	return (str);
+	if (!ft_strlen(cmd_ln))
+		return (cmd_ln);
+	cmd_ln = ft_check_comillas(cmd_ln, 0);
+	if (!cmd_ln)
+		return (printf("Error comillas\n"), NULL);
+	if (ft_check_operators(cmd_ln))
+		return (free(cmd_ln), printf("Invalid operators\n"), NULL);
+	if (ft_count_bars(cmd_ln))
+		return (free(cmd_ln), printf("Invalid ()\n"), NULL);
+	aux = ft_straight_bars(cmd_ln);
+	if (!aux)
+		return (NULL);
+	aux2 = clean_spaces(aux);
+	if (!aux2)
+		return (free(aux), NULL);
+	if (ft_strlen(aux2) > 0)
+		return (free(aux), aux2);
+	else
+		return (free(aux), free(aux2), printf("Invalid ()\n"), NULL);
 }
+
+/*
+int	main()
+{
+	char *s = ft_strdup("((ls  &&  ls ) ||  '( ls      libft )')");
+	char *res = ft_cpy_cmd_clean(s);
+	printf("S:%s\n",s);
+	printf("Filtrado:%s\n", res);
+	free(res);
+	return (0);
+}
+*/

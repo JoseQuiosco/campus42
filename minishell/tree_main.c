@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:23:54 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/06 17:18:28 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 00:49:07 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,49 @@ static int	ft_tree_type(char *cmd, int op_idx)
 	}
 }
 
-/*
-int	ft_malloc_children(t_cmdtree *tree)
+static int	ft_build_left_right(t_cmdtree *tree, int op_idx)
 {
-	tree->left = malloc(sizeof(t_cmdtree));
-	if (tree->left == NULL)
-		return (1);
-	tree->right = malloc(sizeof(t_cmdtree));
-	if (!tree->right)
+	char		*left_cmd;
+	char		*right_cmd;
+
+	left_cmd = ft_strcpy_range(tree->cmd, 0, op_idx);
+	if (!ft_strlen(left_cmd))
+		return (free(left_cmd), printf("Invalid operator\n"),
+			ft_free_cmdtree(tree), 1);
+	tree->left = ft_build_cmdtree(left_cmd);
+	if (!tree->left)
+		return (ft_free_cmdtree(tree), 1);
+	right_cmd = ft_strcpy_range(tree->cmd, op_idx + 2, ft_strlen(tree->cmd));
+	if (!ft_strlen(right_cmd))
 	{
-		free (tree->left);
-		tree->left = NULL;
-		return (1);
+		free(right_cmd);
+		right_cmd = readline("> ");
 	}
+	tree->right = ft_build_cmdtree(right_cmd);
+	if (!tree->right)
+		return (ft_free_cmdtree(tree), 1);
 	return (0);
 }
-*/
 
+//((ls  &&  ls ) ||  '( ls      libft )')
 t_cmdtree	*ft_build_cmdtree(char *cmd_ln)
 {
 	t_cmdtree	*tree;
-	char		*left_cmd;
-	char		*right_cmd;
 	int			op_idx;
 
 	tree = malloc(sizeof(t_cmdtree));
+	if (!tree)
+		return (NULL);
 	tree->cmd = ft_cpy_cmd_clean(cmd_ln);
-	free(cmd_ln);
+	if (!tree->cmd)
+		return (free(tree), NULL);
 	op_idx = ft_find_op_idx(tree->cmd);
 	tree->type = ft_tree_type(tree->cmd, op_idx);
-	if (tree->type == T_LEAF)
-		return (tree);
-	left_cmd = ft_strcpy_range(tree->cmd, 0, op_idx);
-	tree->left = ft_build_cmdtree(left_cmd);
-	right_cmd = ft_strcpy_range(tree->cmd, op_idx + 2, ft_strlen(tree->cmd));
-	tree->right = ft_build_cmdtree(right_cmd);
+	if (tree->type != T_LEAF)
+	{
+		if (ft_build_left_right(tree, op_idx))
+			return (NULL);
+	}
 	return (tree);
 }
 
@@ -110,9 +118,12 @@ void	ft_free_cmdtree(t_cmdtree *tree)
 {
 	if (tree->type != T_LEAF)
 	{
-		ft_free_cmdtree(tree->left);
-		ft_free_cmdtree(tree->right);
+		if (tree->left)
+			ft_free_cmdtree(tree->left);
+		if (tree->right)
+			ft_free_cmdtree(tree->right);
 	}
-	free(tree->cmd);
+	if (tree->cmd)
+		free(tree->cmd);
 	free(tree);
 }

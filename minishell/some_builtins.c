@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy_range.c                                  :+:      :+:    :+:   */
+/*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 19:35:06 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/18 23:07:03 by atalaver         ###   ########.fr       */
+/*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
+/*   Updated: 2023/06/19 10:16:57 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "types.h"
 
-char	*ft_strcpy_range(char *str, int i, int j)
+extern t_varbox	g_varbox;
+
+void	ft_pwd(char **cmd_opt)
 {
-	char	*copy;
-	int		k;
+	(void) cmd_opt;
+	printf("%s\n", g_varbox.path);
+}
 
-	copy = malloc(j - i + 1);
-	k = 0;
-	while (i < j)
-	{
-		copy[k] = str[i];
-		k++;
-		i++;
-	}
-	copy[k] = '\0';
-	return (copy);
+//La variable de salida se copia por lo que hay que buscar una solucion
+void	ft_exit(char **cmd_opt)
+{
+	(void) cmd_opt;
+	*g_varbox.salir = 1;
 }

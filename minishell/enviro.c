@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enviro.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:53:00 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 20:55:01 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 01:17:10 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,14 @@ char	*constructor(int j, int i, char *line, t_list *enviroment)
 	char	*final;
 	char	*expanded;
 
-	while (line[j] != '\0' && (ft_isalnum(line[j]) || (j == i
-				&& line[j] == '?')))
+	if (ft_isdigit(line[i]))
 		j++;
+	else
+	{
+		while (line[j] != '\0' && (ft_isalnum(line[j]) || (j == i
+					&& line[j] == '?')))
+			j++;
+	}
 	aux = ft_substr(line, i, j - i);
 	expanded = export_value(aux, enviroment);
 	free(aux);
@@ -57,9 +62,7 @@ char	*constructor(int j, int i, char *line, t_list *enviroment)
 	line = ft_strjoin(aux, final);
 	free(first);
 	free(expanded);
-	free(final);
-	free(aux);
-	return (line);
+	return (free(final), free(aux), line);
 }
 
 char	*expand_envar(char *line, t_list *enviroment)

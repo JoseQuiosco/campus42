@@ -10,6 +10,7 @@
 		"initializer_list": "c",
 		"ostream": "c",
 		"streambuf": "c",
-		"tuple": "c"
+		"tuple": "c",
+		"libft.h": "c"
 	}
 }

@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 19:48:22 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:18:11 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
+
+static int	is_builtin(char **cmd_opt)
+{
+	if (!ft_strcmp(cmd_opt[0], "pwd"))
+		return (printf("MIO:"), ft_pwd(cmd_opt), 1);
+	else if (!ft_strcmp(cmd_opt[0], "exit"))
+		return (printf("SALIENDO...\n"), ft_exit(cmd_opt), 1);
+	return (0);
+}
 
 static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 {
@@ -27,7 +36,9 @@ static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 			close(pipes[v->i][1]);
 		}
 	}
-	if (execve(route, cmd_opt, NULL) < 0)
+	if (is_builtin(cmd_opt))
+		exit(0);
+	else if (execve(route, cmd_opt, NULL) < 0)
 	{
 		printf("ERROR CABRON...\n");
 		if (errno == ENOENT)
