@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:53:00 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/19 01:17:10 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:15:23 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*constructor(int j, int i, char *line, t_list *enviroment)
 	char	*final;
 	char	*expanded;
 
-	if (ft_isdigit(line[i]))
+	if (ft_isdigit(line[i]) || line[i] == '?')
 		j++;
 	else
 	{

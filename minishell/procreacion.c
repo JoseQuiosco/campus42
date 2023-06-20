@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/19 17:40:23 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:16:47 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
 		return (ft_freedom(inpipes, cmd_opt, pipes, v->route), 1);
 	else if (v->pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		if (hijo(v, pipes, v->route, cmd_opt))
 		{
 			ft_freedom(inpipes, cmd_opt, pipes, v->route);
