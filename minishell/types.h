@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/20 12:56:30 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:30:25 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct iwc
 	char	**ptrn;
 	char	*p;
 	int		r;
+	char	*path;
 }	t_iwc;
 
 t_cmdtree	*ft_build_cmdtree(char *cmd);
@@ -94,7 +95,7 @@ int			count_pipes(char **inpipes);
 char		*find_path(char *cmd, int *control, int i);
 int			procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt);
 t_list		*find_node_enviro_with_key(char *key, t_list *list);
-t_list		*wildcard_gestor(char *str);
+t_list		*wildcard_gestor(char *str, char *path);
 
 //BUILTINS
 void		ft_pwd(char **cmd_opt);

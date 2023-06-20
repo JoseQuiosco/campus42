@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_wildcard.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:12:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/20 13:32:48 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:30:12 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static t_list	*expand_wc(char *s, t_iwc *iwc, t_list *matchs, char *copy)
 	struct dirent	*f;
 	DIR				*dirp;
 
-	dirp = opendir(g_varbox.path);
+	dirp = opendir(iwc->path);
 	f = readdir(dirp);
 	while (f)
 	{
@@ -126,7 +126,7 @@ static t_list	*expand_wc(char *s, t_iwc *iwc, t_list *matchs, char *copy)
 	return (closedir(dirp), matchs);
 }
 
-t_list	*wildcard_gestor(char *str)
+t_list	*wildcard_gestor(char *str, char *path)
 {
 	t_iwc	iwc;
 	t_list	*matchs;
@@ -134,6 +134,7 @@ t_list	*wildcard_gestor(char *str)
 	if (*str == '\0')
 		return (NULL);
 	matchs = NULL;
+	iwc.path = path;
 	if (creat_iwc(&iwc, str, -1, 0))
 		return (NULL);
 	matchs = expand_wc(str, &iwc, matchs, NULL);

@@ -6,13 +6,96 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 20:46:50 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:35:03 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
 extern t_varbox	g_varbox;
+
+static char	*insert_list(char *line, t_list *list, int j, int *i)
+{
+	char	*res;
+	int		len;
+
+	res = ft_substr(line, 0, j);
+	if (!res)
+		return (free(line), NULL);
+	len = 0;
+	while (list)
+	{
+		res = ft_strjoin(res, (char *)list->content);
+		if (!res)
+			return (free(line), NULL);
+		len += ft_strlen((char *)list->content);
+		if (list->next)
+		{
+			res = ft_strjoin(res, " ");
+			if (!res)
+				return (free(line), NULL);
+			len++;
+		}
+		list = list->next;
+	}
+	res = ft_strjoin(res, ft_substr(line, *i + 1, ft_strlen(line)));
+	if (!res)
+		return (free(line), NULL);
+	*i += len;
+	return (free(line), res);
+}
+
+static void	search_directs(char *word, char *path, t_list *list)
+{
+	t_list	*l;
+
+	l = wildcard_gestor(word, path);
+	while (l)
+	{
+
+		l = l->next;
+	}
+}
+
+static char	*expand_wildcard(char *line)
+{
+	int		i;
+	int		j;
+	int		*q;
+	char	*aux;
+	t_list	*list;
+
+	i = 0;
+	q = (int *)ft_calloc(2, sizeof(int));
+	if (q == NULL)
+		return (NULL);
+	while (line != NULL && line[i] != '\0')
+	{
+		if (!quotes(line[i++], q))
+		{
+			if (!q[1] && line[i - 1] == '*')
+			{
+				j = i;
+				while (j >= 0 && !ft_isspace(line[j]))
+					j--;
+				while (line[i] && !ft_isspace(line[i]))
+					i++;
+				aux = ft_substr(line, j + 1, i);
+				if (!aux)
+					return (free(q), NULL);
+				search_directs(aux, list);
+				free(aux);
+				if (list)
+				{
+					line = insert_list(line, list, j + 1, &i);
+					if (!line)
+						return (free(q), NULL);
+				}
+			}
+		}
+	}
+	return (free(q), line);
+}
 
 static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 {
@@ -30,6 +113,9 @@ static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 	if (!(*(*inpipes + v->i)))
 		return (1);
 	*(*inpipes + v->i) = expand_envar(*(*inpipes + v->i), g_varbox.enviroment);
+	if (!(*(*inpipes + v->i)))
+		return (1);
+	*(*inpipes + v->i) = expand_wildcard(*(*inpipes + v->i));
 	if (!(*(*inpipes + v->i)))
 		return (1);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/20 13:07:52 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:55:09 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int	actualizar_exit_code(int code)
 int	main(int argc, char *argv[], char **env)
 {
 	char		*command_ln;
-	//t_cmdtree	*tree;
-	t_list		*t;
+	t_cmdtree	*tree;
 
 	(void)argc;
 	(void)argv;
@@ -90,15 +89,11 @@ int	main(int argc, char *argv[], char **env)
 		if (!command_ln)
 			break ;
 		add_history(command_ln);
-		t = wildcard_gestor(command_ln);
-		print_list(t);
-		/*
 		tree = ft_build_cmdtree(command_ln);
 		if (!tree)
 			continue ;
 		ft_exec_cmdtree(tree);
 		ft_free_cmdtree(tree);
-		*/
 	}
 	ft_lstclear(&g_varbox.enviroment, free_content_lst);
 	unlink(".antiJose");
