@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:12:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/19 22:40:23 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:32:48 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,134 +14,129 @@
 
 extern t_varbox	g_varbox;
 
-static int	creat_infowc(t_infowc *infowc, char *str, int i, int flag)
+static int	creat_iwc(t_iwc *iwc, char *str, int i, int flag)
 {
-	infowc->nwc = 0;
-	infowc->wci = 0;
-	infowc->wcf = 0;
+	iwc->nwc = 0;
+	iwc->wci = 0;
+	iwc->wcf = 0;
 	while (str && str[++i] != '\0')
 	{
 		if (str[i] == '*')
 		{
 			if (flag == 0)
-				infowc->nwc += 1;
+				iwc->nwc += 1;
 			if (i == 0)
-				infowc->wci = 1;
+				iwc->wci = 1;
 			if (str[i + 1] == '\0')
-				infowc->wcf = 1;
+				iwc->wcf = 1;
 			flag = 1;
 		}
 		else
 			flag = 0;
 	}
-	if (infowc->nwc > 0)
+	if (iwc->nwc > 0)
 	{
-		infowc->patrons = ft_split(str, '*');
-		if (infowc->patrons == NULL)
+		iwc->ptrn = ft_split(str, '*');
+		if (iwc->ptrn == NULL)
 			return (1);
 	}
 	return (0);
 }
 
- static int initial_analysis(struct dirent *file, t_infowc *infowc, int *wc, int *i)
- {
-	if (infowc->nwc == 1 && infowc->wci == 1 && infowc->wcf == 1)
+static int	init_anal(struct dirent *f, t_iwc *iwc, int *wc, int *i)
+{
+	if (iwc->nwc == 1 && iwc->wci == 1 && iwc->wcf == 1)
 		return (0);
-	infowc->ptr_f = file->d_name;
-	if (infowc->wci && infowc->nwc == 1)
+	iwc->p = f->d_name;
+	if (iwc->wci && iwc->nwc == 1)
 		*wc += 1;
-	else if (infowc->wci)
+	else if (iwc->nwc > 0)
 	{
-		infowc->ptr_f = ft_strnstr(infowc->ptr_f, infowc->patrons[*i], ft_strlen(file->d_name));
-		if (!infowc->ptr_f)
-			return (1);
-		infowc->ptr_f += ft_strlen(infowc->patrons[(*i)++]);
-		*wc += 1;
-	}
-	else if (infowc->nwc > 0)
-	{
-		if (ft_strncmp(infowc->ptr_f, infowc->patrons[*i], ft_strlen(infowc->patrons[*i])) == 0)
+		if (iwc->wci
+			|| !ft_strncmp(iwc->p, iwc->ptrn[*i], ft_strlen(iwc->ptrn[*i])))
 		{
-			infowc->ptr_f = ft_strnstr(infowc->ptr_f, infowc->patrons[*i], ft_strlen(file->d_name));
-			if (!infowc->ptr_f)
+			iwc->p = ft_strnstr(iwc->p, iwc->ptrn[*i], ft_strlen(f->d_name));
+			if (!iwc->p)
 				return (1);
-			infowc->ptr_f += ft_strlen(infowc->patrons[(*i)++]);
+			iwc->p += ft_strlen(iwc->ptrn[(*i)++]);
+			if (iwc->wci)
+				*wc += 1;
 		}
 		else
 			return (1);
 	}
 	return (2);
- }
+}
 
- static int	analize_file(struct dirent *file, t_infowc *infowc, int wc, int i)
+static int	anal_f(struct dirent *f, t_iwc *iwc, int wc, int i)
 {
-	infowc->r = initial_analysis(file, infowc, &wc, &i);
-	if (infowc->r < 2)
-		return (infowc->r);
-	while (++wc < infowc->nwc)
+	iwc->r = init_anal(f, iwc, &wc, &i);
+	if (iwc->r < 2)
+		return (iwc->r);
+	while (++wc < iwc->nwc)
 	{
-		if (wc == infowc->nwc - 1)
-			continue;
-		infowc->ptr_f = ft_strnstr(infowc->ptr_f, infowc->patrons[i], ft_strlen(infowc->ptr_f));
-		if (!infowc->ptr_f)
+		if (wc == iwc->nwc - 1)
+			continue ;
+		iwc->p = ft_strnstr(iwc->p, iwc->ptrn[i], ft_strlen(iwc->p));
+		if (!iwc->p)
 			return (1);
-		infowc->ptr_f += ft_strlen(infowc->patrons[i]);
-		if (infowc->patrons[i + 1] != NULL)
+		iwc->p += ft_strlen(iwc->ptrn[i]);
+		if (iwc->ptrn[i + 1] != NULL)
 			i++;
 	}
-	if (infowc->wcf && wc == infowc->nwc)
+	if (iwc->wcf && wc == iwc->nwc)
 		return (0);
 	else
 	{
-		if (((int)ft_strlen(file->d_name) - (int)ft_strlen(infowc->patrons[i])) < 0)
+		if (((int)ft_strlen(f->d_name) - (int)ft_strlen(iwc->ptrn[i])) < 0)
 			return (1);
-		infowc->ptr_f = file->d_name + (ft_strlen(file->d_name) - ft_strlen(infowc->patrons[i]));
-		if (ft_strcmp(infowc->ptr_f, infowc->patrons[i]) == 0)
+		iwc->p = f->d_name + (ft_strlen(f->d_name) - ft_strlen(iwc->ptrn[i]));
+		if (ft_strcmp(iwc->p, iwc->ptrn[i]) == 0)
 			return (0);
 	}
 	return (1);
 }
 
-static t_list	*expand_wildcard(char * str, t_infowc *infowc, t_list *matchs, char *copy)
+static t_list	*expand_wc(char *s, t_iwc *iwc, t_list *matchs, char *copy)
 {
-	struct dirent	*file;
+	struct dirent	*f;
 	DIR				*dirp;
 
 	dirp = opendir(g_varbox.path);
-	file = readdir(dirp);
-	while (file)
+	f = readdir(dirp);
+	while (f)
 	{
-		if (infowc->nwc == 0 && !((*file->d_name == '.' && (*str != '.')) 
-				|| !ft_strcmp(".", file->d_name) || !ft_strcmp("..", file->d_name)))
+		if (iwc->nwc == 0 && !((*f->d_name == '.' && (*s != '.'))
+				|| !ft_strcmp(".", f->d_name) || !ft_strcmp("..", f->d_name)))
 		{
-			if (ft_strcmp(file->d_name, str) == 0)
+			if (ft_strcmp(f->d_name, s) == 0)
 			{
-				copy = ft_strdup(file->d_name);
+				copy = ft_strdup(f->d_name);
 				ft_lstadd_back(&matchs, ft_lstnew(copy));
 			}
 		}
-		else if (!((*file->d_name == '.' && (*str != '.')) || !ft_strcmp(".", file->d_name) 
-					|| !ft_strcmp("..", file->d_name)) && (analize_file(file, infowc, -1, 0) != 1))
+		else if (!((*f->d_name == 46 && *s != 46) || !ft_strcmp(".", f->d_name)
+				|| !ft_strcmp("..", f->d_name)) && (anal_f(f, iwc, -1, 0) != 1))
 		{
-				copy = ft_strdup(file->d_name);
-				ft_lstadd_back(&matchs, ft_lstnew(copy));
+			copy = ft_strdup(f->d_name);
+			ft_lstadd_back(&matchs, ft_lstnew(copy));
 		}
-		file = readdir(dirp);
+		f = readdir(dirp);
 	}
 	return (closedir(dirp), matchs);
 }
 
 t_list	*wildcard_gestor(char *str)
 {
-	t_infowc		infowc;
-	t_list			*matchs;
+	t_iwc	iwc;
+	t_list	*matchs;
 
 	if (*str == '\0')
 		return (NULL);
 	matchs = NULL;
-	if (creat_infowc(&infowc, str, -1, 0))
+	if (creat_iwc(&iwc, str, -1, 0))
 		return (NULL);
-	matchs = expand_wildcard(str, &infowc, matchs, NULL);	
-	ft_free_params(infowc.patrons);
+	matchs = expand_wc(str, &iwc, matchs, NULL);
+	ft_free_params(iwc.ptrn);
 	return (matchs);
 }

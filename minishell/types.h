@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/19 22:45:05 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:56:30 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,15 @@ typedef struct ejevars
 	int			control_route;
 }	t_ejevars;
 
-typedef struct infowc
+typedef struct iwc
 {
 	int		nwc;
 	int		wci;
 	int		wcf;
-	char	**patrons;
-	char	*ptr_f;
+	char	**ptrn;
+	char	*p;
 	int		r;
-}	t_infowc;
+}	t_iwc;
 
 t_cmdtree	*ft_build_cmdtree(char *cmd);
 void		ft_exec_cmdtree(t_cmdtree *tree);
