@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/21 15:59:56 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:53:10 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ char		*find_path(char *cmd, int *control, int i);
 int			procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt);
 t_list		*find_node_enviro_with_key(char *key, t_list *list);
 t_list		*wildcard_gestor(char *str, char *path);
+char		*search_wc(int i, int j, char *line, int *q);
+char		*insert_list(char *line, t_list *list, int j, int *i);
+char		*insert_content(char *res, t_list *list, int *len);
 
 //BUILTINS
 void		ft_pwd(char **cmd_opt);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ejecutor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 16:15:37 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:56:19 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 extern t_varbox	g_varbox;
 
-static char	*insert_list(char *line, t_list *list, int j, int *i)
+char	*insert_list(char *line, t_list *list, int j, int *i)
 {
 	char	*res;
+	char	*aux;
+	char	*aux2;
 	int		len;
 
 	res = ft_substr(line, 0, j);
@@ -25,20 +27,16 @@ static char	*insert_list(char *line, t_list *list, int j, int *i)
 	len = 0;
 	while (list)
 	{
-		res = ft_strjoin(res, (char *)list->content);
+		res = insert_content(res, list, &len);
 		if (!res)
 			return (free(line), NULL);
-		len += ft_strlen((char *)list->content);
-		if (list->next)
-		{
-			res = ft_strjoin(res, " ");
-			if (!res)
-				return (free(line), NULL);
-			len++;
-		}
 		list = list->next;
 	}
-	res = ft_strjoin(res, ft_substr(line, *i + 1, ft_strlen(line)));
+	aux = res;
+	aux2 = ft_substr(line, *i + 1, ft_strlen(line));
+	res = ft_strjoin(res, aux2);
+	free(aux);
+	free(aux2);
 	if (!res)
 		return (free(line), NULL);
 	*i += len;
@@ -48,10 +46,7 @@ static char	*insert_list(char *line, t_list *list, int j, int *i)
 static char	*expand_wildcard(char *line)
 {
 	int		i;
-	int		j;
 	int		*q;
-	char	*aux;
-	t_list	*list;
 
 	i = 0;
 	q = (int *)ft_calloc(2, sizeof(int));
@@ -61,25 +56,9 @@ static char	*expand_wildcard(char *line)
 	{
 		if (!quotes(line[i++], q))
 		{
-			if (!q[1] && line[i - 1] == '*')
-			{
-				j = i;
-				while (j >= 0 && !ft_isspace(line[j]))
-					j--;
-				while (line[i] && !ft_isspace(line[i]))
-					i++;
-				aux = ft_substr(line, j + 1, i);
-				if (!aux)
-					return (free(q), NULL);
-				list = wildcard_gestor(aux, g_varbox.path);
-				free(aux);
-				if (list)
-				{
-					line = insert_list(line, list, j + 1, &i);
-					if (!line)
-						return (free(q), NULL);
-				}
-			}
+			line = search_wc(i, i, line, q);
+			if (!line)
+				return (free(q), NULL);
 		}
 	}
 	return (free(q), line);
