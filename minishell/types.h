@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/21 13:16:52 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:59:56 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		ft_freedom(char **inpipes, char **cmd_opt, int **pipes,
 int			**creat_pipes(int npipes);
 int			count_pipes(char **inpipes);
 char		*find_path(char *cmd, int *control, int i);
-int			procrear(t_ejevars *v, char **inpipes, int ***pipes, char **cmd_opt);
+int			procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt);
 t_list		*find_node_enviro_with_key(char *key, t_list *list);
 t_list		*wildcard_gestor(char *str, char *path);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 15:51:56 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:00:41 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_builtin(char **cmd_opt)
 	return (0);
 }
 
-static void	hijo2(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
+static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 {
 	if (v->tp.fs > 0)
 	{
@@ -32,8 +32,8 @@ static void	hijo2(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
 	{
 		if (v->i < v->npipes)
 		{
-			dup2((*pipes)[v->i][1], STDOUT_FILENO);
-			close((*pipes)[v->i][1]);
+			dup2(pipes[v->i][1], STDOUT_FILENO);
+			close(pipes[v->i][1]);
 		}
 	}
 	if (is_builtin(cmd_opt))
@@ -49,7 +49,7 @@ static void	hijo2(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
 	}
 }
 
-static int	hijo(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
+static int	hijo(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 {
 	if (v->tp.fi > 0)
 	{
@@ -64,11 +64,11 @@ static int	hijo(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
 	else if (v->j >= 0)
 	{
 		if (v->i < v->npipes)
-			close((*pipes)[v->i][0]);
+			close(pipes[v->i][0]);
 		if (v->i > 0)
 		{
-			dup2((*pipes)[v->i - 1][0], STDIN_FILENO);
-			close((*pipes)[v->i - 1][0]);
+			dup2(pipes[v->i - 1][0], STDIN_FILENO);
+			close(pipes[v->i - 1][0]);
 		}
 		if (v->tp.control_i)
 			return (v->i++, printf("ERROR DE ENTRADA\n"), 1);
@@ -77,14 +77,14 @@ static int	hijo(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
 	return (0);
 }
 
-static void	papa(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
+static void	papa(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 {
 	if (v->npipes > 0)
 	{
 		if (v->i < v->npipes)
-			close(*(pipes[v->i][1]));
+			close(pipes[v->i][1]);
 		if (v->i > 0)
-			close(*(pipes[v->i - 1][0]));
+			close(pipes[v->i - 1][0]);
 	}
 	waitpid(v->pid, &v->status, 0);
 	ft_free_params(cmd_opt);
@@ -92,17 +92,17 @@ static void	papa(t_ejevars *v, int ***pipes, char *route, char **cmd_opt)
 		free(route);
 }
 
-int	procrear(t_ejevars *v, char **inpipes, int ***pipes, char **cmd_opt)
+int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
 {
 	v->pid = fork();
 	if (v->pid < 0)
-		return (ft_freedom(inpipes, cmd_opt, *pipes, v->route), 1);
+		return (ft_freedom(inpipes, cmd_opt, pipes, v->route), 1);
 	else if (v->pid == 0)
 	{
 		//signal(SIGINT, SIG_DFL);
 		if (hijo(v, pipes, v->route, cmd_opt))
 		{
-			ft_freedom(inpipes, cmd_opt, *pipes, v->route);
+			ft_freedom(inpipes, cmd_opt, pipes, v->route);
 			return (1);
 		}
 	}

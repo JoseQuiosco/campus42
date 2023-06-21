@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ejecutor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 13:25:25 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:00:15 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int	ejecutor_i(char *ins)
 		v.route = define_route(&v, &inpipes, &cmd_opt, pipes);
 		if (!v.route)
 			return (ft_freedom(inpipes, cmd_opt, pipes, v.route), 1);
-		if (procrear(&v, inpipes, &pipes, cmd_opt))
+		if (procrear(&v, inpipes, pipes, cmd_opt))
 			continue ;
 		if (v.j > 0)
 			v.j--;

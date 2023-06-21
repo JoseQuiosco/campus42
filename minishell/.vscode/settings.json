@@ -11,6 +11,7 @@
 		"ostream": "c",
 		"streambuf": "c",
 		"tuple": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"readline.h": "c"
 	}
 }
