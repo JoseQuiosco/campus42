@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ejecutor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:55:13 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 16:06:54 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:03:31 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
-extern t_varbox	g_varbox;
+extern t_varbox	*g_varbox;
 
 static int	get_paths(char ***paths)
 {
 	char	*aux;
 
-	aux = export_value("PATH", g_varbox.enviroment);
+	aux = export_value("PATH", g_varbox->enviroment);
 	if (!aux)
 		return (1);
 	*paths = ft_split(aux, ':');

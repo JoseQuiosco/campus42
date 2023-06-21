@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/21 16:53:10 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:17:29 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct varbox
 	char		path[1024];
 	t_list		*enviroment;
 	int			exit_code;
+	int			exit;
 }	t_varbox;
 
 typedef struct ejevars
@@ -62,6 +63,7 @@ typedef struct ejevars
 	int			j;
 	int			npipes;
 	int			control_route;
+	int			builtin;
 }	t_ejevars;
 
 typedef struct iwc

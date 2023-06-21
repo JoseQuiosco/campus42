@@ -6,13 +6,13 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/21 16:30:20 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:08:47 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
-t_varbox	g_varbox;
+t_varbox	*g_varbox;
 
 void	control_c(int n)
 {
@@ -28,9 +28,13 @@ int	init_varbox(char **env)
 	char	*aux_str;
 	t_list	*aux;
 
-	getcwd(g_varbox.path, 1024);
-	g_varbox.enviroment = matrix_to_list((void **)env);
-	if (!g_varbox.enviroment)
+	g_varbox = (t_varbox *)malloc(sizeof(t_varbox));
+	if (!g_varbox)
+		return (1);
+	g_varbox->exit = 0;
+	getcwd(g_varbox->path, 1024);
+	g_varbox->enviroment = matrix_to_list((void **)env);
+	if (!g_varbox->enviroment)
 		return (1);
 	aux_str = ft_strdup("0=minishell");
 	if (!aux_str)
@@ -38,7 +42,7 @@ int	init_varbox(char **env)
 	aux = ft_lstnew(aux_str);
 	if (!aux)
 		return (free(aux_str), 1);
-	ft_lstadd_back(&g_varbox.enviroment, aux);
+	ft_lstadd_back(&g_varbox->enviroment, aux);
 	actualizar_exit_code(0);
 	return (0);
 }
@@ -49,7 +53,7 @@ int	actualizar_exit_code(int code)
 	char	*aux2;
 	t_list	*aux3;
 
-	g_varbox.exit_code = code;
+	g_varbox->exit_code = code;
 	aux = ft_itoa(code);
 	if (!aux)
 		return (1);
@@ -57,13 +61,13 @@ int	actualizar_exit_code(int code)
 	free(aux);
 	if (!aux2)
 		return (1);
-	aux3 = find_node_enviro_with_key("?", g_varbox.enviroment);
+	aux3 = find_node_enviro_with_key("?", g_varbox->enviroment);
 	if (!aux3)
 	{
 		aux3 = ft_lstnew(aux2);
 		if (!aux3)
 			return (free(aux2), 1);
-		ft_lstadd_back(&g_varbox.enviroment, aux3);
+		ft_lstadd_back(&g_varbox->enviroment, aux3);
 		return (0);
 	}
 	free(aux3->content);
@@ -82,8 +86,8 @@ int	main(int argc, char *argv[], char **env)
 	signal(SIGQUIT, SIG_IGN);
 	rl_redisplay();
 	if (init_varbox(env))
-		return (ft_lstclear(&g_varbox.enviroment, free_content_lst), 1);
-	while (1)
+		return (ft_lstclear(&g_varbox->enviroment, free_content_lst), 1);
+	while (!g_varbox->exit)
 	{
 		command_ln = readline("JAVITORSHELL > ");
 		if (!command_ln)
@@ -95,7 +99,7 @@ int	main(int argc, char *argv[], char **env)
 		ft_exec_cmdtree(tree);
 		ft_free_cmdtree(tree);
 	}
-	ft_lstclear(&g_varbox.enviroment, free_content_lst);
+	ft_lstclear(&g_varbox->enviroment, free_content_lst);
 	unlink(".antiJose");
 	return (0);
 }

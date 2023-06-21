@@ -6,13 +6,13 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 16:56:19 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:02:52 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
-extern t_varbox	g_varbox;
+extern t_varbox	*g_varbox;
 
 char	*insert_list(char *line, t_list *list, int j, int *i)
 {
@@ -79,7 +79,7 @@ static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 	*(*inpipes + v->i) = open_and_format(*(*inpipes + v->i), &v->tp, -1, aux);
 	if (!(*(*inpipes + v->i)))
 		return (1);
-	*(*inpipes + v->i) = expand_envar(*(*inpipes + v->i), g_varbox.enviroment);
+	*(*inpipes + v->i) = expand_envar(*(*inpipes + v->i), g_varbox->enviroment);
 	if (!(*(*inpipes + v->i)))
 		return (1);
 	*(*inpipes + v->i) = expand_wildcard(*(*inpipes + v->i));
@@ -137,5 +137,5 @@ int	ejecutor_i(char *ins)
 			v.j--;
 	}
 	actualizar_exit_code(WEXITSTATUS(v.status));
-	return (ft_freedom(inpipes, NULL, pipes, NULL), g_varbox.exit_code);
+	return (ft_freedom(inpipes, NULL, pipes, NULL), g_varbox->exit_code);
 }

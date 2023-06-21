@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_wildcard.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:12:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/20 21:30:12 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:02:16 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
-
-extern t_varbox	g_varbox;
 
 static int	creat_iwc(t_iwc *iwc, char *str, int i, int flag)
 {

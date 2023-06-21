@@ -6,13 +6,13 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:24:37 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/21 16:52:41 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:03:45 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
-extern t_varbox	g_varbox;
+extern t_varbox	*g_varbox;
 
 char	*search_wc(int i, int j, char *line, int *q)
 {
@@ -29,7 +29,7 @@ char	*search_wc(int i, int j, char *line, int *q)
 		aux = ft_substr(line, j + 1, i);
 		if (!aux)
 			return (free(line), NULL);
-		list = wildcard_gestor(aux, g_varbox.path);
+		list = wildcard_gestor(aux, g_varbox->path);
 		free(aux);
 		if (list)
 		{
