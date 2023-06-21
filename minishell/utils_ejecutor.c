@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:55:13 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 17:00:09 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:06:54 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	**creat_pipes(int npipes)
 		if (pipes[i] == NULL)
 		{
 			ft_free_params((char **)pipes);
-			free(pipes);
 			return (NULL);
 		}
 		i++;

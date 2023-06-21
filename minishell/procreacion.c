@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 16:00:41 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:12:56 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
 		return (ft_freedom(inpipes, cmd_opt, pipes, v->route), 1);
 	else if (v->pid == 0)
 	{
-		//signal(SIGINT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		if (hijo(v, pipes, v->route, cmd_opt))
 		{
 			ft_freedom(inpipes, cmd_opt, pipes, v->route);
