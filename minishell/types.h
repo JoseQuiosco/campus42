@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/21 18:17:29 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:10:03 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ char		*insert_list(char *line, t_list *list, int j, int *i);
 char		*insert_content(char *res, t_list *list, int *len);
 
 //BUILTINS
-void		ft_pwd(char **cmd_opt);
-void		ft_exit(char **cmd_opt);
+int			ft_pwd(char **cmd_opt);
+int			ft_exit(char **cmd_opt);
+int			ft_env(char **cmd_opt);
+int			ft_export(char **cmd_opt);
 #endif

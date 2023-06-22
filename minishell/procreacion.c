@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 14:44:14 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:14:24 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static int	is_builtin(char **cmd_opt)
 		return (1);
 	else if (!ft_strcmp(cmd_opt[0], "exit"))
 		return (2);
+	else if (!ft_strcmp(cmd_opt[0], "env"))
+		return (3);
+	else if (!ft_strcmp(cmd_opt[0], "export"))
+		return (4);
 	return (0);
 }
 
@@ -30,7 +34,10 @@ static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 
 	saved = dup(STDOUT_FILENO);
 	if (v->tp.control_i)
+	{
+		actualizar_exit_code(1);
 		return (v->i++, printf("ERROR DE ENTRADA\n"), 1);
+	}
 	if (v->tp.fs > 0)
 	{
 		dup2(v->tp.fs, STDOUT_FILENO);
@@ -45,11 +52,15 @@ static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 		}
 	}
 	if (v->builtin == 1)
-		ft_pwd(cmd_opt);
+		v->status = ft_pwd(cmd_opt);
 	else if (v->builtin == 2)
-		ft_exit(cmd_opt);
+		v->status = ft_exit(cmd_opt);
+	else if (v->builtin == 3)
+		v->status = ft_env(cmd_opt);
+	else if (v->builtin == 4)
+		v->status = ft_export(cmd_opt);
 	dup2(saved, STDOUT_FILENO);
-	return (0);
+	return (actualizar_exit_code(v->status), 0);
 }
 
 static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
@@ -119,6 +130,7 @@ static void	papa(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	ft_free_params(cmd_opt);
 	if (v->control_route)
 		free(route);
+	actualizar_exit_code(WEXITSTATUS(v->status));
 }
 
 int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
@@ -140,7 +152,7 @@ int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
 		{
 			signal(SIGINT, SIG_DFL);
 			if (hijo(v, pipes, v->route, cmd_opt))
-				return (ft_freedom(inpipes, cmd_opt, pipes, v->route), 1);
+				exit(1);
 		}
 		else
 			papa(v, pipes, v->route, cmd_opt);

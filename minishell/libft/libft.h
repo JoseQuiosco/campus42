@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 20:19:44 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 12:02:32 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:37:09 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	free_content_lst(void *content);
 t_list	*matrix_to_list(void **matrix);
 void	print_list(t_list	*lista);
 int		quotes(char c, int *q);
+int		ft_len_matrix2(char **matrix2);
+int		ft_is_full_digit(char *str);
 
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);

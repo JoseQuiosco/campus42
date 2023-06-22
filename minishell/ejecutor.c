@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 14:41:44 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:22:38 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,5 @@ int	ejecutor_i(char *ins)
 		if (v.j > 0)
 			v.j--;
 	}
-	actualizar_exit_code(WEXITSTATUS(v.status));
 	return (ft_freedom(inpipes, NULL, pipes, NULL), g_varbox->exit_code);
 }

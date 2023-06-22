@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 13:25:30 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 14:49:12 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:23:53 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,13 @@ char	*search_name(char *cmd, int len)
 	char	*name;
 	int		*q;
 
+	n[0] = 0;
+	n[1] = 0;
 	name = (char *)ft_calloc((len = search_name_len(cmd, &q)) + 1, 1);
 	if (len < 0)
 		return (NULL);
 	if (!name)
 		return (free(q), NULL);
-	n[0] = 0;
-	n[1] = 0;
 	while (cmd[n[0]] == ' ')
 		n[0]++;
 	if (cmd[n[0]] == '\'' || cmd[n[0]] == '"')
