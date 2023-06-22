@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ejecutor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:02:52 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:41:44 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int	ejecutor_i(char *ins)
 	inpipes = ft_split_m2(ins, '|');
 	v.npipes = count_pipes(inpipes);
 	pipes = creat_pipes(v.npipes);
+	v.status = 0;
 	v.i = -1;
 	v.j = v.npipes;
 	while (inpipes[++v.i])

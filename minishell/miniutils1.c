@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 13:25:30 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 14:00:52 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:49:12 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static int	search_name_len(char *cmd, int **q)
 	int		i;
 
 	i = 0;
+	len = 0;
 	*q = (int *)ft_calloc(2, sizeof(int));
 	if (!(*q))
 		return (-1);

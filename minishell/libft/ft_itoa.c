@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 19:17:43 by dvasco-m          #+#    #+#             */
-/*   Updated: 2022/09/30 18:39:55 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:35:45 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ static	void	fill_dec_base(char *dec_base)
 		dec_base[i] = '0' + i;
 		i++;
 	}
-	dec_base[i] = i;
 }
 
 static	void	build_number(char *number, int n, int figures, int sign)
 {
-	char		dec_base[11];
+	char		dec_base[10];
 	int			i;
 	int			orisign;
 
