@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/22 17:59:35 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:52:04 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 t_varbox	*g_varbox;
 
+//imprime 2 lineas cuando "<<fin grep hola" se pone cntr-c y cntr-d y cntr-c
+//seg fault cuando solo "<<fin"
 void	control_c(int n)
 {
-	printf("\n");
-	rl_replace_line("", 1);
-	rl_on_new_line();
-	rl_redisplay();
+	if (!g_varbox->flag_c)
+	{
+		printf("\n");
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (g_varbox->flag_c == 1)
+		printf("\n");
 	signal(n, control_c);
 }
 
@@ -32,6 +39,7 @@ int	init_varbox(char **env)
 	if (!g_varbox)
 		return (1);
 	g_varbox->exit = 0;
+	g_varbox->flag_c = 0;
 	getcwd(g_varbox->path, 1024);
 	g_varbox->enviroment = matrix_to_list((void **)env);
 	if (!g_varbox->enviroment)

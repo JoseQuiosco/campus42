@@ -6,11 +6,13 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:09:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 18:17:14 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:48:56 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
+
+extern t_varbox	*g_varbox;
 
 static void	read_buffer(t_ficheros *tp, char *end)
 {
@@ -18,6 +20,8 @@ static void	read_buffer(t_ficheros *tp, char *end)
 	char	*aux;
 
 	new_line = readline("> ");
+	if (!new_line)
+		return ;
 	while (new_line && ft_strcmp(new_line, end))
 	{
 		aux = ft_strjoin(new_line, "\n");
@@ -25,6 +29,8 @@ static void	read_buffer(t_ficheros *tp, char *end)
 		free(new_line);
 		free(aux);
 		new_line = readline("> ");
+		if (!new_line)
+			return ;
 	}
 	free(new_line);
 }

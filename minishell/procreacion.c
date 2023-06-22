@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 19:14:24 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:10:40 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,9 @@ static void	papa(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 		if (v->i > 0)
 			close(pipes[v->i - 1][0]);
 	}
+	g_varbox->flag_c = 1;
 	waitpid(v->pid, &v->status, 0);
+	g_varbox->flag_c = 0;
 	ft_free_params(cmd_opt);
 	if (v->control_route)
 		free(route);
@@ -150,7 +152,7 @@ int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
 			return (ft_freedom(inpipes, cmd_opt, pipes, v->route), 1);
 		else if (v->pid == 0)
 		{
-			signal(SIGINT, SIG_DFL);
+			//signal(SIGINT, SIG_DFL);
 			if (hijo(v, pipes, v->route, cmd_opt))
 				exit(1);
 		}

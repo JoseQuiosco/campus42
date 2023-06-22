@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/22 19:10:03 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:29:08 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct varbox
 	t_list		*enviroment;
 	int			exit_code;
 	int			exit;
+	int			flag_c;
 }	t_varbox;
 
 typedef struct ejevars
