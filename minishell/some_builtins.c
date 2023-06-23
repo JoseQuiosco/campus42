@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 00:27:39 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:30:38 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ int	ft_echo(char **cmd_opt)
 			i++;
 		}
 		while (cmd_opt[i])
+		{
 			printf("%s", cmd_opt[i++]);
+			if (cmd_opt[i])
+				printf(" ");
+		}
 	}
 	if (!option)
 		printf("\n");
