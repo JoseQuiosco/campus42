@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/23 19:54:17 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:40:10 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	control_c(int n)
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
+		actualizar_exit_code(1);
 	}
 	else if (g_varbox->flag_c == 1)
 	{
@@ -29,7 +30,7 @@ void	control_c(int n)
 		g_varbox->flag_c = 2;
 	}
 	else if (g_varbox->flag_c == 2)
-		exit(130);
+		exit(1);
 	signal(n, control_c);
 }
 

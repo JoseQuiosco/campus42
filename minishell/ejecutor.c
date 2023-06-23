@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/23 19:42:19 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:48:35 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,10 @@ int	ejecutor_i(char *ins)
 	int			**pipes;
 
 	inpipes = ft_split_m2(ins, '|');
+	if (!inpipes)
+		return (1);
+	if (!inpipes[0])
+		return (ft_free_params(inpipes), 0);
 	v.npipes = count_pipes(inpipes);
 	pipes = creat_pipes(v.npipes);
 	v.status = 0;
@@ -135,6 +139,9 @@ int	ejecutor_i(char *ins)
 		if (g_varbox->flag_c)
 		{
 			g_varbox->flag_c = 0;
+			ft_free_params(cmd_opt);
+			if (v.route)
+				free(v.route);
 			break ;
 		}
 		if (procrear(&v, inpipes, pipes, cmd_opt))
