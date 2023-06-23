@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 00:40:10 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:20:34 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	main(int argc, char *argv[], char **env)
 		return (ft_lstclear(&g_varbox->enviroment, free_content_lst), 1);
 	while (!g_varbox->exit)
 	{
-		command_ln = readline("JAVITORSHELL > ");
+		command_ln = readline("\033[0;37mJAVITORSHELL > ");
 		if (!command_ln)
 			break ;
 		add_history(command_ln);

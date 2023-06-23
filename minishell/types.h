@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/24 00:24:30 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:18:01 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ typedef struct iwc
 t_cmdtree	*ft_build_cmdtree(char *cmd);
 void		ft_exec_cmdtree(t_cmdtree *tree);
 void		ft_free_cmdtree(t_cmdtree *tree);
-char		*export_value(char *var, t_list	*enviroment);
-char		*expand_envar(char *line, t_list *enviroment);
+char		*export_value(char *var);
+char		*expand_envar(char *line);
 int			ejecutor_i(char *ins);
 int			actualizar_exit_code(int code);
 char		*clean_spaces(char *str);

@@ -6,13 +6,43 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 00:23:59 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:14:02 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
 extern t_varbox	*g_varbox;
+
+static void	aumentar_profundidad(t_list *list, int shlvl, char *aux2,
+	char *aux3)
+{
+	t_list	*aux;
+
+	if (aux2)
+	{
+		shlvl = ft_atoi(aux2) + 1;
+		free(aux2);
+	}
+	aux2 = ft_itoa(shlvl);
+	if (!aux2)
+		return ;
+	aux3 = ft_strjoin("SHLVL=", aux2);
+	free(aux2);
+	if (!aux3)
+		return ;
+	list = find_node_enviro_with_key("SHLVL", g_varbox->enviroment);
+	if (!list)
+	{
+		aux = ft_lstnew(aux3);
+		if (!aux)
+			return ;
+		ft_lstadd_back(&g_varbox->enviroment, aux);
+		return ;
+	}
+	free(list->content);
+	list->content = aux3;
+}
 
 static int	is_builtin(char **cmd_opt)
 {
@@ -87,6 +117,7 @@ static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	}
 	if (!ft_len_matrix2(cmd_opt))
 		exit(0);
+	aumentar_profundidad(NULL, 0, export_value("SHLVL"), NULL);
 	if (execve(route, cmd_opt, NULL) < 0)
 	{
 		printf("ERROR CABRON...\n");

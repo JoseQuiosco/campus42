@@ -6,18 +6,22 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:53:00 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/20 12:15:23 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:17:48 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 
-char	*export_value(char *var, t_list	*enviroment)
+extern t_varbox	*g_varbox;
+
+char	*export_value(char *var)
 {
 	char	**aux;
 	char	*value;
+	t_list	*enviroment;
 
 	value = NULL;
+	enviroment = g_varbox->enviroment;
 	while (enviroment)
 	{
 		aux = ft_split(enviroment->content, '=');
@@ -36,7 +40,7 @@ char	*export_value(char *var, t_list	*enviroment)
 	return (NULL);
 }
 
-char	*constructor(int j, int i, char *line, t_list *enviroment)
+char	*constructor(int j, int i, char *line)
 {
 	char	*aux;
 	char	*first;
@@ -52,7 +56,7 @@ char	*constructor(int j, int i, char *line, t_list *enviroment)
 			j++;
 	}
 	aux = ft_substr(line, i, j - i);
-	expanded = export_value(aux, enviroment);
+	expanded = export_value(aux);
 	free(aux);
 	first = ft_substr(line, 0, i - 1);
 	final = ft_substr(line, j, ft_strlen(line));
@@ -65,7 +69,7 @@ char	*constructor(int j, int i, char *line, t_list *enviroment)
 	return (free(final), free(aux), line);
 }
 
-char	*expand_envar(char *line, t_list *enviroment)
+char	*expand_envar(char *line)
 {
 	int		i;
 	int		*q;
@@ -79,7 +83,7 @@ char	*expand_envar(char *line, t_list *enviroment)
 		if (!quotes(line[i++], q))
 		{
 			if (q[0] != '\'' && line[i - 1] == '$')
-				line = constructor(i, i, line, enviroment);
+				line = constructor(i, i, line);
 		}
 	}
 	return (free(q), line);
