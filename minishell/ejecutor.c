@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 00:48:35 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:23:03 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 	*(*inpipes + v->i) = open_and_format(*(*inpipes + v->i), &v->tp, -1, aux);
 	if (!(*(*inpipes + v->i)))
 		return (1);
-	*(*inpipes + v->i) = expand_envar(*(*inpipes + v->i), g_varbox->enviroment);
+	*(*inpipes + v->i) = expand_envar(*(*inpipes + v->i));
 	if (!(*(*inpipes + v->i)))
 		return (1);
 	*(*inpipes + v->i) = expand_wildcard(*(*inpipes + v->i));

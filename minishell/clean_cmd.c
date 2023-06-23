@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:25:59 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/19 18:55:05 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:26:13 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,28 +125,14 @@ static int	ft_check_operators(char *cmd)
 static char	*ft_check_comillas(char *cmd, int i)
 {
 	int		*q;
-	char	*aux;
-	char	*aux2;
 
 	q = (int *)ft_calloc(2, sizeof(int));
 	if (!q)
 		return (NULL);
 	while (cmd[i])
 		quotes(cmd[i++], q);
-	while (q[1])
-	{
-		aux = readline("> ");
-		aux2 = cmd;
-		cmd = ft_strjoin(cmd, "\n");
-		free(aux2);
-		aux2 = cmd;
-		cmd = ft_strjoin(cmd, aux);
-		free(aux2);
-		i = 0;
-		while (aux[i])
-			quotes(aux[i++], q);
-		free(aux);
-	}
+	if (q[1])
+		return (free(q), NULL);
 	return (free(q), cmd);
 }
 

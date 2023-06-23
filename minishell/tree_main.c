@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:23:54 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/19 18:56:58 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:36:25 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 //(a) c  && b
 //prog "(" && ( a && b)
 //("\)") && b
+
+extern t_varbox	*g_varbox;
 
 static int	ft_tree_type(char *cmd, int op_idx)
 {
@@ -49,10 +51,8 @@ static int	ft_build_left_right(t_cmdtree *tree, int op_idx)
 		return (ft_free_cmdtree(tree), 1);
 	right_cmd = ft_strcpy_range(tree->cmd, op_idx + 2, ft_strlen(tree->cmd));
 	if (!ft_strlen(right_cmd))
-	{
-		free(right_cmd);
-		right_cmd = readline("> ");
-	}
+		return (free(right_cmd), printf("Invalid operator\n"),
+			ft_free_cmdtree(tree), 1);
 	tree->right = ft_build_cmdtree(right_cmd);
 	if (!tree->right)
 		return (ft_free_cmdtree(tree), 1);

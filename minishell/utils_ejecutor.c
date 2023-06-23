@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:55:13 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:03:31 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:23:30 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_paths(char ***paths)
 {
 	char	*aux;
 
-	aux = export_value("PATH", g_varbox->enviroment);
+	aux = export_value("PATH");
 	if (!aux)
 		return (1);
 	*paths = ft_split(aux, ':');
