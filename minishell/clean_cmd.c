@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:25:59 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/24 01:26:13 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:39:35 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,15 +167,3 @@ char	*ft_cpy_cmd_clean(char *cmd_ln)
 	else
 		return (free(aux), free(aux2), printf("Invalid ()\n"), NULL);
 }
-
-/*
-int	main()
-{
-	char *s = ft_strdup("((ls  &&  ls ) ||  '( ls      libft )')");
-	char *res = ft_cpy_cmd_clean(s);
-	printf("S:%s\n",s);
-	printf("Filtrado:%s\n", res);
-	free(res);
-	return (0);
-}
-*/

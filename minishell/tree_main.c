@@ -6,19 +6,11 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:23:54 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 01:36:25 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:39:18 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
-
-//TODO: (")")
-//(()ignore)
-//(\))
-//"()"
-//(a) c  && b
-//prog "(" && ( a && b)
-//("\)") && b
 
 extern t_varbox	*g_varbox;
 
@@ -59,7 +51,6 @@ static int	ft_build_left_right(t_cmdtree *tree, int op_idx)
 	return (0);
 }
 
-//((ls  &&  ls ) ||  '( ls      libft )')
 t_cmdtree	*ft_build_cmdtree(char *cmd_ln)
 {
 	t_cmdtree	*tree;
@@ -81,10 +72,6 @@ t_cmdtree	*ft_build_cmdtree(char *cmd_ln)
 	return (tree);
 }
 
-/**
- * TODO: Execute commands of the tree
- * @param tree Tree with the commands and operators
- * */
 void	ft_exec_cmdtree(t_cmdtree *tree)
 {
 	if (tree->type == T_LEAF)
@@ -110,10 +97,6 @@ void	ft_exec_cmdtree(t_cmdtree *tree)
 	}
 }
 
-/**
- * TODO: Free tree
- * @param tree Tree with the commands and operators
- * */
 void	ft_free_cmdtree(t_cmdtree *tree)
 {
 	if (tree->type != T_LEAF)
