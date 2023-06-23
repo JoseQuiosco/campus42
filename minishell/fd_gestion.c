@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_gestion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:09:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 19:48:56 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:52:07 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,41 @@ static void	read_buffer(t_ficheros *tp, char *end)
 {
 	char	*new_line;
 	char	*aux;
+	pid_t	pid;
+	int		code;
 
-	new_line = readline("> ");
-	if (!new_line)
+	code = 0;
+	pid = fork();
+	if (pid < 0)
 		return ;
-	while (new_line && ft_strcmp(new_line, end))
+	else if (!pid)
 	{
-		aux = ft_strjoin(new_line, "\n");
-		write(tp->ft, aux, ft_strlen(aux));
-		free(new_line);
-		free(aux);
+		g_varbox->flag_c = 2;
 		new_line = readline("> ");
 		if (!new_line)
-			return ;
+			exit(0);
+		while (new_line && ft_strcmp(new_line, end))
+		{
+			aux = ft_strjoin(new_line, "\n");
+			write(tp->ft, aux, ft_strlen(aux));
+			free(new_line);
+			free(aux);
+			new_line = readline("> ");
+			if (!new_line)
+				exit(0);
+		}
+		free(new_line);
+		exit(0);
 	}
-	free(new_line);
+	else if (pid > 0)
+	{
+		g_varbox->flag_c = 1;
+		waitpid(pid, &code, 0);
+		if (!code)
+			g_varbox->flag_c = 0;
+		else
+			actualizar_exit_code(1);
+	}
 }
 
 static int	size_name(char *cmd, char *name, int type, int len)

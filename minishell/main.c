@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/22 19:52:04 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:54:17 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_varbox	*g_varbox;
 
-//imprime 2 lineas cuando "<<fin grep hola" se pone cntr-c y cntr-d y cntr-c
-//seg fault cuando solo "<<fin"
 void	control_c(int n)
 {
 	if (!g_varbox->flag_c)
@@ -26,7 +24,12 @@ void	control_c(int n)
 		rl_redisplay();
 	}
 	else if (g_varbox->flag_c == 1)
+	{
 		printf("\n");
+		g_varbox->flag_c = 2;
+	}
+	else if (g_varbox->flag_c == 2)
+		exit(130);
 	signal(n, control_c);
 }
 

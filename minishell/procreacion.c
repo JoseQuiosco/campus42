@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 20:10:40 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:23:59 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,26 @@ extern t_varbox	*g_varbox;
 
 static int	is_builtin(char **cmd_opt)
 {
-	if (!ft_strcmp(cmd_opt[0], "pwd"))
-		return (1);
-	else if (!ft_strcmp(cmd_opt[0], "exit"))
-		return (2);
-	else if (!ft_strcmp(cmd_opt[0], "env"))
-		return (3);
-	else if (!ft_strcmp(cmd_opt[0], "export"))
-		return (4);
+	if (ft_len_matrix2(cmd_opt) > 0)
+	{
+		if (!ft_strcmp(cmd_opt[0], "pwd"))
+			return (1);
+		else if (!ft_strcmp(cmd_opt[0], "exit"))
+			return (2);
+		else if (!ft_strcmp(cmd_opt[0], "env"))
+			return (3);
+		else if (!ft_strcmp(cmd_opt[0], "export"))
+			return (4);
+		else if (!ft_strcmp(cmd_opt[0], "echo"))
+			return (5);
+	}
 	return (0);
 }
 
 // la salida de builtin no se está usando
 static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 {
-	int saved;
+	int	saved;
 
 	saved = dup(STDOUT_FILENO);
 	if (v->tp.control_i)
@@ -59,6 +64,8 @@ static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 		v->status = ft_env(cmd_opt);
 	else if (v->builtin == 4)
 		v->status = ft_export(cmd_opt);
+	else if (v->builtin == 5)
+		v->status = ft_echo(cmd_opt);
 	dup2(saved, STDOUT_FILENO);
 	return (actualizar_exit_code(v->status), 0);
 }
@@ -78,6 +85,8 @@ static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 			close(pipes[v->i][1]);
 		}
 	}
+	if (!ft_len_matrix2(cmd_opt))
+		exit(0);
 	if (execve(route, cmd_opt, NULL) < 0)
 	{
 		printf("ERROR CABRON...\n");
@@ -128,11 +137,13 @@ static void	papa(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	}
 	g_varbox->flag_c = 1;
 	waitpid(v->pid, &v->status, 0);
+	actualizar_exit_code(WEXITSTATUS(v->status));
+	if (g_varbox->flag_c == 2)
+		actualizar_exit_code(1);
 	g_varbox->flag_c = 0;
 	ft_free_params(cmd_opt);
 	if (v->control_route)
 		free(route);
-	actualizar_exit_code(WEXITSTATUS(v->status));
 }
 
 int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
@@ -152,7 +163,6 @@ int	procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt)
 			return (ft_freedom(inpipes, cmd_opt, pipes, v->route), 1);
 		else if (v->pid == 0)
 		{
-			//signal(SIGINT, SIG_DFL);
 			if (hijo(v, pipes, v->route, cmd_opt))
 				exit(1);
 		}

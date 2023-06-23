@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/22 19:18:02 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:27:39 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_pwd(char **cmd_opt)
 	return (0);
 }
 
-//La variable de salida se copia por lo que hay que buscar una solucion
 int	ft_exit(char **cmd_opt)
 {
 	char	*aux;
@@ -52,6 +51,28 @@ int	ft_exit(char **cmd_opt)
 	return (0);
 }
 
+int	ft_echo(char **cmd_opt)
+{
+	int	option;
+	int	i;
+
+	option = 0;
+	i = 1;
+	if (ft_len_matrix2(cmd_opt) > 1)
+	{
+		while (cmd_opt[i] && !ft_strcmp("-n", cmd_opt[i]))
+		{
+			option = 1;
+			i++;
+		}
+		while (cmd_opt[i])
+			printf("%s", cmd_opt[i++]);
+	}
+	if (!option)
+		printf("\n");
+	return (0);
+}
+
 int	ft_env(char **cmd_opt)
 {
 	t_list	*lista;
@@ -61,6 +82,7 @@ int	ft_env(char **cmd_opt)
 	if (ft_len_matrix2(cmd_opt) >= 2)
 		return (printf("Too much arguments!\n"), 1);
 	lista = g_varbox->enviroment;
+	ft_order_list(lista);
 	code = find_node_enviro_with_key("?", g_varbox->enviroment);
 	name = find_node_enviro_with_key("0", g_varbox->enviroment);
 	while (lista)

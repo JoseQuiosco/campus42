@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/22 19:29:08 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:24:30 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ t_list		*wildcard_gestor(char *str, char *path);
 char		*search_wc(int i, int j, char *line, int *q);
 char		*insert_list(char *line, t_list *list, int j, int *i);
 char		*insert_content(char *res, t_list *list, int *len);
+int			ft_echo(char **cmd_opt);
 
 //BUILTINS
 int			ft_pwd(char **cmd_opt);
