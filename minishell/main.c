@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 23:35:21 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/25 00:23:39 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,6 @@ int	main(int argc, char *argv[], char **env)
 	}
 	exit_code = g_varbox->exit_code;
 	ft_lstclear(&g_varbox->enviroment, free_content_lst);
+	free(g_varbox->header);
 	return (unlink(".antiJose"), exit_code);
 }
