@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 18:06:06 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 22:37:57 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_varbox	*g_varbox;
 
-static void	aumentar_profundidad(t_list *list, int shlvl, char *aux2,
+void	aumentar_profundidad(t_list *list, int shlvl, char *aux2,
 	char *aux3)
 {
 	t_list	*aux;
@@ -104,8 +104,40 @@ static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 	return (actualizar_exit_code(v->status), 0);
 }
 
+static char	**env_to_matrix(t_list *list)
+{
+	char	**res;
+	int		i;
+	t_list	*code;
+	t_list	*name;
+
+	list = g_varbox->enviroment;
+	code = find_node_enviro_with_key("?", g_varbox->enviroment);
+	name = find_node_enviro_with_key("0", g_varbox->enviroment);
+	res = ft_calloc(ft_len_list(list) - 1, sizeof(char *));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (list)
+	{
+		if (list == name || list == code)
+		{
+			list = list->next;
+			continue ;
+		}
+		res[i] = ft_strdup(list->content);
+		if (!res[i])
+			return (ft_free_params(res), NULL);
+		list = list->next;
+		i++;
+	}
+	return (res);
+}
+
 static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 {
+	char	**env;
+
 	if (v->tp.fs > 0)
 	{
 		dup2(v->tp.fs, STDOUT_FILENO);
@@ -121,8 +153,8 @@ static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	}
 	if (!ft_len_matrix2(cmd_opt))
 		exit(0);
-	aumentar_profundidad(NULL, 0, export_value("SHLVL"), NULL);
-	if (execve(route, cmd_opt, NULL) < 0)
+	env = env_to_matrix(NULL);
+	if (execve(route, cmd_opt, env) < 0)
 	{
 		printf("ERROR CABRON...\n");
 		if (errno == ENOENT)
@@ -174,7 +206,7 @@ static void	papa(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	waitpid(v->pid, &v->status, 0);
 	actualizar_exit_code(WEXITSTATUS(v->status));
 	if (g_varbox->flag_c == 2)
-		actualizar_exit_code(1);
+		actualizar_exit_code(CODE_ERROR);
 	g_varbox->flag_c = 0;
 	ft_free_params(cmd_opt);
 	if (v->control_route)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 19:25:19 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 23:11:56 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,43 @@ int	ft_env(char **cmd_opt)
 	return (0);
 }
 
+static int	ft_check_var_name(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s && s[i])
+	{
+		if (!i && !ft_isalpha(s[i]))
+			return (0);
+		if (i)
+		{
+			if (!ft_isalnum(s[i]) && !(s[i] == '_'))
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 static int	ft_export_args(char **cmd_opt, int i, char **var_val, t_list *lista)
 {
 	char	*cont;
 	t_list	*aux;
+	int		code;
 
+	code = 0;
 	while (cmd_opt[++i])
 	{
 		var_val = ft_split(cmd_opt[i], '=');
 		if (!var_val)
 			return (1);
-		if (var_val[1])
+		if (!ft_check_var_name(var_val[0]) || cmd_opt[i][0] == '=')
+		{
+			printf("Not valid name\n");
+			code = 1;
+		}
+		else if (var_val[1])
 		{
 			aux = find_node_enviro_with_key(var_val[0], lista);
 			cont = ft_strdup(cmd_opt[i]);
@@ -127,7 +153,7 @@ static int	ft_export_args(char **cmd_opt, int i, char **var_val, t_list *lista)
 		}
 		ft_free_params(var_val);
 	}
-	return (0);
+	return (code);
 }
 
 //crear variables
@@ -184,16 +210,13 @@ int	ft_unset(char **cmd_opt)
 {
 	t_list	*var;
 	int		i;
-	char	**split;
 
 	i = 0;
 	while (cmd_opt[++i])
-	{	
-		split = ft_split(cmd_opt[i], '=');
-		if (!split)
-			return (1);
-		var = find_node_enviro_with_key(split[0], g_varbox->enviroment);
-		ft_free_params(split);
+	{
+		if (!ft_check_var_name(cmd_opt[i]))
+			continue ;
+		var = find_node_enviro_with_key(cmd_opt[i], g_varbox->enviroment);
 		if (var)
 		{
 			free (var->content);

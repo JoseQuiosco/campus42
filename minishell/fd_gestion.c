@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:09:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/23 19:52:07 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 21:46:24 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	read_buffer(t_ficheros *tp, char *end)
 		if (!code)
 			g_varbox->flag_c = 0;
 		else
-			actualizar_exit_code(1);
+			actualizar_exit_code(CODE_ERROR);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 11:59:42 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 23:35:21 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	control_c(int n)
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		actualizar_exit_code(1);
+		actualizar_exit_code(CODE_ERROR);
 	}
 	else if (g_varbox->flag_c == 1)
 	{
@@ -30,8 +30,28 @@ void	control_c(int n)
 		g_varbox->flag_c = 2;
 	}
 	else if (g_varbox->flag_c == 2)
-		exit(1);
+		exit(CODE_ERROR);
 	signal(n, control_c);
+}
+
+static char	*init_header(void)
+{
+	char	*aux1;
+	char	*aux2;
+	char	*res;
+
+	aux1 = ft_strdup("\033[34m┌──(\033[0;37mJAVITOR\033[34m)");
+	if (!aux1)
+		return (NULL);
+	aux2 = ft_strdup("(\033[0;37mPLUS+\033[34m)\n\033[34m└─$\033[0;37m ");
+	if (!aux2)
+		return (free(aux1), NULL);
+	res = ft_strjoin(aux1, aux2);
+	free(aux1);
+	free(aux2);
+	if (!res)
+		return (NULL);
+	return (res);
 }
 
 int	init_varbox(char **env)
@@ -44,18 +64,22 @@ int	init_varbox(char **env)
 		return (1);
 	g_varbox->exit = 0;
 	g_varbox->flag_c = 0;
+	g_varbox->header = init_header();
+	if (!g_varbox->header)
+		return (free(g_varbox), 1);
 	getcwd(g_varbox->path, 1024);
 	g_varbox->enviroment = matrix_to_list((void **)env);
 	if (!g_varbox->enviroment)
-		return (1);
+		return (free(g_varbox), free(g_varbox->header), 1);
 	aux_str = ft_strdup("0=minishell");
 	if (!aux_str)
-		return (1);
+		return (free(g_varbox), free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), 1);
 	aux = ft_lstnew(aux_str);
 	if (!aux)
-		return (free(aux_str), 1);
+		return (free(g_varbox), free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), free(aux_str), 1);
 	ft_lstadd_back(&g_varbox->enviroment, aux);
 	actualizar_exit_code(0);
+	aumentar_profundidad(NULL, 0, export_value("SHLVL"), NULL);
 	return (0);
 }
 
@@ -98,10 +122,10 @@ int	main(int argc, char *argv[], char **env)
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, SIG_IGN);
 	if (init_varbox(env))
-		return (ft_lstclear(&g_varbox->enviroment, free_content_lst), 1);
+		return (1);
 	while (!g_varbox->exit)
 	{
-		command_ln = readline("\033[0;37mJAVITORSHELL > ");
+		command_ln = readline(g_varbox->header);
 		if (!command_ln)
 			break ;
 		add_history(command_ln);

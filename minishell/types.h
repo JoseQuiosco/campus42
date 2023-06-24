@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/24 17:17:34 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 23:22:05 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define T_OR 1
 # define T_AND 2
 # define T_ERROR 3
+
+# define CODE_ERROR 1
 
 typedef struct s_cmdtree {
 	int					type;
@@ -52,6 +54,7 @@ typedef struct varbox
 	int			exit_code;
 	int			exit;
 	int			flag_c;
+	char		*header;
 }	t_varbox;
 
 typedef struct ejevars
@@ -102,7 +105,8 @@ t_list		*wildcard_gestor(char *str, char *path);
 char		*search_wc(int i, int j, char *line, int *q);
 char		*insert_list(char *line, t_list *list, int j, int *i);
 char		*insert_content(char *res, t_list *list, int *len);
-int			ft_echo(char **cmd_opt);
+void		aumentar_profundidad(t_list *list, int shlvl, char *aux2,
+				char *aux3);
 
 //BUILTINS
 int			ft_pwd(char **cmd_opt);
@@ -110,4 +114,5 @@ int			ft_exit(char **cmd_opt);
 int			ft_env(char **cmd_opt);
 int			ft_export(char **cmd_opt);
 int			ft_unset(char **cmd_opt);
+int			ft_echo(char **cmd_opt);
 #endif

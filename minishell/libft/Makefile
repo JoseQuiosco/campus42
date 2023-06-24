@@ -6,7 +6,7 @@
 #    By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 18:15:38 by dvasco-m          #+#    #+#              #
-#    Updated: 2023/06/23 20:21:47 by atalaver         ###   ########.fr        #
+#    Updated: 2023/06/24 22:14:44 by atalaver         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_strcmp.c\
 	  utilsptf10.c utilsptf11.c utilsptf12.c utilsptf13.c utilsptf14.c \
 	  utilsptf15.c utilsptf16.c utilsptf17.c check_utils.c ft_printf.c \
 	  ft_isspace.c ft_min.c ft_strcpy_range.c ft_matrix_to_list.c\
-	  ft_split_m2.c ft_len_matrix2.c ft_is_full_digit.c ft_order_list.c
+	  ft_split_m2.c ft_len_matrix2.c ft_is_full_digit.c ft_order_list.c\
+	  ft_len_list.c
 
 BONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 		ft_lstlast_bonus.c ft_lstadd_back_bonus.c\
