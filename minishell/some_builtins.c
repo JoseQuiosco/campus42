@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 13:27:00 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:25:19 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,12 @@ int	ft_env(char **cmd_opt)
 	return (0);
 }
 
-int	ft_export_args(char **cmd_opt)
+static int	ft_export_args(char **cmd_opt, int i, char **var_val, t_list *lista)
 {
-	char	**var_val;
 	char	*cont;
-	int		i;
 	t_list	*aux;
-	t_list *lista;
 
-	i = 1;
-	lista = g_varbox->enviroment;
-	while (cmd_opt[i])
+	while (cmd_opt[++i])
 	{
 		var_val = ft_split(cmd_opt[i], '=');
 		if (!var_val)
@@ -116,25 +111,23 @@ int	ft_export_args(char **cmd_opt)
 		if (var_val[1])
 		{
 			aux = find_node_enviro_with_key(var_val[0], lista);
+			cont = ft_strdup(cmd_opt[i]);
 			if (aux)
 			{
-				cont = ft_strdup(var_val[1]);
 				free(aux->content);
 				aux->content = cont;
 			}
 			else
 			{
-				cont = ft_strdup(cmd_opt[i]);
 				aux = ft_lstnew(cont);
 				if (!aux)
-					return (free(cont), ft_free_params(var_val), NULL);
+					return (free(cont), ft_free_params(var_val), 1);
 				ft_lstadd_back(&lista, aux);
 			}
 		}
 		ft_free_params(var_val);
-		i++;
 	}
-
+	return (0);
 }
 
 //crear variables
@@ -164,6 +157,53 @@ int	ft_export(char **cmd_opt)
 		}
 	}
 	else
-		return (ft_export_args(cmd_opt));
+		return (ft_export_args(cmd_opt, 0, 0, g_varbox->enviroment));
+	return (0);
+}
+
+static t_list *ft_lstdel_last(t_list **list)
+{
+	t_list	*aux;
+	t_list	*first;
+
+	first = *list;
+	if (!(*list)->next)
+	{
+		free((*list));
+		return (NULL);
+	}
+	while ((*list)->next->next)
+		(*list) = (*list)->next;
+	aux = (*list)->next;
+	(*list)->next = NULL;
+	free(aux);
+	return (first);
+}
+
+int	ft_unset(char **cmd_opt)
+{
+	t_list	*var;
+	int		i;
+	char	**split;
+
+	i = 0;
+	while (cmd_opt[++i])
+	{	
+		split = ft_split(cmd_opt[i], '=');
+		if (!split)
+			return (1);
+		var = find_node_enviro_with_key(split[0], g_varbox->enviroment);
+		ft_free_params(split);
+		if (var)
+		{
+			free (var->content);
+			while (var->next)
+			{
+				var->content = var->next->content;
+				var = var->next;
+			}
+			g_varbox->enviroment = ft_lstdel_last(&(g_varbox->enviroment));
+		}
+	}
 	return (0);
 }

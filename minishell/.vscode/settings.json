@@ -12,6 +12,7 @@
 		"streambuf": "c",
 		"tuple": "c",
 		"libft.h": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"system_error": "c"
 	}
 }

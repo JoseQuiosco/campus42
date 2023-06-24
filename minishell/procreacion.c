@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 01:14:02 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:06:06 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	is_builtin(char **cmd_opt)
 			return (4);
 		else if (!ft_strcmp(cmd_opt[0], "echo"))
 			return (5);
+		else if (!ft_strcmp(cmd_opt[0], "unset"))
+			return (6);
 	}
 	return (0);
 }
@@ -96,6 +98,8 @@ static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 		v->status = ft_export(cmd_opt);
 	else if (v->builtin == 5)
 		v->status = ft_echo(cmd_opt);
+	else if (v->builtin == 6)
+		v->status = ft_unset(cmd_opt);
 	dup2(saved, STDOUT_FILENO);
 	return (actualizar_exit_code(v->status), 0);
 }
