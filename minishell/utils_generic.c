@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:24:37 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 19:55:33 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:57:37 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,33 @@ char	*insert_content(char *res, t_list *list, int *len)
 		(*len)++;
 	}
 	return (res);
+}
+
+char	*insert_list(char *line, t_list *list, int j, int *i)
+{
+	char	*res;
+	char	*aux;
+	char	*aux2;
+	int		len;
+
+	res = ft_substr(line, 0, j);
+	if (!res)
+		return (free(line), NULL);
+	len = 0;
+	while (list)
+	{
+		res = insert_content(res, list, &len);
+		if (!res)
+			return (free(line), NULL);
+		list = list->next;
+	}
+	aux = res;
+	aux2 = ft_substr(line, *i + 1, ft_strlen(line));
+	res = ft_strjoin(res, aux2);
+	free(aux);
+	free(aux2);
+	if (!res)
+		return (free(line), NULL);
+	*i += len;
+	return (free(line), res);
 }

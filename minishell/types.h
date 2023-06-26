@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 20:26:06 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:52:55 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,12 @@ char		*insert_content(char *res, t_list *list, int *len);
 void		aumentar_profundidad(t_list *list, int shlvl, char *aux2,
 				char *aux3);
 int			size_name(char *cmd, char *name, int type, int len);
+int			is_builtin(char **cmd_opt);
+int			ft_exec_builtin(t_ejevars *v, char **cmd_opt);
+int			builtin(t_ejevars *v, int **pipes, char **cmd_opt);
+char		**env_to_matrix(t_list *list, int i);
+char		*ft_clean_bars(char *path, int i, char *aux_join, char *aux);
+int			ft_check_var_name(char *s);
 
 //BUILTINS
 int			ft_pwd(char **cmd_opt);
