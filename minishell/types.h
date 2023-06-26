@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 16:31:09 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:14:11 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ char		*insert_list(char *line, t_list *list, int j, int *i);
 char		*insert_content(char *res, t_list *list, int *len);
 void		aumentar_profundidad(t_list *list, int shlvl, char *aux2,
 				char *aux3);
+int			size_name(char *cmd, char *name, int type, int len);
 
 //BUILTINS
 int			ft_pwd(char **cmd_opt);

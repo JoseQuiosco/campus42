@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:09:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 21:46:24 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:13:40 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,31 @@
 
 extern t_varbox	*g_varbox;
 
-static void	read_buffer(t_ficheros *tp, char *end)
+void	hijo_read_buffer(t_ficheros *tp, char *end)
 {
 	char	*new_line;
 	char	*aux;
+
+	g_varbox->flag_c = 2;
+	new_line = readline("> ");
+	if (!new_line)
+		exit(0);
+	while (new_line && ft_strcmp(new_line, end))
+	{
+		aux = ft_strjoin(new_line, "\n");
+		write(tp->ft, aux, ft_strlen(aux));
+		free(new_line);
+		free(aux);
+		new_line = readline("> ");
+		if (!new_line)
+			exit(0);
+	}
+	free(new_line);
+	exit(0);
+}
+
+static void	read_buffer(t_ficheros *tp, char *end)
+{
 	pid_t	pid;
 	int		code;
 
@@ -26,24 +47,7 @@ static void	read_buffer(t_ficheros *tp, char *end)
 	if (pid < 0)
 		return ;
 	else if (!pid)
-	{
-		g_varbox->flag_c = 2;
-		new_line = readline("> ");
-		if (!new_line)
-			exit(0);
-		while (new_line && ft_strcmp(new_line, end))
-		{
-			aux = ft_strjoin(new_line, "\n");
-			write(tp->ft, aux, ft_strlen(aux));
-			free(new_line);
-			free(aux);
-			new_line = readline("> ");
-			if (!new_line)
-				exit(0);
-		}
-		free(new_line);
-		exit(0);
-	}
+		hijo_read_buffer(tp, end);
 	else if (pid > 0)
 	{
 		g_varbox->flag_c = 1;
@@ -53,25 +57,6 @@ static void	read_buffer(t_ficheros *tp, char *end)
 		else
 			actualizar_exit_code(CODE_ERROR);
 	}
-}
-
-static int	size_name(char *cmd, char *name, int type, int len)
-{
-	if (cmd[0] == ' ')
-	{
-		if (cmd[1] == '\'' || cmd[1] == '"')
-			return (free(name), len + 1 + 2 + type);
-		return (free(name), len + 1 + type);
-	}
-	else
-	{
-		if (cmd[0] == '\'' || cmd[0] == '"')
-			return (free(name), len + 2 + type);
-		return (free(name), len + type);
-	}
-	if (name)
-		free(name);
-	return (0);
 }
 
 static void	close_fin(t_ficheros *tp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_gestion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:45:38 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 16:47:47 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:13:55 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,23 @@ char	*open_and_format(char *s, t_ficheros *tp, int i, char *cmd)
 		}
 	}
 	return (free(q), cmd);
+}
+
+int	size_name(char *cmd, char *name, int type, int len)
+{
+	if (cmd[0] == ' ')
+	{
+		if (cmd[1] == '\'' || cmd[1] == '"')
+			return (free(name), len + 1 + 2 + type);
+		return (free(name), len + 1 + type);
+	}
+	else
+	{
+		if (cmd[0] == '\'' || cmd[0] == '"')
+			return (free(name), len + 2 + type);
+		return (free(name), len + type);
+	}
+	if (name)
+		free(name);
+	return (0);
 }
