@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 19:54:49 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:26:06 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct ejevars
 	int			npipes;
 	int			control_route;
 	int			builtin;
+	char		**cmd_opt;
+	char		**inpipes;
+	int			**pipes;
 }	t_ejevars;
 
 typedef struct iwc

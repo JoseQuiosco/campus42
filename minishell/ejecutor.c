@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ejecutor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 01:23:03 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:29:56 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,40 +114,46 @@ static char	*define_route(t_ejevars *v, char ***inpipes,
 		return (*(*inpipes + v->i));
 }
 
+static int	ft_init_ejecutor(t_ejevars *v, char *ins)
+{
+	v->inpipes = ft_split_m2(ins, '|');
+	if (!v->inpipes)
+		return (-1);
+	if (!v->inpipes[0])
+		return (ft_free_params(v->inpipes), 0);
+	v->npipes = count_pipes(v->inpipes);
+	v->pipes = creat_pipes(v->npipes);
+	v->status = 0;
+	v->i = -1;
+	v->j = v->npipes;
+	return (1);
+}
+
 int	ejecutor_i(char *ins)
 {
 	t_ejevars	v;
-	char		**cmd_opt;
-	char		**inpipes;
-	int			**pipes;
+	int			code;
 
-	inpipes = ft_split_m2(ins, '|');
-	if (!inpipes)
-		return (1);
-	if (!inpipes[0])
-		return (ft_free_params(inpipes), 0);
-	v.npipes = count_pipes(inpipes);
-	pipes = creat_pipes(v.npipes);
-	v.status = 0;
-	v.i = -1;
-	v.j = v.npipes;
-	while (inpipes[++v.i])
+	code = ft_init_ejecutor(&v, ins);
+	if (code <= 0)
+		return (-code);
+	while (v.inpipes[++v.i])
 	{
-		v.route = define_route(&v, &inpipes, &cmd_opt, pipes);
+		v.route = define_route(&v, &v.inpipes, &v.cmd_opt, v.pipes);
 		if (!v.route)
-			return (ft_freedom(inpipes, cmd_opt, pipes, v.route), 1);
+			return (ft_freedom(v.inpipes, v.cmd_opt, v.pipes, v.route), 1);
 		if (g_varbox->flag_c)
 		{
 			g_varbox->flag_c = 0;
-			ft_free_params(cmd_opt);
+			ft_free_params(v.cmd_opt);
 			if (v.route)
 				free(v.route);
 			break ;
 		}
-		if (procrear(&v, inpipes, pipes, cmd_opt))
+		if (procrear(&v, v.inpipes, v.pipes, v.cmd_opt))
 			continue ;
 		if (v.j > 0)
 			v.j--;
 	}
-	return (ft_freedom(inpipes, NULL, pipes, NULL), g_varbox->exit_code);
+	return (ft_freedom(v.inpipes, NULL, v.pipes, NULL), g_varbox->exit_code);
 }

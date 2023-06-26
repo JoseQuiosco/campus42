@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 19:33:19 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:51:10 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,48 @@ static int	ft_check_var_name(char *s)
 	return (1);
 }
 
-static int	ft_export_args(char **cmd_opt, int i, char **var_val, t_list *lista)
+static int	ft_no_valid_name(void)
 {
-	char	*cont;
+	return (printf("Not valid name\n"), 1);
+}
+
+static void ft_change_content(t_list *aux, char *cont)
+{
+	free(aux->content);
+	aux->content = cont;
+}
+
+static int	ft_valid_name(int *code, char **cmd_opt, t_list *lista, int i)
+{
 	t_list	*aux;
+	char **var_val;
+	char	*cont;
+
+	var_val = ft_split(cmd_opt[i], '=');
+	if (!var_val)
+		return (1);
+	if (!ft_check_var_name(var_val[0]) || cmd_opt[i][0] == '=')
+		*code = ft_no_valid_name();
+	else
+	{
+		aux = find_node_enviro_with_key(var_val[0], lista);
+		cont = ft_strdup(cmd_opt[i]);
+		if (aux)
+			ft_change_content(aux, cont);
+		else
+		{
+			aux = ft_lstnew(cont);
+			if (!aux)
+				return (free(cont), ft_free_params(var_val), 1);
+			ft_lstadd_back(&lista, aux);
+		}
+	}
+	ft_free_params(var_val);
+	return (0);
+}
+
+static int	ft_export_args(char **cmd_opt, int i, t_list *lista)
+{
 	int		code;
 
 	code = 0;
@@ -143,49 +181,20 @@ static int	ft_export_args(char **cmd_opt, int i, char **var_val, t_list *lista)
 	{
 		if (ft_strchr(cmd_opt[i], '='))
 		{
-			var_val = ft_split(cmd_opt[i], '=');
-			if (!var_val)
+			if (ft_valid_name(&code, cmd_opt, lista, i))
 				return (1);
-			if (!ft_check_var_name(var_val[0]) || cmd_opt[i][0] == '=')
-			{
-				printf("Not valid name\n");
-				code = 1;
-			}
-			else
-			{
-				aux = find_node_enviro_with_key(var_val[0], lista);
-				cont = ft_strdup(cmd_opt[i]);
-				if (aux)
-				{
-					free(aux->content);
-					aux->content = cont;
-				}
-				else
-				{
-					aux = ft_lstnew(cont);
-					if (!aux)
-						return (free(cont), ft_free_params(var_val), 1);
-					ft_lstadd_back(&lista, aux);
-				}
-			}
-			ft_free_params(var_val);
 		}
 		else if (!ft_check_var_name(cmd_opt[i]) || cmd_opt[i][0] == '=')
-		{
-			printf("Not valid name\n");
-			code = 1;
-		}
+			code = ft_no_valid_name();
 	}
 	return (code);
 }
 
-//crear variables
-int	ft_export(char **cmd_opt)
+int	ft_export(char **cmd_opt, char **split)
 {
 	t_list	*lista;
 	t_list	*code;
 	t_list	*name;
-	char	**split;
 
 	lista = g_varbox->enviroment;
 	code = find_node_enviro_with_key("?", g_varbox->enviroment);
@@ -206,7 +215,7 @@ int	ft_export(char **cmd_opt)
 		}
 	}
 	else
-		return (ft_export_args(cmd_opt, 0, 0, g_varbox->enviroment));
+		return (ft_export_args(cmd_opt, 0, g_varbox->enviroment));
 	return (0);
 }
 
@@ -254,14 +263,17 @@ int	ft_unset(char **cmd_opt)
 	return (0);
 }
 
-static char	*ft_clean_bars(char *path)
+static int ft_walk_bars(char *path, int i)
 {
-	int		i;
-	char	*final_path;
-	char	*aux_join;
-	char	*aux;
+	while (path[i] == '/')
+				i++;
+	return (i);
+}
 
-	i = 0;
+static char	*ft_clean_bars(char *path, int i, char *aux_join, char *aux)
+{
+	char	*final_path;
+
 	final_path = (char *)ft_calloc(1, 1);
 	if (!final_path)
 		return (NULL);
@@ -278,10 +290,7 @@ static char	*ft_clean_bars(char *path)
 		if (!final_path)
 			return (NULL);
 		if (path[i] == '/')
-		{
-			while (path[i] == '/')
-				i++;
-		}
+			i = ft_walk_bars(path, i);
 		else
 			i++;
 	}
@@ -323,43 +332,46 @@ static int	ft_new_pwd(char *path)
 	return (0);
 }
 
-//actualizar old_pwd
+int	ft_get_path(char *path, char **split, char **cmd_opt, int i)
+{
+	path = ft_clean_bars(cmd_opt[1], 0, 0, 0);
+	if (!path)
+		return (1);
+	if (path[0] != '/')
+	{
+		split = ft_split(path, '/');
+		if (!split)
+			return (free(path), 1);
+		while (split[++i])
+		{
+			if (ft_set_path(split[i]))
+				return (ft_free_params(split), free(path),
+					printf("File or directory doesn't exist\n"), 1);
+		}
+		ft_free_params(split);
+	}
+	else
+	{
+		if (ft_set_path(path))
+			return (printf("File or directory doesn't exist\n"),
+				free(path), 1);
+	}
+	return (0);
+}
+
 int	ft_cd(char **cmd_opt)
 {
-	char	*path;
-	char	**split;
-	int		i;
-
 	if (ft_len_matrix2(cmd_opt) > 2 || ft_len_matrix2(cmd_opt) < 2)
-		return (printf("Too arguments!\n"), 1);
+		return (1);
 	if (ft_len_matrix2(cmd_opt) == 2)
 	{
-		path = ft_clean_bars(cmd_opt[1]);
-		if (!path)
+		if (ft_get_path(0, 0, cmd_opt, -1))
 			return (1);
-		if (path[0] != '/')
-		{
-			split = ft_split(path, '/');
-			if (!split)
-				return (free(path), 1);
-			i = -1;
-			while (split[++i])
-			{
-				if (ft_set_path(split[i]))
-					return (ft_free_params(split), free(path), printf("File or directory doesn't exist\n"), 1);
-			}
-			ft_free_params(split);
-		}
-		else
-		{
-			if (ft_set_path(path))
-				return (printf("File or directory doesn't exist\n"), free(path), 1);
-		}
 	}
 	if (ft_old_pwd(g_varbox->path))
-		return (free(path), 1);
+		return (1);
 	getcwd(g_varbox->path, 1024);
 	if (ft_new_pwd(g_varbox->path))
-		return (free(path), 1);
-	return (free(path), 0);
+		return (1);
+	return (0);
 }

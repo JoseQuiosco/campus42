@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 19:55:58 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:17:46 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,25 @@ static int	is_builtin(char **cmd_opt)
 	return (0);
 }
 
-// la salida de builtin no se está usando
+static int ft_exec_builtin(t_ejevars *v, char **cmd_opt)
+{
+	if (v->builtin == 1)
+		return (ft_pwd(cmd_opt));
+	else if (v->builtin == 2)
+		return (ft_exit(cmd_opt));
+	else if (v->builtin == 3)
+		return (ft_env(cmd_opt));
+	else if (v->builtin == 4)
+		return (ft_export(cmd_opt, NULL));
+	else if (v->builtin == 5)
+		return (ft_echo(cmd_opt));
+	else if (v->builtin == 6)
+		return (ft_unset(cmd_opt));
+	else if (v->builtin == 7)
+		return (ft_cd(cmd_opt));
+	return (0);
+}
+
 static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 {
 	int	saved;
@@ -90,28 +108,14 @@ static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 			close(pipes[v->i][1]);
 		}
 	}
-	if (v->builtin == 1)
-		v->status = ft_pwd(cmd_opt);
-	else if (v->builtin == 2)
-		v->status = ft_exit(cmd_opt);
-	else if (v->builtin == 3)
-		v->status = ft_env(cmd_opt);
-	else if (v->builtin == 4)
-		v->status = ft_export(cmd_opt, NULL);
-	else if (v->builtin == 5)
-		v->status = ft_echo(cmd_opt);
-	else if (v->builtin == 6)
-		v->status = ft_unset(cmd_opt);
-	else if (v->builtin == 7)
-		v->status = ft_cd(cmd_opt);
+	v->status = ft_exec_builtin(v, cmd_opt);
 	dup2(saved, STDOUT_FILENO);
 	return (actualizar_exit_code(v->status), 0);
 }
 
-static char	**env_to_matrix(t_list *list)
+static char	**env_to_matrix(t_list *list, int i)
 {
 	char	**res;
-	int		i;
 	t_list	*code;
 	t_list	*name;
 
@@ -121,7 +125,6 @@ static char	**env_to_matrix(t_list *list)
 	res = ft_calloc(ft_len_list(list) - 1, sizeof(char *));
 	if (!res)
 		return (NULL);
-	i = 0;
 	while (list)
 	{
 		if (list == name || list == code)
@@ -136,6 +139,20 @@ static char	**env_to_matrix(t_list *list)
 		i++;
 	}
 	return (res);
+}
+
+static void	ft_execve(char *route, char **cmd_opt, char **env)
+{
+	if (execve(route, cmd_opt, env) < 0)
+	{
+		ft_free_params(env);
+		printf("ERROR CABRON...\n");
+		if (errno == ENOENT)
+			exit(127);
+		else if (errno == EACCES)
+			exit(126);
+		exit(1);
+	}
 }
 
 static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
@@ -157,19 +174,10 @@ static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	}
 	if (!ft_len_matrix2(cmd_opt))
 		exit(0);
-	env = env_to_matrix(NULL);
+	env = env_to_matrix(NULL, 0);
 	if (!env)
 		exit(1);
-	if (execve(route, cmd_opt, env) < 0)
-	{
-		ft_free_params(env);
-		printf("ERROR CABRON...\n");
-		if (errno == ENOENT)
-			exit(127);
-		else if (errno == EACCES)
-			exit(126);
-		exit(1);
-	}
+	ft_execve(route, cmd_opt, env);
 }
 
 static int	hijo(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
