@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 13:14:12 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:55:58 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	builtin(t_ejevars *v, int **pipes, char **cmd_opt)
 	else if (v->builtin == 3)
 		v->status = ft_env(cmd_opt);
 	else if (v->builtin == 4)
-		v->status = ft_export(cmd_opt);
+		v->status = ft_export(cmd_opt, NULL);
 	else if (v->builtin == 5)
 		v->status = ft_echo(cmd_opt);
 	else if (v->builtin == 6)

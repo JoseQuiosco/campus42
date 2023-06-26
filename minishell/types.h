@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 18:14:11 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:54:49 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int			size_name(char *cmd, char *name, int type, int len);
 int			ft_pwd(char **cmd_opt);
 int			ft_exit(char **cmd_opt);
 int			ft_env(char **cmd_opt);
-int			ft_export(char **cmd_opt);
+int			ft_export(char **cmd_opt, char **split);
 int			ft_unset(char **cmd_opt);
 int			ft_echo(char **cmd_opt);
 int			ft_cd(char **cmd_opt);

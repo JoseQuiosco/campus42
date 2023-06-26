@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_generic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:24:37 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 13:31:28 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:55:33 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ char	*search_wc(int i, int j, char *line, int *q)
 		if (list)
 		{
 			res = insert_list(line, list, j + 1, &i);
+			ft_lstclear(&list, free_content_lst);
 			if (!res)
-				return (ft_lstclear(&list, free_content_lst), NULL);
+				return (NULL);
+			return (res);
 		}
-		return (ft_lstclear(&list, free_content_lst), res);
 	}
 	return (line);
 }

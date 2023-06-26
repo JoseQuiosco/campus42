@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 17:54:09 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:33:19 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,7 @@ int	ft_cd(char **cmd_opt)
 	int		i;
 
 	if (ft_len_matrix2(cmd_opt) > 2 || ft_len_matrix2(cmd_opt) < 2)
-		return (1);
+		return (printf("Too arguments!\n"), 1);
 	if (ft_len_matrix2(cmd_opt) == 2)
 	{
 		path = ft_clean_bars(cmd_opt[1]);
