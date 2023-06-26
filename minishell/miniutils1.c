@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniutils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 13:25:30 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/22 18:23:53 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:33:12 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@ char	*clean_spaces(char *str)
 	return (free(q), newstr);
 }
 
-/**
- * @brief Delete a section of a string
- * !: Free(s) in function
- * 
- * @param s String
- * @param p1 Init index
- * @param p2 End index
- * @return char* 
- */
 char	*strdeleted(char *s, int p1, int p2)
 {
 	int		len;

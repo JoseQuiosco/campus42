@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_operator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahernan <jahernan@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 12:10:50 by jahernan          #+#    #+#             */
-/*   Updated: 2023/02/01 18:40:47 by jahernan         ###   ########.fr       */
+/*   Created: 2023/02/01 12:10:50 by dvasco-m          #+#    #+#             */
+/*   Updated: 2023/06/26 16:35:01 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

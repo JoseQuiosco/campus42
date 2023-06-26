@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahernan <jahernan@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 11:35:40 by jahernan          #+#    #+#             */
-/*   Updated: 2023/02/01 12:12:50 by jahernan         ###   ########.fr       */
+/*   Created: 2023/06/26 16:31:41 by atalaver          #+#    #+#             */
+/*   Updated: 2023/06/26 16:31:43 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

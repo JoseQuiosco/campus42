@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 14:06:09 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:28:17 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_pwd(char **cmd_opt)
 {
 	(void) cmd_opt;
 	if (!getcwd(g_varbox->path, 1024))
-		return (printf("Path's length is too long\n"), 1); 
+		return (printf("Path's length is too long\n"), 1);
 	ft_printf("%s\n", g_varbox->path);
 	return (0);
 }
@@ -308,8 +308,8 @@ int	ft_cd(char **cmd_opt)
 			i = -1;
 			while (split[++i])
 			{
-					if (ft_set_path(split[i]))
-						return (ft_free_params(split), free(path), printf("File or directory doesn't exist\n"), 1);
+				if (ft_set_path(split[i]))
+					return (ft_free_params(split), free(path), printf("File or directory doesn't exist\n"), 1);
 			}
 			ft_free_params(split);
 		}
@@ -324,4 +324,3 @@ int	ft_cd(char **cmd_opt)
 	getcwd(g_varbox->path, 1024);
 	return (free(path), 0);
 }
-

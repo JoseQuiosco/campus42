@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 13:00:02 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:25:42 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ static char	*init_header(void)
 	return (res);
 }
 
-int	init_varbox(char **env)
+int	init_varbox(char **env, char *aux_str)
 {
-	char	*aux_str;
 	t_list	*aux;
 
 	g_varbox = (t_varbox *)malloc(sizeof(t_varbox));
@@ -73,14 +72,15 @@ int	init_varbox(char **env)
 		return (free(g_varbox), free(g_varbox->header), 1);
 	aux_str = ft_strdup("0=minishell");
 	if (!aux_str)
-		return (free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), free(g_varbox), 1);
+		return (free(g_varbox->header), ft_lstclear(&g_varbox->enviroment,
+				free_content_lst), free(g_varbox), 1);
 	aux = ft_lstnew(aux_str);
 	if (!aux)
-		return (free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), free(g_varbox), free(aux_str), 1);
+		return (free(g_varbox->header), ft_lstclear(&g_varbox->enviroment,
+				free_content_lst), free(g_varbox), free(aux_str), 1);
 	ft_lstadd_back(&g_varbox->enviroment, aux);
-	actualizar_exit_code(0);
 	aumentar_profundidad(NULL, 0, export_value("SHLVL"), NULL);
-	return (0);
+	return (actualizar_exit_code(0), 0);
 }
 
 int	actualizar_exit_code(int code)
@@ -121,7 +121,7 @@ int	main(int argc, char *argv[], char **env)
 	(void)argv;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, SIG_IGN);
-	if (init_varbox(env))
+	if (init_varbox(env, NULL))
 		return (1);
 	while (!g_varbox->exit)
 	{
@@ -137,6 +137,5 @@ int	main(int argc, char *argv[], char **env)
 	}
 	exit_code = g_varbox->exit_code;
 	ft_lstclear(&g_varbox->enviroment, free_content_lst);
-	free(g_varbox->header);
-	return (unlink(".antiJose"), exit_code);
+	return (free(g_varbox->header), unlink(".antiJose"), exit_code);
 }

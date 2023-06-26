@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_operator_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahernan <jahernan@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 11:59:31 by jahernan          #+#    #+#             */
-/*   Updated: 2023/02/01 19:13:04 by jahernan         ###   ########.fr       */
+/*   Created: 2023/06/26 16:35:27 by atalaver          #+#    #+#             */
+/*   Updated: 2023/06/26 16:35:28 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
