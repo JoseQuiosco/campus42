@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 22:37:57 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:10:14 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,11 @@ static void	hijo2(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	if (!ft_len_matrix2(cmd_opt))
 		exit(0);
 	env = env_to_matrix(NULL);
+	if (!env)
+		exit(1);
 	if (execve(route, cmd_opt, env) < 0)
 	{
+		ft_free_params(env);
 		printf("ERROR CABRON...\n");
 		if (errno == ENOENT)
 			exit(127);
