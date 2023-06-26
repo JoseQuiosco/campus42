@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_generic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:24:37 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/21 18:03:45 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:31:28 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*search_wc(int i, int j, char *line, int *q)
 		aux = ft_substr(line, j + 1, i);
 		if (!aux)
 			return (free(line), NULL);
-		list = wildcard_gestor(aux, g_varbox->path);
+		list = wildcard_gestor(aux);
 		free(aux);
 		if (list)
 		{

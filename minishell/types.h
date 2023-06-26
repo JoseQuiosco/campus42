@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by jahernan          #+#    #+#             */
-/*   Updated: 2023/06/24 23:22:05 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:30:47 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct iwc
 	char	**ptrn;
 	char	*p;
 	int		r;
-	char	*path;
+	char	path[1024];
 }	t_iwc;
 
 t_cmdtree	*ft_build_cmdtree(char *cmd);
@@ -101,7 +101,7 @@ int			count_pipes(char **inpipes);
 char		*find_path(char *cmd, int *control, int i);
 int			procrear(t_ejevars *v, char **inpipes, int **pipes, char **cmd_opt);
 t_list		*find_node_enviro_with_key(char *key, t_list *list);
-t_list		*wildcard_gestor(char *str, char *path);
+t_list		*wildcard_gestor(char *str);
 char		*search_wc(int i, int j, char *line, int *q);
 char		*insert_list(char *line, t_list *list, int j, int *i);
 char		*insert_content(char *res, t_list *list, int *len);
@@ -115,4 +115,5 @@ int			ft_env(char **cmd_opt);
 int			ft_export(char **cmd_opt);
 int			ft_unset(char **cmd_opt);
 int			ft_echo(char **cmd_opt);
+int			ft_cd(char **cmd_opt);
 #endif

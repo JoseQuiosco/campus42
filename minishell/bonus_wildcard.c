@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_wildcard.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:12:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:02:16 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:30:03 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static t_list	*expand_wc(char *s, t_iwc *iwc, t_list *matchs, char *copy)
 	return (closedir(dirp), matchs);
 }
 
-t_list	*wildcard_gestor(char *str, char *path)
+t_list	*wildcard_gestor(char *str)
 {
 	t_iwc	iwc;
 	t_list	*matchs;
@@ -132,7 +132,7 @@ t_list	*wildcard_gestor(char *str, char *path)
 	if (*str == '\0')
 		return (NULL);
 	matchs = NULL;
-	iwc.path = path;
+	getcwd(iwc.path, 1024);
 	if (creat_iwc(&iwc, str, -1, 0))
 		return (NULL);
 	matchs = expand_wc(str, &iwc, matchs, NULL);

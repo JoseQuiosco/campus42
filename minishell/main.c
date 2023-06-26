@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/25 00:23:39 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:00:02 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int	init_varbox(char **env)
 		return (free(g_varbox), free(g_varbox->header), 1);
 	aux_str = ft_strdup("0=minishell");
 	if (!aux_str)
-		return (free(g_varbox), free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), 1);
+		return (free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), free(g_varbox), 1);
 	aux = ft_lstnew(aux_str);
 	if (!aux)
-		return (free(g_varbox), free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), free(aux_str), 1);
+		return (free(g_varbox->header), ft_lstclear(&g_varbox->enviroment, free_content_lst), free(g_varbox), free(aux_str), 1);
 	ft_lstadd_back(&g_varbox->enviroment, aux);
 	actualizar_exit_code(0);
 	aumentar_profundidad(NULL, 0, export_value("SHLVL"), NULL);
