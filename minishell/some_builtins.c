@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 16:28:17 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:54:09 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ int	ft_exit(char **cmd_opt)
 	return (0);
 }
 
+static int check_n(char *option)
+{
+	int i;
+
+	if (!ft_strncmp("-n", option, 2))
+	{
+		i = 2;
+		while (option[i] == 'n')
+			i++;
+		if (option[i] == '\0')
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_echo(char **cmd_opt)
 {
 	int	option;
@@ -60,7 +75,7 @@ int	ft_echo(char **cmd_opt)
 	i = 1;
 	if (ft_len_matrix2(cmd_opt) > 1)
 	{
-		while (cmd_opt[i] && !ft_strcmp("-n", cmd_opt[i]))
+		while (cmd_opt[i] && check_n(cmd_opt[i]))
 		{
 			option = 1;
 			i++;
@@ -126,32 +141,40 @@ static int	ft_export_args(char **cmd_opt, int i, char **var_val, t_list *lista)
 	code = 0;
 	while (cmd_opt[++i])
 	{
-		var_val = ft_split(cmd_opt[i], '=');
-		if (!var_val)
-			return (1);
-		if (!ft_check_var_name(var_val[0]) || cmd_opt[i][0] == '=')
+		if (ft_strchr(cmd_opt[i], '='))
+		{
+			var_val = ft_split(cmd_opt[i], '=');
+			if (!var_val)
+				return (1);
+			if (!ft_check_var_name(var_val[0]) || cmd_opt[i][0] == '=')
+			{
+				printf("Not valid name\n");
+				code = 1;
+			}
+			else
+			{
+				aux = find_node_enviro_with_key(var_val[0], lista);
+				cont = ft_strdup(cmd_opt[i]);
+				if (aux)
+				{
+					free(aux->content);
+					aux->content = cont;
+				}
+				else
+				{
+					aux = ft_lstnew(cont);
+					if (!aux)
+						return (free(cont), ft_free_params(var_val), 1);
+					ft_lstadd_back(&lista, aux);
+				}
+			}
+			ft_free_params(var_val);
+		}
+		else if (!ft_check_var_name(cmd_opt[i]) || cmd_opt[i][0] == '=')
 		{
 			printf("Not valid name\n");
 			code = 1;
 		}
-		else if (var_val[1])
-		{
-			aux = find_node_enviro_with_key(var_val[0], lista);
-			cont = ft_strdup(cmd_opt[i]);
-			if (aux)
-			{
-				free(aux->content);
-				aux->content = cont;
-			}
-			else
-			{
-				aux = ft_lstnew(cont);
-				if (!aux)
-					return (free(cont), ft_free_params(var_val), 1);
-				ft_lstadd_back(&lista, aux);
-			}
-		}
-		ft_free_params(var_val);
 	}
 	return (code);
 }
@@ -286,6 +309,20 @@ static int	ft_old_pwd(char *path)
 	return (0);
 }
 
+static int	ft_new_pwd(char *path)
+{
+	t_list	*list;
+	char	*aux;
+
+	list = find_node_enviro_with_key("PWD", g_varbox->enviroment);
+	free(list->content);
+	aux = ft_strjoin("PWD=", path);
+	if (!aux)
+		return (1);
+	list->content = aux;
+	return (0);
+}
+
 //actualizar old_pwd
 int	ft_cd(char **cmd_opt)
 {
@@ -293,7 +330,7 @@ int	ft_cd(char **cmd_opt)
 	char	**split;
 	int		i;
 
-	if (ft_len_matrix2(cmd_opt) > 2)
+	if (ft_len_matrix2(cmd_opt) > 2 || ft_len_matrix2(cmd_opt) < 2)
 		return (1);
 	if (ft_len_matrix2(cmd_opt) == 2)
 	{
@@ -322,5 +359,7 @@ int	ft_cd(char **cmd_opt)
 	if (ft_old_pwd(g_varbox->path))
 		return (free(path), 1);
 	getcwd(g_varbox->path, 1024);
+	if (ft_new_pwd(g_varbox->path))
+		return (free(path), 1);
 	return (free(path), 0);
 }

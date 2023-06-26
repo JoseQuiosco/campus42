@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enviro.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:53:00 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 01:17:48 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:37:55 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,15 @@ char	*expand_envar(char *line)
 	q = (int *)ft_calloc(2, sizeof(int));
 	if (q == NULL)
 		return (NULL);
-	while (line != NULL && line[i] != '\0')
+	while (line[i] != '\0')
 	{
 		if (!quotes(line[i++], q))
 		{
 			if (q[0] != '\'' && line[i - 1] == '$')
+			{
 				line = constructor(i, i, line);
+				i = 0;
+			}
 		}
 	}
 	return (free(q), line);
