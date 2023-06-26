@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 20:52:33 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:50:08 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_varbox	*g_varbox;
 
-static int	ft_no_valid_name(void)
+int	ft_no_valid_name(void)
 {
 	return (printf("Not valid name\n"), 1);
 }

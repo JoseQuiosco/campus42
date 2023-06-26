@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ejecutor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 20:57:16 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:24:16 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	ejecutor_i(char *ins)
 	code = ft_init_ejecutor(&v, ins);
 	if (code <= 0)
 		return (-code);
+	g_varbox->flag_c = 0;
 	while (v.inpipes[++v.i])
 	{
 		v.route = define_route(&v, &v.inpipes, &v.cmd_opt, v.pipes);
@@ -115,7 +116,6 @@ int	ejecutor_i(char *ins)
 			return (ft_freedom(v.inpipes, v.cmd_opt, v.pipes, v.route), 1);
 		if (g_varbox->flag_c)
 		{
-			g_varbox->flag_c = 0;
 			ft_free_params(v.cmd_opt);
 			if (v.route)
 				free(v.route);

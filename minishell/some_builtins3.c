@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   some_builtins3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:50:52 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 20:52:57 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:49:45 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,14 @@ int	ft_unset(char **cmd_opt)
 {
 	t_list	*var;
 	int		i;
+	int		code;
 
 	i = 0;
+	code = 0;
 	while (cmd_opt[++i])
 	{
-		if (!ft_check_var_name(cmd_opt[i]))
-			continue ;
+		if (!ft_check_var_name(cmd_opt[i]) || cmd_opt[i][0] == '=')
+			code = ft_no_valid_name();
 		var = find_node_enviro_with_key(cmd_opt[i], g_varbox->enviroment);
 		if (var)
 		{
@@ -108,5 +110,5 @@ int	ft_unset(char **cmd_opt)
 			g_varbox->enviroment = ft_lstdel_last(&(g_varbox->enviroment));
 		}
 	}
-	return (0);
+	return (code);
 }

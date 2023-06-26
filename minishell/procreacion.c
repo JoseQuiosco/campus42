@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 19:47:46 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 20:36:25 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:24:11 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ static void	papa(t_ejevars *v, int **pipes, char *route, char **cmd_opt)
 	waitpid(v->pid, &v->status, 0);
 	actualizar_exit_code(WEXITSTATUS(v->status));
 	if (g_varbox->flag_c == 2)
-		actualizar_exit_code(CODE_ERROR);
-	g_varbox->flag_c = 0;
+		actualizar_exit_code(130);
+	else
+		g_varbox->flag_c = 0;
 	ft_free_params(cmd_opt);
 	if (v->control_route)
 		free(route);

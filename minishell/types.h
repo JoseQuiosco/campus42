@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 20:52:55 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:50:15 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int			builtin(t_ejevars *v, int **pipes, char **cmd_opt);
 char		**env_to_matrix(t_list *list, int i);
 char		*ft_clean_bars(char *path, int i, char *aux_join, char *aux);
 int			ft_check_var_name(char *s);
+int			ft_no_valid_name(void);
 
 //BUILTINS
 int			ft_pwd(char **cmd_opt);

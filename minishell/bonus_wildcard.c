@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:12:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 13:30:03 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:31:23 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ static t_list	*expand_wc(char *s, t_iwc *iwc, t_list *matchs, char *copy)
 				ft_lstadd_back(&matchs, ft_lstnew(copy));
 			}
 		}
-		else if (!((*f->d_name == 46 && *s != 46) || !ft_strcmp(".", f->d_name)
-				|| !ft_strcmp("..", f->d_name)) && (anal_f(f, iwc, -1, 0) != 1))
+		else if (!(*f->d_name == '.' && *s != '.')
+			&& (anal_f(f, iwc, -1, 0) != 1))
 		{
 			copy = ft_strdup(f->d_name);
 			ft_lstadd_back(&matchs, ft_lstnew(copy));

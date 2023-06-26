@@ -2,6 +2,7 @@
 	"files.associations": {
 		"shell_utils.h": "c",
 		"dirent.h": "c",
-		"random": "c"
+		"random": "c",
+		"types.h": "c"
 	}
 }
