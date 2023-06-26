@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:23:54 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/24 01:39:18 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:09:31 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_cmdtree	*ft_build_cmdtree(char *cmd_ln)
 	tree = malloc(sizeof(t_cmdtree));
 	if (!tree)
 		return (NULL);
-	tree->cmd = ft_cpy_cmd_clean(cmd_ln);
+	tree->cmd = ft_cpy_cmd_clean(cmd_ln, 0, NULL);
 	if (!tree->cmd)
 		return (free(tree), NULL);
 	op_idx = ft_find_op_idx(tree->cmd);
