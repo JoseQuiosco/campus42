@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:23:54 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 18:09:31 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:53:28 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_cmdtree	*ft_build_cmdtree(char *cmd_ln)
 void	ft_exec_cmdtree(t_cmdtree *tree)
 {
 	if (tree->type == T_LEAF)
-		tree->rc = ejecutor_i(tree->cmd);
+		tree->rc = ejecutor_i(tree->cmd, 0);
 	else
 	{
 		if (tree->type == T_AND)

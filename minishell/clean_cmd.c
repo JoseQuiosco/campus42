@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:25:59 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 18:09:12 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:06:00 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_count_bars(char *cmd)
 
 	q = (int *)ft_calloc(2, sizeof(int));
 	if (!q)
-		return (1);
+		return (actualizar_exit_code(1), 1);
 	i = 0;
 	count = 0;
 	while (cmd[i])
@@ -33,9 +33,11 @@ static int	ft_count_bars(char *cmd)
 		else if (cmd[i] == ')' && !q[1])
 			count--;
 		if (count < 0)
-			return (free(q), 1);
+			return (free(q), actualizar_exit_code(1), 1);
 		i++;
 	}
+	if (count)
+		actualizar_exit_code(1);
 	return (free(q), count);
 }
 
@@ -72,42 +74,42 @@ static int	ft_check_operators(char *cmd, int i, int *q)
 {
 	q = (int *)ft_calloc(2, sizeof(int));
 	if (!q)
-		return (1);
+		return (actualizar_exit_code(1), 1);
 	while (cmd[++i])
 	{
 		quotes(cmd[i], q);
 		if (cmd[i] == '&' && !q[1])
 		{
 			if (ft_strncmp(&cmd[i], "&&", 2))
-				return (free(q), 1);
+				return (free(q), actualizar_exit_code(258), 1);
 			else
 				i++;
 			if (ft_check_left_rigth(i, cmd))
-				return (free(q), 1);
+				return (free(q), actualizar_exit_code(258), 1);
 		}
 		else if (cmd[i] == '|' && !q[1])
 		{
 			if (!ft_strncmp(&cmd[i], "||", 2))
 				i++;
 			if (ft_check_left_rigth(i, cmd))
-				return (free(q), 1);
+				return (free(q), actualizar_exit_code(258), 1);
 		}
 	}
 	return (free(q), 0);
 }
 
-static char	*ft_check_comillas(char *cmd, int i)
+static int	ft_check_comillas(char *cmd, int i)
 {
 	int		*q;
 
 	q = (int *)ft_calloc(2, sizeof(int));
 	if (!q)
-		return (NULL);
+		return (actualizar_exit_code(1), 1);
 	while (cmd[i])
 		quotes(cmd[i++], q);
 	if (q[1])
-		return (free(q), NULL);
-	return (free(q), cmd);
+		return (free(q), actualizar_exit_code(1), 1);
+	return (free(q), 0);
 }
 
 char	*ft_cpy_cmd_clean(char *cmd_ln, int i, char *aux2)
@@ -120,9 +122,8 @@ char	*ft_cpy_cmd_clean(char *cmd_ln, int i, char *aux2)
 		i++;
 	if (!cmd_ln[i])
 		return (cmd_ln);
-	cmd_ln = ft_check_comillas(cmd_ln, 0);
-	if (!cmd_ln)
-		return (printf("Error comillas\n"), NULL);
+	if (ft_check_comillas(cmd_ln, 0))
+		return (free(cmd_ln), printf("Error comillas\n"), NULL);
 	if (ft_check_operators(cmd_ln, -1, NULL))
 		return (free(cmd_ln), printf("Invalid operators\n"), NULL);
 	if (ft_count_bars(cmd_ln))
@@ -136,5 +137,6 @@ char	*ft_cpy_cmd_clean(char *cmd_ln, int i, char *aux2)
 	if (ft_strlen(aux2) > 0)
 		return (free(aux), aux2);
 	else
-		return (free(aux), free(aux2), printf("Invalid ()\n"), NULL);
+		return (free(aux), free(aux2), actualizar_exit_code(1),
+			printf("Invalid ()\n"), NULL);
 }

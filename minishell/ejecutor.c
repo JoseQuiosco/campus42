@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 22:24:16 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:51:21 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static char	*define_route(t_ejevars *v, char ***inpipes,
 {
 	char	*aux;
 
+	*cmd_opt = NULL;
+	v->route = NULL;
 	if (init_and_clear_spaces(v, inpipes))
 		return (NULL);
 	*cmd_opt = ft_split_m(*(*inpipes + v->i), ' ');
@@ -74,15 +76,13 @@ static char	*define_route(t_ejevars *v, char ***inpipes,
 		if (pipe(*(pipes + v->i)) < 0)
 			return (printf("ERROR CREATE PIPE\n"), NULL);
 	}
-	if (access(*(*inpipes + v->i), F_OK | X_OK) != 0)
+	aux = find_path(**cmd_opt, &v->control_route, -1);
+	if (!aux)
 	{
-		aux = find_path(**cmd_opt, &v->control_route, -1);
-		if (!aux)
-			return (NULL);
-		return (aux);
+		if (access(*(*inpipes + v->i), F_OK | X_OK) == 0)
+			return (*(*inpipes + v->i));
 	}
-	else
-		return (*(*inpipes + v->i));
+	return (aux);
 }
 
 static int	ft_init_ejecutor(t_ejevars *v, char *ins)
@@ -100,10 +100,9 @@ static int	ft_init_ejecutor(t_ejevars *v, char *ins)
 	return (1);
 }
 
-int	ejecutor_i(char *ins)
+int	ejecutor_i(char *ins, int code)
 {
 	t_ejevars	v;
-	int			code;
 
 	code = ft_init_ejecutor(&v, ins);
 	if (code <= 0)
@@ -113,7 +112,8 @@ int	ejecutor_i(char *ins)
 	{
 		v.route = define_route(&v, &v.inpipes, &v.cmd_opt, v.pipes);
 		if (!v.route)
-			return (ft_freedom(v.inpipes, v.cmd_opt, v.pipes, v.route), 1);
+			return (ft_freedom(v.inpipes, v.cmd_opt, v.pipes, v.route),
+				actualizar_exit_code(258), printf("Syntax error\n"), 1);
 		if (g_varbox->flag_c)
 		{
 			ft_free_params(v.cmd_opt);

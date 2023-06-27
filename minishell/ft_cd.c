@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:46:40 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 21:42:00 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:08:45 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_set_path(char *path)
 	{
 		aux = export_value("HOME");
 		if (!aux)
-			return (1);
+			return (printf("HOMELESS!\n"), 1);
 		if (chdir(aux) < 0)
 			return (free(aux), 1);
 		free(aux);
@@ -38,6 +38,8 @@ static int	ft_old_pwd(char *path)
 	char	*aux;
 
 	list = find_node_enviro_with_key("OLDPWD", g_varbox->enviroment);
+	if (!list)
+		return (0);
 	free(list->content);
 	aux = ft_strjoin("OLDPWD=", path);
 	if (!aux)
@@ -52,6 +54,8 @@ static int	ft_new_pwd(char *path)
 	char	*aux;
 
 	list = find_node_enviro_with_key("PWD", g_varbox->enviroment);
+	if (!list)
+		return (0);
 	free(list->content);
 	aux = ft_strjoin("PWD=", path);
 	if (!aux)
@@ -84,7 +88,7 @@ static int	ft_get_path(char *path, char **split, char **cmd_opt, int i)
 			return (printf("File or directory doesn't exist\n"),
 				free(path), 1);
 	}
-	return (0);
+	return (free(path), 0);
 }
 
 int	ft_cd(char **cmd_opt)
@@ -97,7 +101,7 @@ int	ft_cd(char **cmd_opt)
 	{
 		aux = export_value("HOME");
 		if (!aux)
-			return (1);
+			return (printf("HOMELESS!\n"), 1);
 		if (ft_set_path(aux))
 			return (free(aux), 1);
 		free(aux);

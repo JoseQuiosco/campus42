@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:48:27 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 21:50:08 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:21:51 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_export(char **cmd_opt, char **split)
 				if (!split)
 					return (1);
 				printf("declare -x %s=\"%s\"\n", split[0], split[1]);
-				free(split);
+				ft_free_params(split);
 			}
 			lista = lista->next;
 		}

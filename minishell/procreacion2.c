@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procreacion2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:36:36 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 20:38:42 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:34:16 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_exec_builtin(t_ejevars *v, char **cmd_opt)
 	if (v->builtin == 1)
 		return (ft_pwd(cmd_opt));
 	else if (v->builtin == 2)
-		return (ft_exit(cmd_opt));
+		return (ft_exit(cmd_opt, NULL));
 	else if (v->builtin == 3)
 		return (ft_env(cmd_opt));
 	else if (v->builtin == 4)

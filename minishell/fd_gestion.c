@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_gestion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:09:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 18:13:40 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:57:31 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	hijo_read_buffer(t_ficheros *tp, char *end)
 	exit(0);
 }
 
-static void	read_buffer(t_ficheros *tp, char *end)
+void	read_buffer(t_ficheros *tp, char *end)
 {
 	pid_t	pid;
 	int		code;
@@ -73,9 +73,8 @@ static void	close_fin(t_ficheros *tp)
 	}
 }
 
-int	entrada(char *cmd, t_ficheros *tp, int type)
+int	entrada(char *cmd, t_ficheros *tp, int type, char *name)
 {
-	char	*name;
 	int		len;
 
 	name = search_name(cmd, 0);
@@ -92,10 +91,13 @@ int	entrada(char *cmd, t_ficheros *tp, int type)
 	}
 	if (type == 1)
 	{
-		tp->ft = open(".antiJose", O_WRONLY | O_TRUNC | O_CREAT, 0000777);
-		read_buffer(tp, name);
-		close(tp->ft);
-		tp->ft = open(".antiJose", O_RDONLY);
+		if (!tp->f_word)
+			tp->f_word = ft_strdup(name);
+		else
+		{
+			free(tp->f_word);
+			tp->f_word = ft_strdup(name);
+		}
 	}
 	return (size_name(cmd, name, type, len));
 }

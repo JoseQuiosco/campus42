@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 21:50:15 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:56:18 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct ficheros
 {
 	int		fi;
 	int		ft;
+	char	*f_word;
 	int		fs;
 	int		control_i;
 }	t_ficheros;
@@ -89,13 +90,13 @@ void		ft_exec_cmdtree(t_cmdtree *tree);
 void		ft_free_cmdtree(t_cmdtree *tree);
 char		*export_value(char *var);
 char		*expand_envar(char *line);
-int			ejecutor_i(char *ins);
+int			ejecutor_i(char *ins, int code);
 int			actualizar_exit_code(int code);
 char		*clean_spaces(char *str);
 char		*strdeleted(char *s, int p1, int p2);
 char		*search_name(char *cmd, int len);
 int			salida(char *cmd, t_ficheros *tp, int type);
-int			entrada(char *cmd, t_ficheros *tp, int type);
+int			entrada(char *cmd, t_ficheros *tp, int type, char *name);
 char		*open_and_format(char *s, t_ficheros *tp, int i, char *cmd);
 void		ft_freedom(char **inpipes, char **cmd_opt, int **pipes,
 				char *route);
@@ -118,10 +119,11 @@ char		**env_to_matrix(t_list *list, int i);
 char		*ft_clean_bars(char *path, int i, char *aux_join, char *aux);
 int			ft_check_var_name(char *s);
 int			ft_no_valid_name(void);
+void		read_buffer(t_ficheros *tp, char *end);
 
 //BUILTINS
 int			ft_pwd(char **cmd_opt);
-int			ft_exit(char **cmd_opt);
+int			ft_exit(char **cmd_opt, char *aux);
 int			ft_env(char **cmd_opt);
 int			ft_export(char **cmd_opt, char **split);
 int			ft_unset(char **cmd_opt);

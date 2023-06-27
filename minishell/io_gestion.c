@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_gestion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:45:38 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/26 18:13:55 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:57:43 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	redirect_gestor_entrada(char **cmd, int *i, int *q, t_ficheros *tp)
 	j = 0;
 	if (*(*cmd + (*i + 1)) == '<' && (*(*cmd + (*i + 2)) == '<'
 			|| *(*cmd + (*i + 2)) == '>'))
-		return (printf("ERROR DE SINTAXIS\n"), free(cmd), free(q), 1);
+		return (printf("ERROR DE SINTAXIS\n"), free(*cmd), free(q), 1);
 	if (*(*cmd + (*i + 1)) == '<')
-		j = entrada(*cmd + (*i + 2), tp, 1);
+		j = entrada(*cmd + (*i + 2), tp, 1, NULL);
 	else
-		j = entrada(*cmd + (*i + 1), tp, 0);
+		j = entrada(*cmd + (*i + 1), tp, 0, NULL);
 	if (j > 0)
 		*cmd = strdeleted(*cmd, *i, j + *i);
 	else
@@ -39,7 +39,7 @@ static int	redirect_gestor_salida(char **cmd, int *i, int *q, t_ficheros *tp)
 	j = 0;
 	if (*(*cmd + (*i + 1)) == '>' && (*(*cmd + (*i + 2)) == '<'
 			|| *(*cmd + (*i + 2)) == '>'))
-		return (printf("ERROR DE SINTAXIS\n"), free(cmd), free(q), 1);
+		return (printf("ERROR DE SINTAXIS\n"), free(*cmd), free(q), 1);
 	if (*(*cmd + (*i + 1)) == '>')
 		j = salida(*cmd + (*i + 2), tp, 1);
 	else
@@ -52,11 +52,24 @@ static int	redirect_gestor_salida(char **cmd, int *i, int *q, t_ficheros *tp)
 	return (0);
 }
 
+void	check_buffer(t_ficheros *tp)
+{
+	if (tp->f_word)
+	{
+		tp->ft = open(".antiJose", O_WRONLY | O_TRUNC | O_CREAT, 0000777);
+		read_buffer(tp, tp->f_word);
+		close(tp->ft);
+		tp->ft = open(".antiJose", O_RDONLY);
+		free(tp->f_word);
+	}
+}
+
 char	*open_and_format(char *s, t_ficheros *tp, int i, char *cmd)
 {
 	int	*q;
 
 	free(s);
+	tp->f_word = NULL;
 	if (!cmd)
 		return (NULL);
 	q = (int *)ft_calloc(2, sizeof(int));
@@ -78,6 +91,7 @@ char	*open_and_format(char *s, t_ficheros *tp, int i, char *cmd)
 			}
 		}
 	}
+	check_buffer(tp);
 	return (free(q), cmd);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ejecutor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:55:13 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/24 01:23:30 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:51:19 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ int	**creat_pipes(int npipes)
 
 void	ft_freedom(char **inpipes, char **cmd_opt, int **pipes, char *route)
 {
-	if (pipes != NULL)
+	if (pipes)
 		ft_free_params((char **)pipes);
-	if (inpipes != NULL)
+	if (inpipes)
 		ft_free_params(inpipes);
-	if (cmd_opt != NULL)
+	if (cmd_opt)
 		ft_free_params(cmd_opt);
-	if (route != NULL)
+	if (route)
 		free(route);
 }

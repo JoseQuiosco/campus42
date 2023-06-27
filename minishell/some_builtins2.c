@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:48:22 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 21:44:54 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:33:41 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int	ft_pwd(char **cmd_opt)
 	return (0);
 }
 
-int	ft_exit(char **cmd_opt)
+int	ft_exit(char **cmd_opt, char *aux)
 {
-	char	*aux;
-
 	g_varbox->exit = 1;
 	if (ft_len_matrix2(cmd_opt) > 2)
 	{
@@ -34,9 +32,12 @@ int	ft_exit(char **cmd_opt)
 		if (!aux)
 			return (1);
 		if (ft_is_full_digit(aux))
-			return (printf("Too much arguments!\n"), free(aux), 1);
+		{
+			g_varbox->exit = 0;
+			return (printf("exit\nToo much arguments!\n"), free(aux), 1);
+		}
 		else
-			return (printf("Too much arguments!\n"), free(aux), 2);
+			return (printf("exit\nArgument isn't a number!\n"), free(aux), 255);
 	}
 	else if (ft_len_matrix2(cmd_opt) == 2)
 	{
@@ -44,11 +45,11 @@ int	ft_exit(char **cmd_opt)
 		if (!aux)
 			return (1);
 		if (ft_is_full_digit(aux))
-			return (free(aux), ft_atoi(cmd_opt[1]));
+			return (free(aux), printf("exit\n"), ft_atoi(cmd_opt[1]));
 		else
-			return (printf("Argument isn't a number!\n"), free(aux), 2);
+			return (printf("exit\nArgument isn't a number!\n"), free(aux), 255);
 	}
-	return (0);
+	return (printf("exit\n"), 0);
 }
 
 static int	check_n(char *option)
