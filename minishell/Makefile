@@ -1,31 +1,47 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/06/28 12:23:02 by atalaver          #+#    #+#              #
+#    Updated: 2023/06/28 12:36:30 by atalaver         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME=minishell
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -g
-LFLAGS=-L./libft
-IFLAGS=-I./libft/include
+CFLAGS=-Wall -Wextra -Werror
 LIBFT=libft/libft.a
-LIBS=-lreadline -lft
-COMPILED_OBJS=$(shell find . -name '*.o')
-SRC:=$(shell find . -maxdepth 1 -name '*.c')
+READLINE=-lreadline
+SRC=bonus_wildcard.c clean_cmd_utils.c clean_cmd.c ejecutor.c enviro.c\
+fd_gestion.c find_operator_utils.c find_operator.c ft_cd.c io_gestion.c\
+main.c miniutils1.c procreacion.c procreacion2.c some_builtins.c\
+some_builtins2.c some_builtins3.c tree_main.c utils_ejecutor.c utils_generic.c
 OBJ=$(SRC:.c=.o)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $(NAME) $(LIBS) $(DBG)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(READLINE)
 
-%.o:%.c
-	$(CC) $(CFLAGS) $(IFLAGS) -o3 -c $< -o $@ $(DBG)
+bonus: all
 
 $(LIBFT):
 	$(MAKE) bonus -C ./libft
 
-fclean: clean
-	$(MAKE) fclean -C ./libft
-	rm -rf $(NAME)
-
 clean:
+	rm -rf $(OBJ)
 	$(MAKE) clean -C ./libft
-	rm -rf $(COMPILED_OBJS)
+
+fclean: clean
+	rm -rf $(NAME)
+	$(MAKE) fclean -C ./libft
 
 re: fclean all
+
+.PHONY: clean fclean re all bonus
