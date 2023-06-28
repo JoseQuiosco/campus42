@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/27 17:34:29 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:15:12 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,5 @@ int	main(int argc, char *argv[], char **env)
 	}
 	exit_code = g_varbox->exit_code;
 	ft_lstclear(&g_varbox->enviroment, free_content_lst);
-	return (free(g_varbox->header), unlink(".antiJose"), exit_code);
+	return (free(g_varbox->header), exit_code);
 }

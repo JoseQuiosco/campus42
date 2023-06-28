@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_gestion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:45:38 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/27 17:57:43 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:09:18 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*open_and_format(char *s, t_ficheros *tp, int i, char *cmd)
 	int	*q;
 
 	free(s);
-	tp->f_word = NULL;
 	if (!cmd)
 		return (NULL);
 	q = (int *)ft_calloc(2, sizeof(int));
@@ -91,8 +90,7 @@ char	*open_and_format(char *s, t_ficheros *tp, int i, char *cmd)
 			}
 		}
 	}
-	check_buffer(tp);
-	return (free(q), cmd);
+	return (check_buffer(tp), free(q), cmd);
 }
 
 int	size_name(char *cmd, char *name, int type, int len)

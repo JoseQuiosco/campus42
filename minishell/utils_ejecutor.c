@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ejecutor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:55:13 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/27 15:51:19 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:15:29 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	ft_freedom(char **inpipes, char **cmd_opt, int **pipes, char *route)
 		ft_free_params(cmd_opt);
 	if (route)
 		free(route);
+	unlink(".antiJose");
 }

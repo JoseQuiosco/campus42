@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ejecutor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/27 17:51:21 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:12:55 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 
 	v->tp.fi = 0;
 	v->tp.ft = 0;
+	v->tp.f_word = NULL;
 	v->tp.fs = 0;
 	v->tp.control_i = 0;
 	v->control_route = 0;
@@ -117,7 +118,7 @@ int	ejecutor_i(char *ins, int code)
 		if (g_varbox->flag_c)
 		{
 			ft_free_params(v.cmd_opt);
-			if (v.route)
+			if (v.route && v.i > 0)
 				free(v.route);
 			break ;
 		}
