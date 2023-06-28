@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_m2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 14:52:33 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/07 13:13:39 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:53:56 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	**ft_split_m2(char *s, char c)
 	{
 		words[i] = ft_word(s + j, &j, q, c);
 		if (!words[i++])
-			ft_free_params(words);
+			return (ft_free_params(words), NULL);
 	}
 	return (words);
 }

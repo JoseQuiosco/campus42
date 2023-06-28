@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:09:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/28 12:08:07 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:49:27 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ int	entrada(char *cmd, t_ficheros *tp, int type, char *name)
 	if (!name)
 		return (0);
 	len = ft_strlen(name);
-	if (!len)
-		return (free(name), 0);
 	close_fin(tp);
 	if (type == 0)
 	{
@@ -111,8 +109,6 @@ int	salida(char *cmd, t_ficheros *tp, int type)
 	if (!name)
 		return (0);
 	len = ft_strlen(name);
-	if (!len)
-		return (free(name), 0);
 	if (tp->fs > 0)
 	{
 		close(tp->fs);

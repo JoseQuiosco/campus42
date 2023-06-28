@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniutils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 13:25:30 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/27 15:49:15 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:31:36 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*search_name(char *cmd, int len)
 		n[0]++;
 	if (cmd[n[0]] == '\'' || cmd[n[0]] == '"')
 		quotes(cmd[n[0]++], q);
-	while (cmd[n[0]] && (cmd[n[0]] != ' ' || q[1]))
+	while (cmd[n[0]] && (cmd[n[0]] != ' ' || q[1]) && ft_lim_bash(cmd[n[0]]))
 	{
 		if (!quotes(cmd[n[0]], q))
 		{

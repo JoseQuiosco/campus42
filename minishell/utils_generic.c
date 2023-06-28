@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:24:37 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/26 20:57:37 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:31:05 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,29 @@ char	*insert_list(char *line, t_list *list, int j, int *i)
 		return (free(line), NULL);
 	*i += len;
 	return (free(line), res);
+}
+
+int	ft_lim_bash(char c)
+{
+	if (c != '|' && c != '&' && c != '(' && c != ')'
+		&& c != '<' && c != '>' && c != '#')
+		return (1);
+	return (0);
+}
+
+int	check_sintax(char *s, char c, int i)
+{
+	int	count;
+
+	i++;
+	if (s[i] == c)
+		i++;
+	count = 0;
+	while (s[i] && ft_lim_bash(s[i]))
+	{
+		if (!ft_isspace(s[i]))
+			count++;
+		i++;
+	}
+	return (count);
 }

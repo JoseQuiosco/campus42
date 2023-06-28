@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:31:57 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/28 12:12:55 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:21:57 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char	*expand_wildcard(char *line)
 static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 {
 	char	*aux;
+	char	*aux2;
 
 	v->tp.fi = 0;
 	v->tp.ft = 0;
@@ -48,16 +49,18 @@ static int	init_and_clear_spaces(t_ejevars *v, char ***inpipes)
 	aux = clean_spaces(*(*inpipes + v->i));
 	if (!aux)
 		return (1);
-	*(*inpipes + v->i) = open_and_format(*(*inpipes + v->i), &v->tp, -1, aux);
-	if (!(*(*inpipes + v->i)))
+	aux2 = open_and_format(NULL, &v->tp, -1, aux);
+	if (!aux2)
 		return (1);
-	*(*inpipes + v->i) = expand_envar(*(*inpipes + v->i));
-	if (!(*(*inpipes + v->i)))
+	aux2 = expand_envar(aux2);
+	if (!aux2)
 		return (1);
-	*(*inpipes + v->i) = expand_wildcard(*(*inpipes + v->i));
-	if (!(*(*inpipes + v->i)))
+	aux2 = expand_wildcard(aux2);
+	if (!aux2)
 		return (1);
-	return (0);
+	aux = *(*inpipes + v->i);
+	*(*inpipes + v->i) = aux2;
+	return (free(aux), 0);
 }
 
 static char	*define_route(t_ejevars *v, char ***inpipes,
@@ -92,7 +95,11 @@ static int	ft_init_ejecutor(t_ejevars *v, char *ins)
 	if (!v->inpipes)
 		return (-1);
 	if (!v->inpipes[0])
-		return (ft_free_params(v->inpipes), 0);
+	{
+		ft_free_params(v->inpipes);
+		v->inpipes = NULL;
+		return (0);
+	}
 	v->npipes = count_pipes(v->inpipes);
 	v->pipes = creat_pipes(v->npipes);
 	v->status = 0;

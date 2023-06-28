@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:45:38 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/28 12:09:18 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:28:05 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ static int	redirect_gestor_entrada(char **cmd, int *i, int *q, t_ficheros *tp)
 	int	j;
 
 	j = 0;
-	if (*(*cmd + (*i + 1)) == '<' && (*(*cmd + (*i + 2)) == '<'
-			|| *(*cmd + (*i + 2)) == '>'))
-		return (printf("ERROR DE SINTAXIS\n"), free(*cmd), free(q), 1);
+	if (!check_sintax(*cmd, '<', *i))
+		return (free(*cmd), free(q), 1);
 	if (*(*cmd + (*i + 1)) == '<')
 		j = entrada(*cmd + (*i + 2), tp, 1, NULL);
 	else
@@ -37,9 +36,8 @@ static int	redirect_gestor_salida(char **cmd, int *i, int *q, t_ficheros *tp)
 	int	j;
 
 	j = 0;
-	if (*(*cmd + (*i + 1)) == '>' && (*(*cmd + (*i + 2)) == '<'
-			|| *(*cmd + (*i + 2)) == '>'))
-		return (printf("ERROR DE SINTAXIS\n"), free(*cmd), free(q), 1);
+	if (!check_sintax(*cmd, '>', *i))
+		return (free(*cmd), free(q), 1);
 	if (*(*cmd + (*i + 1)) == '>')
 		j = salida(*cmd + (*i + 2), tp, 1);
 	else

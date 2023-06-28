@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:43:49 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/27 17:56:18 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:29:53 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ char		*ft_clean_bars(char *path, int i, char *aux_join, char *aux);
 int			ft_check_var_name(char *s);
 int			ft_no_valid_name(void);
 void		read_buffer(t_ficheros *tp, char *end);
+int			ft_lim_bash(char c);
+int			check_sintax(char *s, char c, int i);
 
 //BUILTINS
 int			ft_pwd(char **cmd_opt);

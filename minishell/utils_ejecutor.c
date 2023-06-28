@@ -6,7 +6,7 @@
 /*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:55:13 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/06/28 12:15:29 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:22:40 by atalaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ int	**creat_pipes(int npipes)
 
 void	ft_freedom(char **inpipes, char **cmd_opt, int **pipes, char *route)
 {
-	if (pipes)
-		ft_free_params((char **)pipes);
 	if (inpipes)
 		ft_free_params(inpipes);
 	if (cmd_opt)
 		ft_free_params(cmd_opt);
+	if (pipes)
+		ft_free_params((char **)pipes);
 	if (route)
 		free(route);
 	unlink(".antiJose");
