@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atalaver <atalaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:11:19 by atalaver          #+#    #+#             */
-/*   Updated: 2023/06/28 12:37:25 by atalaver         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:28:42 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,6 @@ int	actualizar_exit_code(int code)
 	return (0);
 }
 
-void leaks_tonto()
-{
-	system("leaks -q minishell");
-}
-
 int	main(int argc, char *argv[], char **env)
 {
 	char		*command_ln;
@@ -126,7 +121,6 @@ int	main(int argc, char *argv[], char **env)
 	(void)argv;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, SIG_IGN);
-	//atexit(leaks_tonto);
 	if (init_varbox(env, NULL))
 		return (1);
 	while (!g_varbox->exit)

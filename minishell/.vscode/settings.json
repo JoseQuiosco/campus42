@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"shell_utils.h": "c",
-		"dirent.h": "c",
-		"random": "c",
-		"types.h": "c"
-	}
-}
