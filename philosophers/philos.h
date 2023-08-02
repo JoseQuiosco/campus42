@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 20:32:40 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/08/01 16:48:34 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/08/02 20:36:19 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ typedef struct g_data
 	long				tteat;
 	long				ttsleep;
 	long				total_must_eat;
+	int					all_sated;
 	int					condition;
+	int					a_death;
     pthread_mutex_t		write_message;
-	pthread_mutex_t		eat_lock;
 	time_t				time_begin;
 }   t_gdata;
 
@@ -63,6 +64,7 @@ typedef struct philo
 	t_gdata             *g_data;
     pthread_mutex_t  	*L_fork;
 	pthread_mutex_t		*R_fork;
+	pthread_mutex_t		philock;
 	time_t				time_last_meal;
 	int					n_meals;
 	int					alive;
@@ -71,7 +73,7 @@ typedef struct philo
 }   t_philo;
 
 
-int 	init_mutex(pthread_mutex_t **forks, t_gdata *g_data);
+int init_mutex(pthread_mutex_t **forks, t_gdata *g_data);
 int survival(t_gdata *g_data, t_philo *philos);
 int		check_kills(t_philo *philos);
 int		join_the_party(t_philo	*philos);
