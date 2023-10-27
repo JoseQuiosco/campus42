@@ -6,12 +6,13 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:52:17 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/10/24 01:00:47 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 17:54:04 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 #include <stdlib.h>
+#include <iomanip>
 
 void ft_leaks(void)
 {
@@ -27,7 +28,6 @@ int	main(void)
 	std::cout << "Prueba de Constructores por defecto" << std::endl;
 	std::cout << "Nombre Contacto 1: " << contacto1.get_firstname() << "$" << std::endl;
 	std::cout << "Nombre Contacto 2: " << contacto2.get_firstname() << "$" << std::endl;
-
 	std::cout << "Prueba de Constructor copia" << std::endl;
 	std::cout << "Primero almacenamos datos para nuestro Contacto 1:" << std::endl;
 	contacto1.set_firstname("Dario");
@@ -62,33 +62,39 @@ int	main(void)
 	std::cout << "Nickname Contacto 3: " << contacto3.get_nickname() << std::endl;
 	std::cout << "Phone Contacto 3: " << contacto3.get_phone() << std::endl;
 	std::cout << "Secreto Contacto 3: " << contacto3.get_secret() << std::endl;
+	std::cout << "+-----------------------------+-----------------------------+-----------------------------+" << std::endl;
+	std::cout.setf(std::ios::left, std::ios::adjustfield);
+	std::cout << "|   "; std::cout.width(26); std::cout << "Nombre";
+	std::cout << "|   "; std::cout.width(26); std::cout << "Apellido";
+	std::cout << "|   "; std::cout.width(26); std::cout << "Nickname" << "|" << std::endl;
+	std::cout << "+-----------------------------+-----------------------------+-----------------------------+" << std::endl;
 
-	Contact contacto4;
-	std::string aux;
-	std::cout << "Ahora vamos a pedir los datos por teclado usando getline" << std::endl;
-	std::cout << "Introduce el nombre: ";
-	std::getline(std::cin, aux);
-	contacto4.set_firstname(aux);
-	std::cout << "Introduce el apellido: ";
-	std::getline(std::cin, aux);
-	contacto4.set_lastname(aux);
-	std::cout << "Introduce el nickname: ";
-	std::getline(std::cin, aux);
-	contacto4.set_nickname(aux);
-	std::cout << "Introduce el phone: ";
-	std::getline(std::cin, aux);
-	contacto4.set_phone(aux);
-	std::cout << "Introduce el secret: ";
-	std::getline(std::cin, aux);
-	contacto4.set_secret(aux);
+	// Contact contacto4;
+	// std::string aux;
+	// std::cout << "Ahora vamos a pedir los datos por teclado usando getline" << std::endl;
+	// std::cout << "Introduce el nombre: ";
+	// std::getline(std::cin, aux);
+	// contacto4.set_firstname(aux);
+	// std::cout << "Introduce el apellido: ";
+	// std::getline(std::cin, aux);
+	// contacto4.set_lastname(aux);
+	// std::cout << "Introduce el nickname: ";
+	// std::getline(std::cin, aux);
+	// contacto4.set_nickname(aux);
+	// std::cout << "Introduce el phone: ";
+	// std::getline(std::cin, aux);
+	// contacto4.set_phone(aux);
+	// std::cout << "Introduce el secret: ";
+	// std::getline(std::cin, aux);
+	// contacto4.set_secret(aux);
 
-	std::cout << "Ahora comprobamos el contenido del último contacto." << std::endl;
-	std::cout << "CONTACTO 4:" << std::endl;
-	std::cout << "Nombre Contacto 4: " << contacto4.get_firstname() << std::endl;
-	std::cout << "Apellido Contacto 4: " << contacto4.get_lastname() << std::endl;
-	std::cout << "Nickname Contacto 4: " << contacto4.get_nickname() << std::endl;
-	std::cout << "Phone Contacto 4: " << contacto4.get_phone() << std::endl;
-	std::cout << "Secreto Contacto 4: " << contacto4.get_secret() << std::endl;
+	// std::cout << "Ahora comprobamos el contenido del último contacto." << std::endl;
+	// std::cout << "CONTACTO 4:" << std::endl;
+	// std::cout << "Nombre Contacto 4: " << contacto4.get_firstname() << std::endl;
+	// std::cout << "Apellido Contacto 4: " << contacto4.get_lastname() << std::endl;
+	// std::cout << "Nickname Contacto 4: " << contacto4.get_nickname() << std::endl;
+	// std::cout << "Phone Contacto 4: " << contacto4.get_phone() << std::endl;
+	// std::cout << "Secreto Contacto 4: " << contacto4.get_secret() << std::endl;
 
 	return (0);
 }
