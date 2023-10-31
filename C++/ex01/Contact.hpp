@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contact.hpp                                        :+:      :+:    :+:   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 20:53:23 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/10/23 21:15:38 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:28:37 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string>
 #include <iostream>
 
+#ifndef __CONTACT_HPP__
+#define __CONTACT_HPP__
 class Contact
 {
 	private:
@@ -38,3 +40,4 @@ class Contact
 		void				set_phone(std::string phone);
 		void				set_secret(std::string secret);
 };
+#endif

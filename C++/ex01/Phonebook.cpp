@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:27:54 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/10/27 00:37:34 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:28:43 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,24 @@ void	Phonebook::add_contact(void){
 	std::string	str;
 
 	std::cout << "Introduce el Nombre del contacto:" << std::endl;
-	std::getline(std::cin, str);
+	if (std::getline(std::cin, str) == 0)
+		return ;
 	this->contacts[this->index].set_firstname(str);
 	std::cout << "Introduce el Apellido del contacto:" << std::endl;
-	std::getline(std::cin, str);
+	if (std::getline(std::cin, str) == 0)
+		return ;
 	this->contacts[this->index].set_lastname(str);
 	std::cout << "Introduce el Nickname del contacto:" << std::endl;
-	std::getline(std::cin, str);
+	if (std::getline(std::cin, str) == 0)
+		return ;
 	this->contacts[this->index].set_nickname(str);
 	std::cout << "Introduce el Teléfono del contacto:" << std::endl;
-	std::getline(std::cin, str);
+	if (std::getline(std::cin, str) == 0)
+		return ;
 	this->contacts[this->index].set_phone(str);
 	std::cout << "Introduce el Secreto del contacto:" << std::endl;
-	std::getline(std::cin, str);
+	if (std::getline(std::cin, str) == 0)
+		return ;
 	this->contacts[this->index].set_secret(str);
 	this->index = (this->index + 1) % 8;
 	if (this->size < 8)
@@ -73,41 +78,41 @@ void	Phonebook::display_contact(int pos) const{
 	std::string	str;
 
 	std::cout << "+-----------------------------+-----------------------------+" << std::endl;
-	std::cout.setf(std::ios::left, std::ios::adjustfield); 
+	std::cout.setf(std::ios::left, std::ios::adjustfield);
 	std::cout << "|   "; std::cout.width(26); std::cout << "Nombre"; std::cout << "|";
 	str = this->contacts[pos].get_firstname();
 	if (str.length() > 26){
 		str.resize(25); str.append(".");}
 	std::cout.setf(std::ios::right, std::ios::adjustfield);
-	std::cout << str << std::endl;
+	std::cout.width(29); std::cout << str << "|" << std::endl;
 	std::cout.setf(std::ios::left, std::ios::adjustfield);
 	std::cout << "|   "; std::cout.width(26); std::cout << "Apellido"; std::cout << "|";
 	str = this->contacts[pos].get_lastname();
 	if (str.length() > 26){
 		str.resize(25); str.append(".");}
 	std::cout.setf(std::ios::right, std::ios::adjustfield);
-	std::cout << str << std::endl;
+	std::cout.width(29); std::cout << str << "|" << std::endl;
 	std::cout.setf(std::ios::left, std::ios::adjustfield);
 	std::cout << "|   "; std::cout.width(26); std::cout << "Nickname"; std::cout << "|";
 	str = this->contacts[pos].get_nickname();
 	if (str.length() > 26){
 		str.resize(25); str.append(".");}
 	std::cout.setf(std::ios::right, std::ios::adjustfield);
-	std::cout << str << std::endl;
+	std::cout.width(29); std::cout << str << "|" << std::endl;
 	std::cout.setf(std::ios::left, std::ios::adjustfield);
-	std::cout << "|   "; std::cout.width(26); std::cout << "Teléfono"; std::cout << "|";
+	std::cout << "|   "; std::cout.width(27); std::cout << "Teléfono"; std::cout << "|";
 	str = this->contacts[pos].get_phone();
 	if (str.length() > 26){
 		str.resize(25); str.append(".");}
 	std::cout.setf(std::ios::right, std::ios::adjustfield);
-	std::cout << str << std::endl;
+	std::cout.width(29); std::cout << str << "|" << std::endl;
 	std::cout.setf(std::ios::left, std::ios::adjustfield);
 	std::cout << "|   "; std::cout.width(26); std::cout << "Secreto "; std::cout << "|";
 	str = this->contacts[pos].get_secret();
 	if (str.length() > 26){
 		str.resize(25); str.append(".");}
 	std::cout.setf(std::ios::right, std::ios::adjustfield);
-	std::cout << str << std::endl;
+	std::cout.width(29); std::cout << str << "|" << std::endl;
 	std::cout << "+-----------------------------+-----------------------------+" << std::endl;
 }
 
@@ -122,21 +127,24 @@ void	Phonebook::display_phonebook(void) const{
 	std::cout << "|   "; std::cout.width(26); std::cout << "Apellido";
 	std::cout << "|   "; std::cout.width(26); std::cout << "Nickname" << "|" << std::endl;
 	std::cout << "+-----------------------------+-----------------------------+-----------------------------+-----------------------------+" << std::endl;
-	std::cout.setf(std::ios::right, std::ios::adjustfield);
 	while (i < this->size)
 	{
+		std::cout.setf(std::ios::right, std::ios::adjustfield);
 		std::cout << "|"; std::cout.width(29); std::cout << i + 1;
 		str = this->contacts[i].get_firstname();
 		if (str.length() > 26){
 			str.resize(25); str.append(".");}
+		std::cout.setf(std::ios::right, std::ios::adjustfield);
 		std::cout << "|"; std::cout.width(29); std::cout << str;
 		str = this->contacts[i].get_lastname();
 		if (str.length() > 26){
 			str.resize(25); str.append(".");}
+		std::cout.setf(std::ios::right, std::ios::adjustfield);
 		std::cout << "|"; std::cout.width(29); std::cout << str;
 		str = this->contacts[i].get_nickname();
 		if (str.length() > 26){
 			str.resize(25); str.append(".");}
+		std::cout.setf(std::ios::right, std::ios::adjustfield);	
 		std::cout << "|"; std::cout.width(29); std::cout << str << "|" << std::endl;
 		i++;
 	}

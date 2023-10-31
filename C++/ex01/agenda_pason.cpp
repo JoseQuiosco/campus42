@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:34:39 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/10/27 00:28:52 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:42:52 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ int main (void)
 	{
 		std::cout.setf(std::ios::left, std::ios::adjustfield);
 		std::cout << std::endl << "Escribe por teclado alguno de los siguientes comandos:" << std::endl << std::endl;
-		std::cout << "ADD		-->		Añadir nuevo usuario." << std::endl;
-		std::cout << "SEARCH	-->		Muestra contactos para seleccionar uno y visualizarlo." << std::endl;
-		std::cout << "EXIT		-->		Cierra la agenda y sal del programa." << std::endl;
-		std::getline(std::cin, str);
+		std::cout << "ADD	-->	Añadir nuevo usuario." << std::endl;
+		std::cout << "SEARCH	-->	Muestra contactos para seleccionar uno y visualizarlo." << std::endl;
+		std::cout << "EXIT	-->	Cierra la agenda y sal del programa." << std::endl << std::endl;
+		if (std::getline(std::cin, str) == 0)
+			break;
 		std::cout.setf(std::ios::right, std::ios::adjustfield);
 		if (!str.compare("ADD"))
 			option = 1;
@@ -46,6 +47,8 @@ int main (void)
 			option = 2;
 		else if (!str.compare("EXIT"))
 			option = 3;
+		else
+			option = 0;
 		switch(option)
 		{
 			case 1:{

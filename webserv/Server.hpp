@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Phonebook.hpp                                      :+:      :+:    :+:   */
+/*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 10:52:41 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/10/31 11:28:36 by dvasco-m         ###   ########.fr       */
+/*   Created: 2023/10/31 18:56:13 by dvasco-m          #+#    #+#             */
+/*   Updated: 2023/10/31 19:12:51 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string>
 #include <iostream>
-#include "Contact.hpp"
+#include "Location.hpp"
+#include <vector>
 
-#ifndef __PHONEBOOK_HPP__
-#define __PHONEBOOK_HPP__
-class Phonebook
+#ifndef __SERVER__
+#define __SERVER__
+
+class Server
 {
 	private:
-		Contact contacts[8];
-		int		index;
-		int		size;
+		int			port;
+		std::string error;
+		std::string	server_name;
+		std::vector<Location> location;	
 	public:
-		Phonebook();
-		Phonebook(Phonebook& b);
-		~Phonebook();
-		Phonebook& operator=(Phonebook& b); //operador asignación '='
-		int		get_size(void) const;
-		int		get_index(void) const;
-		void	add_contact(void);
-		void	display_phonebook(void) const;
-		void	display_contact(int pos) const;
+
 };
 #endif
