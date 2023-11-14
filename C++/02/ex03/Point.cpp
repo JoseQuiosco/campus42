@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:14:13 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/14 01:05:12 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:52:24 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ Fixed	Point::getY(void) const{
 }
 
 Point 	&Point::operator=(const Point &p){
+	(void) &p;
     return *this;
 }
