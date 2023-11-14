@@ -6,36 +6,17 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:28:29 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/14 00:05:20 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:05:13 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-//int tiene 4 bytes - 32 bits
-
-/*
-void printBits(int number){
-	unsigned int mask = 1 << (sizeof(int) * 8 - 1); // Crear una máscara con el bit más significativo en 1
-
-    std::cout << number << " en binario es: ";
-    for (int i = 0; i < (int)sizeof(int) * 8; i++) {
-        if ((number & mask) == 0) {
-            std::cout << "0";
-        } else {
-            std::cout << "1";
-        }
-        number <<= 1; // Desplazar bits a la izquierda
-    }
-    std::cout << std::endl;
-}
-*/
 
 const double Fixed::epsilon = 1.0 / (1 << Fixed::fbits);
 
 Fixed::Fixed(){
-	// std::cout << "Default constructor called" << std::endl;
-	// std::cout << "Epsilon" << Fixed::epsilon;
+
 	this->value = 0;
 }
 
