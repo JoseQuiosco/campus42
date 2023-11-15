@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 22:42:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/15 23:00:06 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/16 00:25:55 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	ScavTrap::attack(const std::string& target){
 			<< ", causing " << this->getAttkDamage() << " points of damage." << std::endl;
 }
 
-void	ScavTrap::guardGate(){
+void	ScavTrap::guardGate(void){
 	std::cout << "ScavTrap " << this->getName() << " is now in GATE KEEPER MODE." << std::endl;
 }

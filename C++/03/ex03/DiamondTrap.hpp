@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 23:46:59 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/15 22:57:29 by dvasco-m         ###   ########.fr       */
+/*   Created: 2023/11/15 23:18:50 by dvasco-m          #+#    #+#             */
+/*   Updated: 2023/11/16 00:25:29 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
 
-#ifndef __FRAGTRAP_HPP__
-#define __FRAGTRAP_HPP__
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-class FragTrap : public ClapTrap
+#ifndef __DIAMONDTRAP_HPP__
+#define __DIAMONDTRAP_HPP__
+
+class DiamondTrap : public ScavTrap, public FragTrap
 {
 	private:
-	
+		std::string		name;
+		
 	public:
-		FragTrap();
-		FragTrap(std::string name);
-		FragTrap(const FragTrap &c);
-		~FragTrap();
-
-		void	highFiveGuys(void);
+		DiamondTrap();
+		DiamondTrap(std::string name);
+		DiamondTrap(const DiamondTrap &c);
+		~DiamondTrap();
+		void	attack(const std::string& target);
+		void	whoAmI(void);
 		using	ClapTrap::operator=;
 };
 
