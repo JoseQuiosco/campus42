@@ -6,18 +6,20 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:30:14 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/14 17:58:36 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:50:37 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap() : name("NoNamed"), hitPoints(10), energyPoints(10), attkDamage(0) {
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << "Default CLAP constructor called" << std::endl;
+	std::cout << "Name: " << this->name << "	HP: " << this->hitPoints << "	EP: " << this->energyPoints << "	DMG: " << this->attkDamage << std::endl; 
 }
 
 ClapTrap::ClapTrap(std::string name) : name(name), hitPoints(10), energyPoints(10), attkDamage(0){
-	std::cout << "Constructor with NAME called" << std::endl;
+	std::cout << "CLAP Constructor with NAME called" << std::endl;
+	std::cout << "Name: " << this->name << "	HP: " << this->hitPoints << "	EP: " << this->energyPoints << "	DMG: " << this->attkDamage << std::endl; 
 }
 
 ClapTrap::ClapTrap(const ClapTrap &c) : name(c.getName()), hitPoints(c.getHitPoints()), energyPoints(c.getEnergyPoints()), attkDamage(c.getAttkDamage()){
@@ -25,7 +27,7 @@ ClapTrap::ClapTrap(const ClapTrap &c) : name(c.getName()), hitPoints(c.getHitPoi
 }
 
 ClapTrap::~ClapTrap(){
-	std::cout << "Destructor called" << std::endl;
+	std::cout << "CLAP " << this->name << " Destructor called" << std::endl;
 }
 
 std::string	ClapTrap::getName(void) const{

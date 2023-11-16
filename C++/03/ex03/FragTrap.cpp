@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:56:58 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/15 23:01:42 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:20:13 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ FragTrap::FragTrap() : ClapTrap() {
 	this->setEnergyPoints(100);
 	this->setHitPoints(100);
 	std::cout << "Default FRAG constructor called" << std::endl;
+	std::cout << "Name: " << this->name << "	HP: " << this->hitPoints << "	EP: " << this->energyPoints << "	DMG: " << this->attkDamage << std::endl;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name){
@@ -25,6 +26,7 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name){
 	this->setEnergyPoints(100);
 	this->setHitPoints(100);
 	std::cout << "Named-FRAG constructor called" << std::endl;
+	std::cout << "Name: " << this->name << "	HP: " << this->hitPoints << "	EP: " << this->energyPoints << "	DMG: " << this->attkDamage << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap &c) : ClapTrap(c){

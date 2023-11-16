@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:18:50 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/16 00:25:29 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:41:49 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ class DiamondTrap : public ScavTrap, public FragTrap
 		DiamondTrap(std::string name);
 		DiamondTrap(const DiamondTrap &c);
 		~DiamondTrap();
-		void	attack(const std::string& target);
-		void	whoAmI(void);
-		using	ClapTrap::operator=;
+		void		whoAmI(void);
+		std::string	getName(void) const;
+		using		ClapTrap::operator=;
 };
 
 #endif

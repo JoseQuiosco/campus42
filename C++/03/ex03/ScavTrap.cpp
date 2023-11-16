@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 22:42:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/16 00:25:55 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:20:05 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ ScavTrap::ScavTrap() : ClapTrap() {
 	this->setEnergyPoints(50);
 	this->setHitPoints(100);
 	std::cout << "Default SCAV constructor called" << std::endl;
+	std::cout << "Name: " << this->name << "	HP: " << this->hitPoints << "	EP: " << this->energyPoints << "	DMG: " << this->attkDamage << std::endl;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name){
@@ -25,6 +26,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name){
 	this->setEnergyPoints(50);
 	this->setHitPoints(100);
 	std::cout << "Named-SCAV constructor called" << std::endl;
+	std::cout << "Name: " << this->name << "	HP: " << this->hitPoints << "	EP: " << this->energyPoints << "	DMG: " << this->attkDamage << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &c) : ClapTrap(c){

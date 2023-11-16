@@ -6,12 +6,12 @@
 #    By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 19:30:42 by dvasco-m          #+#    #+#              #
-#    Updated: 2023/11/14 23:46:11 by dvasco-m         ###   ########.fr        #
+#    Updated: 2023/11/16 18:55:04 by dvasco-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fragtrap
-SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+NAME = diamondtrap
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 CC = c++
 OBJ = $(SRC:.cpp=.o)
 FLAGS = -Wall -Wextra -Werror -std=c++98

@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:18:58 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/14 22:50:54 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:42:07 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ class ClapTrap
 		ClapTrap(const ClapTrap &c);
 		~ClapTrap();
 		
-		void				attack(const std::string& target);
+		virtual void		attack(const std::string& target);
 		void 				takeDamage(unsigned int amount);
 		void				beRepaired(unsigned int amount);
 
-		std::string			getName(void) const;
+		virtual std::string	getName(void) const;
 		unsigned int		getHitPoints(void) const;
 		unsigned int		getEnergyPoints(void) const;
 		unsigned int		getAttkDamage(void) const;
