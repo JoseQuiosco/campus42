@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:47:33 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/16 21:47:34 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:10:48 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ class WrongCat : public WrongAnimal
 		WrongCat(std::string type);
 		WrongCat(const WrongCat &a);
 		~WrongCat();
+		void	makeSound(void) const;
 };
 
 #endif

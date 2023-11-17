@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 23:29:02 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/16 23:40:02 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:05:20 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ int main(void) {
 
     std::cout << "address of cat1: " << &cat1 << std::endl;
     std::cout << "address of brain(cat1): " << cat1.getBrain() << std::endl;
+	cat1.getBrain()->printIdeas();
     std::cout << "address of cat2: " << &cat2 << std::endl;
     std::cout << "address of brain(cat2): " << cat2.getBrain() << std::endl;
+	cat2.getBrain()->printIdeas();
     std::cout << "address of cat3: " << &cat3 << std::endl;
     std::cout << "address of brain(cat3): " << cat3.getBrain() << std::endl;
+	cat3.getBrain()->printIdeas();
   }
 	system("leaks -q animals");
   return 0;

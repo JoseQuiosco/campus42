@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 22:49:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/17 16:03:07 by dvasco-m         ###   ########.fr       */
+/*   Created: 2023/11/16 20:34:36 by dvasco-m          #+#    #+#             */
+/*   Updated: 2023/11/17 17:39:24 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
+#include "Brain.hpp"
 
-#ifndef __BRAIN_HPP__
-#define __BRAIN_HPP__
+#ifndef __ANIMAL_HPP__
+#define __ANIMAL_HPP__
 
-class Brain
+class Animal
 {
-	private:
-		std::string ideas[100];
-		
+	protected:
+		std::string		type;
+	
 	public:
-		Brain();
-		Brain(const Brain &b);
-		~Brain();
-
-		void  printIdeas(void);
-		Brain &operator=(const Brain &b);
+		Animal();
+		Animal(std::string type);
+		Animal(const Animal &a);
+		virtual ~Animal();
+		
+		virtual Brain	*getBrain(void) const;
+		std::string		getType(void) const;
+		void			setType(std::string	type);
+		virtual void	makeSound(void) const = 0;
+		virtual Animal 	&operator=(const Animal &a);
 };
 
 #endif
