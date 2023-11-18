@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 22:04:55 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/18 00:50:53 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/18 13:43:44 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define __CHARACTER_HPP__
 
 #include "ICharacter.hpp"
+#include "Ice.hpp"
+#include "Cure.hpp"
 
 static const unsigned MAX_SLOTS = 4;
 
@@ -35,11 +37,11 @@ class Character : public ICharacter
 		void 				use(int idx, ICharacter &target);
 
 		const std::string 	&getName(void) const;
-		AMateria			*getMateria(void) const;
-		unsigned int		getAssigned(void);
+		AMateria			*getMateria(unsigned int indx) const;
+		unsigned int		getAssigned(void) const;
 
 		void 				setName(std::string name);
-		void				setAssigned(void);
+		void				setAssigned(unsigned int newval);
 
 
 
