@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:28:01 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/18 00:42:56 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/18 19:59:36 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	Ice::use(ICharacter &target){
 }
 		
 Ice 		&Ice::operator=(const Ice &c){
+	(void)c;
 	std::cout << " (operator = from Ice used) ";
 	return (*this);
 }

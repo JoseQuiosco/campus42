@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:45:23 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/18 00:46:13 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/18 19:59:27 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	Cure::use(ICharacter &target){
 }
 		
 Cure 		&Cure::operator=(const Cure &c){
+	(void)c;
 	std::cout << " (operator = from Cure used) ";
 	return (*this);
 }

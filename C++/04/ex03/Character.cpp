@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:51:04 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/18 14:02:04 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/18 20:22:00 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 Character::Character(){
 	this->assigned = 0;
 	this->name = "NoOne";
-	for (int i = 0; i < MAX_SLOTS; i++)
+	for (unsigned int i = 0; i < MAX_SLOTS; i++)
 		this->inventory[i] = NULL;
 	std::cout << "Default Constructor Character called." << std::endl;
 }
 
 Character::Character(Character &c){
-	for (int i = 0; i < c.getAssigned(); i++)
+	for (unsigned int i = 0; i < c.getAssigned(); i++)
 		this->inventory[i] = c.inventory[i]->clone();
 	this->assigned = c.getAssigned(); // = i;
 	this->name = c.getName();
@@ -31,32 +31,34 @@ Character::Character(Character &c){
 Character::Character(std::string name){
 	this->assigned = 0;
 	this->name = name;
-	for (int i = 0; i < MAX_SLOTS; i++)
+	for (unsigned int i = 0; i < MAX_SLOTS; i++)
 		this->inventory[i] = NULL;
 	std::cout << "Constructor  Named Character called." << std::endl;
 }
 
 Character::~Character(){
-	for (int i = 0; i < this->getAssigned(); i++)
+	for (unsigned int i = 0; i < this->getAssigned(); i++)
 		delete this->inventory[i];
 	std::cout << "Default Constructor Character called." << std::endl;
 }
 	
 void	Character::equip(AMateria* m){
-	if (this->assigned < MAX_SLOTS){
+	if (m != NULL && this->assigned < MAX_SLOTS){
 		this->inventory[this->assigned] = m;
 		this->assigned += 1;
+		std::cout << m->getType() << " Materia has been equiped." << std::endl;
 	}
-	std::cout << m->getType() << " Materia has been equiped." << std::endl;
+	else
+		std::cout << "Can't equip this. Maybe is a ptr=NULL, so, there is not a Materia." << std::endl;
 }
 
 void	Character::unequip(int idx){
 	AMateria	*aux;
 
-	if (idx < this->assigned)
+	if (idx < (int)this->assigned)
 	{
 		aux = this->inventory[idx];
-		while (idx + 1 < this->assigned)
+		while (idx + 1 < (int)this->assigned)
 		{
 			this->inventory[idx] = this->inventory[idx + 1];
 			idx++;
@@ -68,7 +70,7 @@ void	Character::unequip(int idx){
 	}
 	else
 	{
-		if (idx < MAX_SLOTS)
+		if (idx < (int)MAX_SLOTS)
 			std::cout << "Your slot index " << idx << " is empty. You can't unequip anything there." << std::endl;
 		else
 			std::cout << "This slot index doesn't exists. Remember you have only " << MAX_SLOTS << " slots avalible in your inventory." << std::endl;
@@ -76,7 +78,7 @@ void	Character::unequip(int idx){
 }
 
 void	Character::use(int idx, ICharacter &target){
-	if (idx < this->assigned){
+	if (idx < (int)this->assigned){
 		this->inventory[idx]->use(target);
 	}
 	else
@@ -106,9 +108,9 @@ unsigned int	Character::getAssigned(void) const{
 }
 
 Character	&Character::operator=(const Character &c){
-	for (int i = 0; i < this->assigned; i++)
+	for (unsigned int i = 0; i < this->assigned; i++)
 		delete this->inventory[i];
-	for (int j = 0; j < c.getAssigned(); j++)
+	for (unsigned int j = 0; j < c.getAssigned(); j++)
 		this->inventory[j] = c.inventory[j]->clone();
 	this->name = c.getName();
 	this->assigned = c.getAssigned();

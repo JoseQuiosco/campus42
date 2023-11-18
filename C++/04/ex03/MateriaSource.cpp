@@ -6,28 +6,28 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:17:50 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/18 14:50:37 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/18 20:03:16 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
 
 MateriaSource::MateriaSource(){
-	for (int i = 0; i < MAX_KNOWN; i++)
+	for (unsigned int i = 0; i < MAX_KNOWN; i++)
 		this->materias[i] = NULL;
 	this->memorized = 0;
 	std::cout << "Default Constructor MateriaSource called." << std::endl;
 }
 
 MateriaSource::MateriaSource(MateriaSource &ms){
-	for (int i = 0; i < ms.memorized; i++)
+	for (unsigned int i = 0; i < ms.memorized; i++)
 		this->materias[i] = ms.materias[i]->clone();
 	this->memorized = ms.getMemorized();
 	std::cout << "Constructor Copy MateriaSource called." << std::endl;
 }
 
 MateriaSource::~MateriaSource(){
-for (int i = 0; i < this->memorized; i++)
+for (unsigned int i = 0; i < this->memorized; i++)
 		delete this->materias[i];
 	std::cout << "Default Destructor MateriaSource called." << std::endl;
 }
@@ -43,7 +43,7 @@ void	MateriaSource::learnMateria(AMateria* materia){
 }
 
 AMateria*	MateriaSource::createMateria(std::string const & type){
-	for (int i = 0; i < this->memorized; i++)
+	for (unsigned int i = 0; i < this->memorized; i++)
 	{
 		if (this->materias[i]->getType() == type)
 		{
@@ -60,9 +60,9 @@ unsigned int	MateriaSource::getMemorized(void) const{
 }
 
 MateriaSource 		&MateriaSource::operator=(const MateriaSource &ms){
-	for (int i = 0; i < this->memorized; i++)
+	for (unsigned int i = 0; i < this->memorized; i++)
 		delete this->materias[i];
-	for (int j = 0; j < ms.getMemorized(); j++)
+	for (unsigned int j = 0; j < ms.getMemorized(); j++)
 		this->materias[j] = ms.materias[j]->clone();
 	this->memorized = ms.getMemorized();
 	std::cout << " (Default MateriaSource operator = used) " << std::endl;

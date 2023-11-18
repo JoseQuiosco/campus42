@@ -6,11 +6,12 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 23:17:32 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/18 00:37:27 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/18 19:58:01 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
 AMateria::AMateria(AMateria &m){
 	this->type = m.getType();
@@ -35,6 +36,7 @@ AMateria::~AMateria(){
 }
 
 AMateria	&AMateria::operator=(const AMateria &m){
+	(void)m;
 	std::cout << " (operator = from AMateria used) ";
 	return (*this);
 }

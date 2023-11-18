@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 22:02:39 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/17 23:49:04 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/18 19:56:40 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #ifndef	__ICHARACTER_HPP__
 #define __ICHARACTER_HPP__
 
-#include "AMateria.hpp"
+#include <iostream>
+#include <string>
+
+class AMateria;
 
 class ICharacter
 {
