@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:28:29 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/14 01:05:13 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/19 13:04:17 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ Fixed &Fixed::operator=(const Fixed &f){
 	this->setRawBits(f.getRawBits());
 	return (*this);
 }
+
 std::ostream &operator<<(std::ostream &out, const Fixed &f){
 	out << f.toFloat();
 	return (out);

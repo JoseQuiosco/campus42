@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:17:50 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/18 20:03:16 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:44:16 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ AMateria*	MateriaSource::createMateria(std::string const & type){
 		if (this->materias[i]->getType() == type)
 		{
 			std::cout << "New Materia Forged(createMateria)!" << std::endl;
-			return (this->materias[i]->clone());	
+			return (this->materias[i]->clone());
 		}
 	}
 	std::cout << "I don't know this Materia, so I can't create one." << std::endl;

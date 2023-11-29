@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:35:15 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/14 18:13:30 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:57:23 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int main (void)
 
 	std::cout << "Halcón chica se coge un avión a Barcelona para no volver..." << std::endl << std::endl;
 
+	system("leaks -q claptrap");
 	return 0;
 }

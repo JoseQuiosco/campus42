@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:28:29 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/14 00:05:20 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/19 19:25:21 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void printBits(int number){
 const double Fixed::epsilon = 1.0 / (1 << Fixed::fbits);
 
 Fixed::Fixed(){
-	// std::cout << "Default constructor called" << std::endl;
-	// std::cout << "Epsilon" << Fixed::epsilon;
+	std::cout << "Default constructor called" << std::endl;
+	std::cout << "Epsilon" << Fixed::epsilon;
 	this->value = 0;
 }
 
