@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 21:24:50 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/30 18:09:13 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:15:46 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 #include <iostream>
 #include <string>
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -73,7 +73,8 @@ class Bureaucrat
 		unsigned int	getGrade(void) const;
 		void			upGrade(void);
 		void			downGrade(void);
-		void			signForm(Form &f);
+		void			signForm(AForm &f);
+		void 			executeForm(AForm const& form);
 		Bureaucrat		&operator=(const Bureaucrat &b);
 		
 };

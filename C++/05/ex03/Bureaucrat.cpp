@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:16:51 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/30 18:13:51 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:51:27 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ if (this->grade == 150)
 	std::cout << this->name << " has been downgraded to level " << this->grade << "." << std::endl;
 }
 
-void	Bureaucrat::signForm(Form &f)
+void	Bureaucrat::signForm(AForm &f)
 {
 	if (f.getGrade_to_sign() < this->grade)
 		std::cout << this->name << " couldn't sign form " << f.getName() << " because has no grade enough." << std::endl;
@@ -93,7 +93,11 @@ void	Bureaucrat::signForm(Form &f)
 	}
 }
 
-
+void Bureaucrat::executeForm(AForm const& form) {
+	form.execute(*this);
+	if ((this->getGrade() > form.getGrade_to_exec() && form.getSign()))
+		std::cout << this->name << " executed " << form.getName() << std::endl;
+}
 
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &b){
 	this->name = b.getName();

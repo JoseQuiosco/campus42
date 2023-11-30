@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 13:08:32 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/30 18:22:41 by dvasco-m         ###   ########.fr       */
+/*   Created: 2023/12/01 00:10:34 by dvasco-m          #+#    #+#             */
+/*   Updated: 2023/12/01 00:11:13 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
-#include "Form.hpp"
+#ifndef __INTERN_HPP__
+#define __INTERN_HPP__
 
-int main( void )
+#include <iostream>
+#include "Bureaucrat.hpp"
+#include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+
+class AForm;
+
+class Intern
 {
 
-    try {
-        Bureaucrat bureaucrat("ash",11);
-		std::cout << bureaucrat;
-        Form form("formName", 10, 10);
+    public:
+        Intern();
+        ~Intern();
+        Intern(Intern &copy);
+        Intern &operator=(Intern &copy);
 
-        bureaucrat.signForm(form);
+        AForm *makeForm(std::string name, std::string target);
+};
 
-        std::cout << form << std::endl;
-    } catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-    }
-    return EXIT_SUCCESS;
-}
+#endif

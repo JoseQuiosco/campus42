@@ -6,13 +6,13 @@
 #    By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 19:30:42 by dvasco-m          #+#    #+#              #
-#    Updated: 2023/11/30 18:18:42 by dvasco-m         ###   ########.fr        #
+#    Updated: 2023/12/01 00:04:41 by dvasco-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = form
 #TEST = test
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 CC = c++
 OBJ = $(SRC:.cpp=.o)
 #OBJ2 = $(SRC2:.cpp=.o)

@@ -6,7 +6,7 @@
 /*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 21:24:50 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/11/21 18:36:29 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:40:59 by dvasco-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class Bureaucrat
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				virtual const char* what() const throw()
+				const char* what() const throw()
 				{
 					return (message.c_str());
 				}
@@ -45,7 +45,7 @@ class Bureaucrat
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				virtual const char* what() const throw()
+				const char* what() const throw()
 				{
 					return (message.c_str());
 				}
