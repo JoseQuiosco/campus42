@@ -1,0 +1,95 @@
+version: '3.8'
+services:
+  nginx:
+    build: requirements/nginx/
+    container_name: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - "website:/var/www/html"
+    depends_on:
+      - wordpress
+    networks:
+      - inception_nt
+    restart: always
+
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    ports:
+      - "9000:9000"
+    volumes:
+      - "website:/var/www/html"
+    depends_on:
+      - mariadb
+      - redis
+    networks:
+      - inception_nt
+    restart: always
+    env_file: .env
+
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mariadb:/var/lib/mysql"
+    networks:
+      - inception_nt
+    restart: always
+    env_file: .env
+    
+  redis:
+    build: requirements/bonus/redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - inception_nt
+    restart: always
+    env_file: .env
+
+  ftp-server:
+    build: requirements/bonus/ftp-server
+    container_name: ftp-server
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - "website:/var/www/html/"
+    networks:
+      - inception_nt
+    restart: always
+    env_file: .env
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "8000:8000"
+      - "9443:9443"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    security_opt:
+      - no-new-privileges:true
+    restart: always
+
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/atalaver/data/mariadb
+      o: bind
+  website:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/atalaver/data/website
+      o: bind
+
+networks:
+  inception_nt:
+    driver: bridge
