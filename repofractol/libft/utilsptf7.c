@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilsptf7.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco <dvasco@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:55:54 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/01/26 20:31:05 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:56:40 by dvasco           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ char	*fill_w_zero_int(t_parms *parms, char *number, ssize_t *err)
 char	*fill_minus_int(t_parms *parms, char *number, ssize_t *err)
 {
 	size_t	spaces;
-	size_t	j;
+	//size_t	j;
 	size_t	pos;
 	char	*block;
 
-	j = 0;
+	//j = 0;
 	spaces = 0;
 	block = (char *)malloc(parms->width + 1);
 	if (block == NULL)

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: dvasco <dvasco@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 18:15:38 by dvasco-m          #+#    #+#              #
-#    Updated: 2023/02/08 22:40:11 by dvasco-m         ###   ########.fr        #
+#    Updated: 2024/02/22 18:57:47 by dvasco           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = 
 
 SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 	  ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c \

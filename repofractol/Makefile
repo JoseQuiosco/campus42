@@ -1,6 +1,8 @@
 NAME = fractol
 
-FLAGS = -Wall -Werror -Wextra -Wunreachable-code -Ofast
+#FLAGS = -Wall -Werror -Wextra -Wunreachable-code -Ofast
+
+FLAGS = -Wunreachable-code -Ofast
 
 SRC = fractol.c src/fract_utils1.c src/fract_utils2.c src/fract_utils3.c src/fract_colors.c \
 	  src/fract_fractals1.c src/fract_fractals2.c src/fract_keyboard.c src/fract_mouse.c \
@@ -13,8 +15,8 @@ OBJS = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): LIB $(OBJS)
-	gcc -g $(OBJS) -framework Cocoa -framework OpenGL -framework IOKit -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"  libft/libft.a  mlx42/libmlx42.a -o $(NAME)
-
+	cc -g $(OBJS) -Imlx42 -Lmlx42/ -lmlx42 -lglfw -lm -lX11 -lXxf86vm -lpthread -ldl -o $(NAME) libft/libft.a mlx42/libmlx42.a -lm
+#	gcc -g $(OBJS) -framework Cocoa -framework OpenGL -framework IOKit -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"  libft/libft.a  mlx42/libmlx42.a -o $(NAME)
 bonus: $(NAME) clean
 
 LIB:

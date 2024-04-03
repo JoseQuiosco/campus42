@@ -1,0 +1,82 @@
+JAVASCRIPT REFRESHER
+
+1 - CORE SYNTAX & RULES
+2 - ESSENTIAL, MODERN JS FEATURES
+3 - KEY JS FREATURES USED IN REACT APPS
+
+1 - We can add JS code to a website:
+    a) Between <script> Tags // <script> alert('Helo) </script>
+    b) Via <script> Import //   <script src="script.js"></script>  OK
+
+B)  We want JavaScript code waits to be available when the rest of the HTML document has been read and parsed. 
+    
+    *   So, we can add an extra attribute, defer, an the end of the opening tag <script src="scripts/app.js" defer></script>
+        Also, we can achive the same just adding the script at the end of the <body></body> section.
+
+    *   We can import or export js code from script A into script B if we define the scrpit's type 
+        <script src="scripts/app.js" type="module"></script>
+
+            IMPORT and EXPORT js code from script A into sc ript B: (example)
+                Allow reach code, variables, functions... 
+                
+                import { apiKey } from "./utils.js";  // apiKey is a let variable (a string);
+
+                console.log(apiKey);
+
+    *   In the context of the React apps, this is no useful. It's almost forbidden. React projects use a build process
+        and inject the scripts by its own.
+
+2 - Variables and functions:
+    We can assign a defualt value in any parameter of the fucntion like this:
+    
+        function greetUser(userName, message = "Hello"){
+            console.log(userName);
+            console.log(message);
+        }
+
+        greetUser("Max") ----> Max /n Hello
+        greetUser("Max", "Hello, what's up?") ----> Max /n Hello, what's up?
+
+3 - Arrays, map(), findIndex... => js objects
+
+4 - Destructuring: 
+    We can use the new syntax like this:
+
+        const [firstName, lastName] = ["Max", "Power"]; 
+        /*
+        the same as
+            const userNameData = ["Max", "Power"];
+            const firstName = userNameData[0];
+            ...
+        */
+    Or with classes, like that:
+
+        const {name: aliasName, age} = {
+            name: "Max",
+            age: 34
+        };
+        /*
+        the same as
+            const user = {
+                name: "Max",
+                age: 34
+            };
+            const name = user.userName;
+            const age = user.age;
+        */
+5 - The SPREAD (...) operator:  --> const mergedHobbies = [...oldHobbies, ...newHobbies];
+        ... It pulls out values from an array, and adds them
+        as separate, comma separated values to a new array here.
+
+        We can use by this way:
+        const user = {
+            name: "Max",
+            age:  34
+        };
+        const extendedUser = {
+            isAdmin = true,
+            ...user
+        };
+
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   psw_utils16.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvasco-m <dvasco-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvasco <dvasco@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 12:14:23 by dvasco-m          #+#    #+#             */
-/*   Updated: 2023/02/08 23:22:24 by dvasco-m         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:56:06 by dvasco           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	calc_maxmin(t_stack *lstack_a)
 
 void	calc_rragen(t_stl *node, int size, int pos, t_simulation *xx)
 {
-	t_stl	*last;
-	t_stl	*first;
+	// t_stl	*last;
+	// t_stl	*first;
 	int		offset;
 
-	last = ft_stacklast(node);
-	first = node;
+	// last = ft_stacklast(node);
+	// first = node;
 	offset = calc_offset_rragen(node, size, pos);
 	if (offset != size)
 	{

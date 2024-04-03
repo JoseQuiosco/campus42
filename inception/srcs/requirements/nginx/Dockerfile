@@ -1,8 +1,8 @@
-FROM alpine:3.18
+FROM alpine:3.15
 
 RUN apk update  && apk upgrade 
 RUN apk add nginx openssl
-#RUN apk --no-cache add bash
+# RUN apk --no-cache add bash
 RUN rm -rf /var/cache/apk/*
 
 RUN mkdir -p /etc/nginx/ssl
