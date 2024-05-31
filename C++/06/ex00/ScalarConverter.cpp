@@ -6,7 +6,7 @@
 /*   By: dvasco <dvasco@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 15:19:07 by dvasco            #+#    #+#             */
-/*   Updated: 2024/02/25 17:44:02 by dvasco           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:04:04 by dvasco           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ static void printInt( const std::string &s )
     else
         std::cout << "int: " << x << std::endl;
         
-    if (i > std::numeric_limits<float>::max() || i < std::numeric_limits<float>::min())
+    if (i > std::numeric_limits<float>::max() || i < -std::numeric_limits<float>::max())
         std::cout << "float : Impossible" << std::endl;
     else
         std::cout << "float: " << static_cast<float>(x) << ".0f" << std::endl;
         
-    if (i > std::numeric_limits<double>::max() || i < std::numeric_limits<double>::min())
+    if (i > std::numeric_limits<double>::max() || i < -std::numeric_limits<float>::max())
         std::cout << "double : Impossible" << std::endl;
     else
         std::cout << "double: " << static_cast<double>(x) << ".0" << std::endl;
@@ -79,7 +79,7 @@ static void printFloat( const std::string &s )
     else
         std::cout << "int: " << static_cast<int>(x) << std::endl;
         
-    if (f > INT_MAX || f < INT_MIN)
+    if (x > std::numeric_limits<float>::max() || x < -std::numeric_limits<float>::max())
         std::cout << "float : Impossible" << std::endl;
     else
 	{
@@ -90,7 +90,7 @@ static void printFloat( const std::string &s )
 			std::cout << "f" << std::endl;
 	}
     
-    if (f > INT_MAX || f < INT_MIN)
+    if (x > std::numeric_limits<double>::max() || x < -std::numeric_limits<double>::max())
         std::cout << "double : Impossible" << std::endl;
     else
     {
@@ -114,7 +114,7 @@ static void printDouble( const std::string &s )
         std::cout << "int: Impossible" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(x) << std::endl;
-    if (d > INT_MAX || d < INT_MIN)
+    if (x > std::numeric_limits<float>::max() || x < -std::numeric_limits<float>::max())
         std::cout << "float : Impossible" << std::endl;
     else
 	{
@@ -124,7 +124,7 @@ static void printDouble( const std::string &s )
 		else
 			std::cout << "f" << std::endl;
 	}
-    if (d > INT_MAX || d < INT_MIN)
+    if (x > std::numeric_limits<double>::max() || x < -std::numeric_limits<double>::max())
         std::cout << "double : Impossible" << std::endl;
     else
 	{
